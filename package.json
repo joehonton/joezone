@@ -1,0 +1,9 @@
+{
+  "name": "joezone",
+  "version": "1.0.0",
+  "description": "Joe's JavaScript Library",
+  "scripts": {
+  },
+  "author": "Joe Honton",
+  "license": "CC-BY-NC-ND-4.0"
+}
