@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Joe's JavaScript Library",
   "scripts": {
-  },
+    "buildexim": 	"npm run eximA && npm run eximB && npm run bequiesce",
+    "eximA":       	"bash ../exim/exim ./test/cases/expect.test.js ./test/es5",
+    "eximB":       	"bash ../exim/exim ./test/cases/log.test.js ./test/es5",
+    "bequiesce":     "bash ../bequiesce/bequiesce ./test/es5"
+    },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"
 }
