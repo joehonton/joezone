@@ -45,8 +45,7 @@ export default class Expect {
 		}
 		return true;
 	}
-	
-	
+		
 	//^ Take a snapshot of the stack and return the line number of the zero-indexed item in it
 	getStack(depth) {
 		// create an Error object, but don't throw it
@@ -61,18 +60,14 @@ export default class Expect {
 		desiredOutput = this.rightAlign(desiredOutput);
 		return `{${desiredOutput}}`;
 	}
+
+	//^ Right align the given string to fit within a fixed 30 character column
+    rightAlign(s) {
+    	var columnLen = 30;
+    	var stringLen = s.length;
+    	if (stringLen > columnLen)
+    		return s.substr(0,columnLen-3) + '...';
+    	else
+    		return Array(columnLen+1 - stringLen).join(' ') + s;
+    }
 }
-
-
-/*
-expect( [], 'Array');
-expect( {}, 'Object');
-expect( '', 'String');
-expect( new Date(), 'Date');
-expect( 1, 'Number');
-expect( function () {}, 'Function');
-expect( /test/i, 'RegExp');
-expect( true, 'Boolean');
-expect( null, 'null');
-expect( undefined, 'undefined');
-*/

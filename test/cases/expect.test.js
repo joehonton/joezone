@@ -7,18 +7,18 @@ import Expect from '../../src/expect.class';
 var expect = new Expect();
 var b = expect.check(obj, type, message);
 
-// @testing
-var obj = undefined;	
+// @testing basic JavaScript types
+var obj = []; 				var type = 'Array'; 	var message = '';				;; b == true
+var obj = ''; 				var type = 'String'; 	var message = '';				;; b == true
+var obj = new Date(); 		var type = 'Date'; 		var message = '';				;; b == true
+var obj = 1;			 	var type = 'Number'; 	var message = '';				;; b == true
+var obj = function () {};	var type = 'Function'; 	var message = '';				;; b == true
+var obj = /test/i; 			var type = 'RegExp'; 	var message = '';				;; b == true
+var obj = true; 			var type = 'Boolean'; 	var message = '';				;; b == true
+var obj = null; 			var type = 'null'; 		var message = '';				;; b == true
+var obj = undefined; 		var type = 'undefined'; var message = '';				;; b == true
 
-var obj = []; var type = 'Array'; message = undefined;		;; b == true
-// TODO HERE
-
-expect( {}, 'Object');
-expect( '', 'String');
-expect( new Date(), 'Date');
-expect( 1, 'Number');
-expect( function () {}, 'Function');
-expect( /test/i, 'RegExp');
-expect( true, 'Boolean');
-expect( null, 'null');
-expect( undefined, 'undefined');
+// @testing classes
+class Simple {}; var obj = new Simple(); 										var type = 'Simple'; 	var message = '';				;; b == true
+class Simple {}; class SubClass extends Simple {}; var obj = new SubClass(); 	var type = 'SubClass'; 	var message = '';				;; b == true
+class Simple {}; class SubClass extends Simple {}; var obj = new SubClass(); 	var type = 'Simple'; 	var message = '';				;; b == false
