@@ -74,7 +74,7 @@ export default class Log {
     	this.stderr(this.tag.security, message, args);
     	this.exit(707,"HALT");
     }
-
+/*
     //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
     //> obj is the object to check
     //> type is a string containing a prototype.name to validate against
@@ -105,7 +105,7 @@ export default class Log {
     	}
     	return true;
     }
-
+*/
     //^ Write an entry when a logically impossible condition occurs, then proceed with fallback value
     logic(message, args) {
     	this.stderr(this.tag.logic, message, args);
@@ -163,7 +163,27 @@ export default class Log {
     	if (message == undefined) message = '';
     	if (args == undefined) args = '';
     	
+    	var stackTraceLines = (new Error).stack
     	process.stderr.write(`${tag}${this.getStack(4)} ${message}${args}\n`);
     }
 }
 
+
+/*
+    	process.stderr.write(stackTraceLines);
+    	
+    	if (<anonymous>:[0-9]:[0-9])
+    		then look in expanded code for line number
+
+Error
+    at Log.stderr (eval at evaluate (/codebase/bequiesce/es5/test-case.class.js:122:12), <anonymous>:166:29)
+    at Log.todo (eval at evaluate (/codebase/bequiesce/es5/test-case.class.js:122:12), <anonymous>:32:11)
+    at eval (eval at evaluate (/codebase/bequiesce/es5/test-case.class.js:122:12), <anonymous>:175:5)
+    at TestCase.evaluate (/codebase/bequiesce/es5/test-case.class.js:122:7)
+    at TestCase.runTests (/codebase/bequiesce/es5/test-case.class.js:74:30)
+    at TestGroup.runTests (/codebase/bequiesce/es5/test-group.class.js:43:16)
+    at SituationSection.runTests (/codebase/bequiesce/es5/situation-section.class.js:68:13)
+    at TestPackage.runTests (/codebase/bequiesce/es5/test-package.class.js:134:15)
+    at Bequiesce.runTests (/codebase/bequiesce/es5/bequiesce.class.js:88:9)
+    at CLI.execute (/codebase/bequiesce/es5/cli.class.js:45:16)    [TODO]{        eval (eval at evaluate} abcdefg
+*/

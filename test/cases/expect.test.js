@@ -1,8 +1,8 @@
-//-------------------------------------
 // @common
 import Expect from '../../src/expect.class';
+class Simple {};
+class SubClass extends Simple {}; 
 
-//-------------------------------------
 // @using
 var expect = new Expect();
 var b = expect.check(obj, type, message);
@@ -19,6 +19,6 @@ var obj = null; 			var type = 'null'; 		var message = '';				;; b == true
 var obj = undefined; 		var type = 'undefined'; var message = '';				;; b == true
 
 // @testing classes
-class Simple {}; var obj = new Simple(); 										var type = 'Simple'; 	var message = '';				;; b == true
-class Simple {}; class SubClass extends Simple {}; var obj = new SubClass(); 	var type = 'SubClass'; 	var message = '';				;; b == true
-class Simple {}; class SubClass extends Simple {}; var obj = new SubClass(); 	var type = 'Simple'; 	var message = '';				;; b == false
+var obj = new Simple(); 	var type = 'Simple'; 	var message = '';				;; b == true
+var obj = new SubClass(); 	var type = 'SubClass'; 	var message = '';				;; b == true
+var obj = new SubClass(); 	var type = 'Simple'; 	var message = '';				;; b == false
