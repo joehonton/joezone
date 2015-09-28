@@ -11,6 +11,7 @@
 
 import FS from 'fs';
 import Log from './log.class';
+import expect from './expect.function';
 
 export default class TextReader {
 		
@@ -35,7 +36,7 @@ export default class TextReader {
     
     //< returns true or false
     open(filename) {
-    	log.expect(filename, 'String');
+    	expect(filename, 'String');
     	try {
     		this.fd = FS.openSync(filename, 'r');
     		this.initialize();
@@ -130,9 +131,9 @@ export default class TextReader {
 	static octetsToUtf8(octets) {
 	
 		// sanity checks
-		log.expect(octets, 'Array');
+		expect(octets, 'Array');
 		for (let octet of octets) {
-			log.expect(octet, 'Number');
+			expect(octet, 'Number');
 			if (octet < 0 || octet > 255) {
 				// emergency fallback
 				log.invalid("The array of octets must contain number between 0 and 255");

@@ -15,6 +15,7 @@
 
 import FS from 'fs';
 import Log from './log.class';
+import expect from './expect.function';
 
 export default class Pfile {
 		
@@ -33,12 +34,12 @@ export default class Pfile {
     }
     
     _normalConstructor(path) {
-    	log.expect(path, 'String');
+    	expect(path, 'String');
     	this.setPath(path);
     }
     
     _copyConstructor(rhs) {
-    	log.expect(rhs, 'Pfile');
+    	expect(rhs, 'Pfile');
     	this._filename = rhs._filename;
     }
     
@@ -48,7 +49,7 @@ export default class Pfile {
 
     //^ Replace any existing path or filename with the given value
     setPath(path) {
-    	log.expect(path, 'String');
+    	expect(path, 'String');
     	this._filename = Pfile.posixStyle(path);
     	return this;
     }
@@ -56,7 +57,7 @@ export default class Pfile {
     //^ Concatentate a POSIX path string to the current filename. Call it multiple times to build it up.
     //> path may be an absolute path with leading slash; a relative path, with leading ./ and ../; or a filename
     addPath(path) {
-    	log.expect(path, 'String');
+    	expect(path, 'String');
     	path = Pfile.posixStyle(path);
     	var len = this._filename.length;
     	if (len > 0 && this._filename.charAt(len-1) != '/')
@@ -74,7 +75,7 @@ export default class Pfile {
     //> If the given path contains something that looks like a filename with extension (for example, init.d), it is not treated specially.
     //> If the current filename is already absolute, this is probably not what you want
     addPathBefore(path) {
-    	log.expect(path, 'String');
+    	expect(path, 'String');
     	path = Pfile.posixStyle(path);
     	if (this.isAbsolute())
     		log.logic(`Attempting to add the path "${path}" before the absolute filename "${this._filename}" is probably not what you want.`);
@@ -134,7 +135,7 @@ export default class Pfile {
     	else
     		relativeTo = Pfile.posixStyle(relativeTo);
 
-    	log.expect(relativeTo, 'String');
+    	expect(relativeTo, 'String');
     	
     	if (this._filename.length == 0) {
     		this._filename = relativeTo;
@@ -260,8 +261,7 @@ export default class Pfile {
     
     
     //^ Is this file specified with an absolute path?
-    isAbsolute() {
-    	
+    isAbsolute() {    	
     	if (this._filename.length == 0)
     		return false;
     	
@@ -314,7 +314,7 @@ export default class Pfile {
     //> a string that may contain one or more '\'
     //< a string with all '\' replaced with '/'
     static posixStyle(path) {
-    	log.expect(path, 'String');
+    	expect(path, 'String');
     	return path.replace(/\\/g, '/');
     }
 }
