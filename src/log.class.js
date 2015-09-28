@@ -1,13 +1,18 @@
 //=============================================================================
 //
-// File:         src/log.class.js
+// File:         joezone/src/log.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
 // Initial date: Sep 13, 2015
-// Contents:     Logging using "todo | trace |normal | abnormal | invalid | security | expect | logic | hopeless"
+// Contents:     Logging using "todo | trace |normal | abnormal | invalid | security | logic | hopeless"
 //
 //=============================================================================
+
+import StackTrace from 'stack-trace.class';
+import Text from 'text.class';
+import use from 'use.function';
+import expect from 'expect.function';
 
 export default class Log {
 	
@@ -19,7 +24,6 @@ export default class Log {
 			abnormal:  "[ABNORMAL]",
 			invalid:   " [INVALID]",
 			security:  "[SECURITY]",
-			expect:    "[*EXPECT*]",
 			logic:     "   [LOGIC]",
 			hopeless:  "[HOPELESS]",
 			exit:      "[    EXIT]"
@@ -74,38 +78,7 @@ export default class Log {
     	this.stderr(this.tag.security, message, args);
     	this.exit(707,"HALT");
     }
-/*
-    //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
-    //> obj is the object to check
-    //> type is a string containing a prototype.name to validate against
-    //< true if the expectation was met, false if not
-    expect(obj, type, message, args) {
-    	if (message == undefined) message = '';
-    	
-    	if (obj === undefined) {
-    		if (type == 'undefined')
-    			return true;
-   			else {
-   				this.stderr(this.tag.expect, `Expected type '${type}', but got 'undefined' ${message}`, args);
-   				return false;
-   			}
-    	}
-    	if (obj === null) {
-    		if (type == 'null')
-    			return true;
-    		else {
-    			this.stderr(this.tag.expect, `Expected type '${type}', but got 'null' ${message}`, args);
-    			return false;
-    		}
-    	}
-    		
-    	if (obj.constructor.name != type) {
-    		this.stderr(this.tag.expect, `Expected type '${type}', but got type '${obj.constructor.name}' ${message}`, args);
-    		return false;
-    	}
-    	return true;
-    }
-*/
+    
     //^ Write an entry when a logically impossible condition occurs, then proceed with fallback value
     logic(message, args) {
     	this.stderr(this.tag.logic, message, args);
@@ -125,48 +98,24 @@ export default class Log {
     
     //^ Exit the process with the given return code
     exit(rc, message) {
-    	if (message == undefined) message = '';
-    	
-    	this.expect(rc, 'Number');
-    	this.expect(message, 'String');
+    	message = use(message, '');
+    	expect(rc, 'Number');
+    	expect(message, 'String');
     	this.stderr(this.tag.exit, rc, ` ${message}\n`);
     	process.exit(0);
-    }
-
-    //^ Take a snapshot of the stack and return the zero-indexed item from it
-    getStack(depth) {
-    	// create an Error object, but don't throw it
-    	var stackTraceLine = (new Error).stack.split("\n")[depth];
-    	
-    	// extract the function name from the backtrace (assuming the backtrace pattern adopted by "node")
-    	var regex1 = /at (.*) ?\(/g;
-    	var matches = regex1.exec(stackTraceLine);
-    	var desiredOutput = '';
-    	if (matches.length > 1)
-    		desiredOutput += matches[1].trim();
-    	desiredOutput = this.rightAlign(desiredOutput);
-    	return `{${desiredOutput}}`;
-    }
-    
-    //^ Right align the given string to fit within a fixed 30 character column
-    rightAlign(s) {
-    	var columnLen = 30;
-    	var stringLen = s.length;
-    	if (stringLen > columnLen)
-    		return s.substr(0,columnLen-3) + '...';
-    	else
-    		return Array(columnLen+1 - stringLen).join(' ') + s;
     }
     
     //^ Send message to stderr
     stderr(tag, message, args) {
-    	if (message == undefined) message = '';
-    	if (args == undefined) args = '';
-    	
-    	var stackTraceLines = (new Error).stack
-    	process.stderr.write(`${tag}${this.getStack(4)} ${message}${args}\n`);
+    	message = use(message, '');
+    	args = use(args, '');
+    	process.stderr.write(`${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
     }
 }
+
+
+
+
 
 
 /*

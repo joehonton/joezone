@@ -1,0 +1,24 @@
+//=============================================================================
+//
+// File:         joezone/test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 27, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash ../exim/exim ./test-cases.exim ./test/es5
+//
+//=============================================================================
+
+import Bunch from './bunch.test.js';
+import Expect from './expect.test.js';
+import Log from './log.test.js';
+import Pfile from './pfile.test.js';
+import SHA1 from './sha1.test.js';
+import StackTrace from './stack-trace.js';
+import Text from './text.test.js';
+import TextReader from './text-reader.test.js';
+import TextWriter from './text-writer.test.js';
+import TextRWLoopback from './text-rw-loopback.test.js';
+import Use from './use.test.js';

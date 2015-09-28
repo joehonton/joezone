@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/text-reader.class.js
+// File:         joezone/src/text-reader.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
@@ -10,6 +10,7 @@
 //=============================================================================
 
 import FS from 'fs';
+import Log from './log.class';
 
 export default class TextReader {
 		

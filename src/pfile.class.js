@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/pfile.class.js
+// File:         joezone/src/pfile.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
@@ -14,6 +14,7 @@
 //=============================================================================
 
 import FS from 'fs';
+import Log from './log.class';
 
 export default class Pfile {
 		
@@ -89,12 +90,17 @@ export default class Pfile {
     
     // Remove all occurances of ../ or ./ or //
     canonicalize() {
-    	this._filename = this._filename.replace("/./", "/");		// before/./after --> before/after		(but keep leading dot: ./before/after)
+    	this._filename = this._filename.replace("/./", "/");	// before/./after --> before/after		(but keep leading dot: ./before/after)
     	this._filename = this._filename.replace("//", "/");		// before//after  --> before/after
     	var b = true;
     	while (b) {
     		b = this.removeDoubleDots();						// before/extra/../after --> before/after
     	}
+    	
+    	// remove trailing slash (except when the FQN === "/")
+    	var len = this._filename.length;
+    	if (len > 1 && this._filename.charAt(len-1) == '/')
+    		this._filename = this._filename.substr(0, len-1);
     }
 
     //^ Remove one ../ occurance if possible
