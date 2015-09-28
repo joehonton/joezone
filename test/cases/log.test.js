@@ -2,37 +2,37 @@
 import Log from '../../src/log.class';
 var log = new Log();
 
-//@using
+//@using todo
 log.todo(message);
-//@testing
+//@testing todo
 var message = "abcdefg";		;; true
 
-//@using
+//@using trace
 log.trace(message);
-//@testing
+//@testing trace
 var message = "abcdefg";		;; true
 
-//@using
+//@using normal
 log.normal(message);
-//@testing
+//@testing normal
 var message = "abcdefg";		;; true
 
-//@using
+//@using abnormal
 log.abnormal(message);
-//@testing
+//@testing abnormal
 var message = "abcdefg";		;; true
 
-//@using
+//@using invalid
 log.invalid(message);
-//@testing
+//@testing invalid
 var message = "abcdefg";		;; true
 
-//@using
+//@using security
 log.security(message);
-//@testing
+//@testing security
 var message = "abcdefg";		;; true
 
-//@using
+//@using logic
 log.logic(message);
-//@testing
+//@testing logic
 var message = "abcdefg";		;; true

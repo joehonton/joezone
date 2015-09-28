@@ -1,11 +1,11 @@
 // @common
-import Expect from '../../src/expect.class';
+import expect from '../../src/expect.function';
 class Simple {};
 class SubClass extends Simple {}; 
 
-// @using
-var expect = new Expect();
-var b = expect.check(obj, type, message);
+// @using instantiate and check
+//var expect = new Expect();
+var b = expect(obj, type, message);
 
 // @testing basic JavaScript types
 var obj = []; 				var type = 'Array'; 	var message = '';				;; b == true
@@ -21,4 +21,6 @@ var obj = undefined; 		var type = 'undefined'; var message = '';				;; b == true
 // @testing classes
 var obj = new Simple(); 	var type = 'Simple'; 	var message = '';				;; b == true
 var obj = new SubClass(); 	var type = 'SubClass'; 	var message = '';				;; b == true
-var obj = new SubClass(); 	var type = 'Simple'; 	var message = '';				;; b == false
+
+// waiting for shuntErr(null)
+//var obj = new SubClass(); 	var type = 'Simple'; 	var message = '';				;; b == false

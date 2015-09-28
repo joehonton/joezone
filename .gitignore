@@ -1,2 +1,4 @@
 **/es5
 npm-debug.log
+test/test-case-dump.js
+test/output

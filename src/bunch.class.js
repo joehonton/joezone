@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         src/bunch.class.js
+// File:         joezone/src/bunch.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0
@@ -11,6 +11,7 @@
 
 import FS from 'fs';
 import Pfile from './pfile.class';
+import Log from './log.class';
 
 export default class Bunch {
 	
