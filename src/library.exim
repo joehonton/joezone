@@ -1,0 +1,23 @@
+//=============================================================================
+//
+// File:         joezone/src/library.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 28, 2015
+// Contents:     Use this to compile the library
+//
+// Example:      bash ../exim/exim ./library.exim ./es5
+//
+//=============================================================================
+
+import L1 from './bunch.class.js';
+import L2 from './expect.function.js';
+import L3 from './log.class.js';
+import L4 from './pfile.class.js';
+import L5 from './sha1.class.js';
+import L6 from './stack-trace.js';
+import L7 from './text-reader.class.js';
+import L8 from './text-writer.class.js';
+import L9 from './text.class.js';
+import L10 from './use.function.js';

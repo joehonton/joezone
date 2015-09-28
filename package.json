@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "Joe's JavaScript Library",
   "scripts": {
+    "build": 		"npm run exim-library",
+    "exim-library": "bash ../exim/exim ./src/library.exim ./es5",
+  	
     "testuse": 		"npm run eximuse && npm run bequiesceuse",
     "eximuse":     	"bash ../exim/exim ./test/cases/use.test.js ./test/es5",
     "bequiesceuse": "bash ../bequiesce/bequiesce ./test/es5/use.test.js",
     
-    "test": 		"npm run exim && npm run bequiesce",
-    "exim":     	"bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
+    "test": 		"npm run exim-cases && npm run bequiesce",
+    "exim-cases":  	"bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
     "bequiesce":    "bash ../bequiesce/bequiesce ./test/es5"
     },
   "author": "Joe Honton",

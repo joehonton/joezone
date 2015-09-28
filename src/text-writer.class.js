@@ -11,6 +11,7 @@
 
 import FS from 'fs';
 import Log from './log.class';
+import expect from './expect.function';
 
 export default class TextWriter {
 		
@@ -21,7 +22,7 @@ export default class TextWriter {
     
     //< returns true or false
     open(filename) {
-    	log.expect(filename, 'String');
+    	expect(filename, 'String');
     	try {
     		this.fd = FS.openSync(filename, 'w');
    			return true;
@@ -50,7 +51,7 @@ export default class TextWriter {
 
     //^ Write a sequence of chars
     puts(s) {
-    	log.expect(s, 'String');
+    	expect(s, 'String');
     	if (!this.isOpen())
     		return null;
     	

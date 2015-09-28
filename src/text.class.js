@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-import expect from './expect.class';
+import expect from './expect.function';
 
 export default class Text {
 		
