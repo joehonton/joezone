@@ -4,7 +4,6 @@ class Simple {};
 class SubClass extends Simple {}; 
 
 // @using instantiate and check
-//var expect = new Expect();
 var b = expect(obj, type, message);
 
 // @testing basic JavaScript types

@@ -12,6 +12,7 @@
 import Crypto from 'crypto';
 import Pfile from './pfile.class';
 import TextReader from './text-reader.class';
+import expect from '../../joezone/src/expect.function.js';
 
 export default class SHA1 {
 		
@@ -20,7 +21,7 @@ export default class SHA1 {
     }
     
     checksum(pfile) {
-    	log.expect(pfile,'Pfile');
+    	expect(pfile,'Pfile');
     	
     	var crypto = Crypto.createHash('sha1');
     	

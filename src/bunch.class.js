@@ -122,7 +122,7 @@ export default class Bunch {
     	if (returnFullyQualifiedPath == undefined) returnFullyQualifiedPath = false;
     	
     	// if the path is not absolute, inform the user with a log.logic
-    	if (this._path.isRelative()) {
+    	if (this._path.isRelativePath()) {
     		log.logic(`Using a relative path "${this._path.name}" is probably not what you want.`);
     	}
     	
