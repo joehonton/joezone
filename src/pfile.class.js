@@ -77,7 +77,7 @@ export default class Pfile {
     addPathBefore(path) {
     	expect(path, 'String');
     	path = Pfile.posixStyle(path);
-    	if (this.isAbsolute())
+    	if (this.isAbsolutePath())
     		log.logic(`Attempting to add the path "${path}" before the absolute filename "${this._filename}" is probably not what you want.`);
     	var len = path.length;
     	if (len > 0 && path.charAt(len-1) != '/')
@@ -127,7 +127,7 @@ export default class Pfile {
     //> relativeTo is a string representing the root path to which the current filename is relative
     //  if relativeTo is not provided by the caller, the current working directory is used
     makeAbsolute(relativeTo) {
-    	if (this.isAbsolute())
+    	if (this.isAbsolutePath())
     		return this;
     	
     	if (relativeTo == undefined)
@@ -143,7 +143,7 @@ export default class Pfile {
     	}
     	
     	var tmp = new Pfile(relativeTo);
-    	if (!tmp.isAbsolute()){
+    	if (!tmp.isAbsolutePath()){
     		log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${relativeTo}" won't work.`);
     		return this;
     	}
@@ -254,14 +254,8 @@ export default class Pfile {
     	return true;
     }
     
-    //^ Is this file specified with a relative path?
-    isRelative() {
-    	return (!this.isAbsolute());
-    }
-    
-    
-    //^ Is this file specified with an absolute path?
-    isAbsolute() {    	
+    //^ Is this file specified with an absolute path, that is, fully specified from the file system's root.
+    isAbsolutePath() {    	
     	if (this._filename.length == 0)
     		return false;
     	
@@ -276,6 +270,24 @@ export default class Pfile {
     	return false;
     }
 
+    //^ Is this file specified with a path that is relative to the current working directory,
+    //  either with or without leading ./ or ../
+    isRelativePath() {
+    	if (this._filename.length == 0)
+    		return false;
+    	
+    	return (!this.isAbsolutePath());
+    }
+    
+    //^ Does this relative file path file begin with ./ or ../ ?
+    isDottedPath() {
+    	if (this._filename.length == 0)
+    		return false;
+    	
+    	return (this._filename.charAt(0) == '.');
+    	
+    }
+    
     isDirectory() {
     	try {
     		var stats = FS.lstatSync(this._filename);

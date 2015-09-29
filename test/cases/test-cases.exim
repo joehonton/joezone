@@ -11,14 +11,14 @@
 //
 //=============================================================================
 
-import Bunch from './bunch.test.js';
-import Expect from './expect.test.js';
-import Log from './log.test.js';
-import Pfile from './pfile.test.js';
-import SHA1 from './sha1.test.js';
-import StackTrace from './stack-trace.js';
-import Text from './text.test.js';
-import TextReader from './text-reader.test.js';
-import TextWriter from './text-writer.test.js';
-import TextRWLoopback from './text-rw-loopback.test.js';
-import Use from './use.test.js';
+import T1 from './bunch.test.js';
+import T2 from './expect.test.js';
+import T3 from './log.test.js';
+import T4 from './pfile.test.js';
+import T5 from './sha1.test.js';
+import T6 from './stack-trace.js';
+import T7 from './text.test.js';
+import T8 from './text-reader.test.js';
+import T9 from './text-writer.test.js';
+import T10 from './text-rw-loopback.test.js';
+import T11 from './use.test.js';
