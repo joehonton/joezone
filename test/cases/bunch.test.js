@@ -80,21 +80,46 @@ var patternOut = bunch.pattern;
 var flagsOut = bunch.flags;
 
 //@testing pathIn and pathOut
-pathIn='/.hidden-dir';	patternIn='*';		flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileA' && pathOut != pathIn
-pathIn='/escape';		patternIn='*';		flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileB' && pathOut != pathIn
-pathIn='/pattern';		patternIn='*';		flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileC' && pathOut != pathIn
+pathIn='/.hidden-dir';	patternIn='*';		flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileA' && pathOut != pathIn
+pathIn='/escape';		patternIn='*';		flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileB' && pathOut != pathIn
+pathIn='/pattern';		patternIn='*';		flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileC' && pathOut != pathIn
 
 //@testing patternIn and patternOut
-pathIn='/.hidden-dir';	patternIn='file*';	flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileA' && patternOut == 'file*' 
-pathIn='/escape';		patternIn='*';		flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileB' && patternOut == '*'
-pathIn='/pattern';		patternIn='*ile*';	flagsIn=Bunch.FILE;			;;	files.length == 1  && files[0] == 'fileC' && patternOut == '*ile*'
+pathIn='/.hidden-dir';	patternIn='file*';	flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileA' && patternOut == 'file*' 
+pathIn='/escape';		patternIn='*';		flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileB' && patternOut == '*'
+pathIn='/pattern';		patternIn='*ile*';	flagsIn=Bunch.FILE;						;;	files.length == 1  && files[0] == 'fileC' && patternOut == '*ile*'
 
 //@testing flagsIn and flagsOut
-pathIn='';				patternIn='*';		flagsIn=Bunch.FILE;						;;	files.length == 15 && patternOut == '*'  && flagsOut == Bunch.FILE;
-pathIn='';				patternIn='*';		flagsIn=Bunch.DIRECTORY;				;;	files.length == 3  && patternOut == '*'  && flagsOut == Bunch.DIRECTORY;
-pathIn='';				patternIn='*';		flagsIn=Bunch.FILE + Bunch.DIRECTORY;	;;	files.length == 18 && patternOut == '*'  && flagsOut == Bunch.FILE + Bunch.DIRECTORY;
+pathIn='';		patternIn='*';				flagsIn=Bunch.FILE;						;;	files.length == 15 && patternOut == '*'  && flagsOut == Bunch.FILE;
+pathIn='';		patternIn='*';				flagsIn=Bunch.DIRECTORY;				;;	files.length == 3  && patternOut == '*'  && flagsOut == Bunch.DIRECTORY;
+pathIn='';		patternIn='*';				flagsIn=Bunch.FILE + Bunch.DIRECTORY;	;;	files.length == 18 && patternOut == '*'  && flagsOut == Bunch.FILE + Bunch.DIRECTORY;
 
-//TODO
-// patterns with {} and [] and ()
-
-
+//@testing regex any chars *
+pathIn='';		patternIn='escape*';	 	flagsIn=Bunch.FILE + Bunch.DIRECTORY;	;; files.length == 4 && files[0] == 'escape'  && files[1] == 'escape (one).txt' && files[2] == 'escape [two].txt' && files[3] == 'escape {three}.txt'
+pathIn='';		patternIn='pattern*';	 	flagsIn=Bunch.FILE + Bunch.DIRECTORY;	;; files.length == 6 && files[0] == 'pattern'  && files[1] == 'pattern01.txt' && files[2] == 'pattern02.txt' && files[3] == 'pattern120034.txt' && files[4] == 'pattern120056.txt' && files[5] == 'patternABCDEF.txt'
+//@testing regex one char ?
+pathIn='';		patternIn='pattern0?.txt';	 		flagsIn=Bunch.FILE;				;; files.length == 2 && files[0] == 'pattern01.txt' && files[1] == 'pattern02.txt'
+pathIn='';		patternIn='pattern??.txt';	 		flagsIn=Bunch.FILE;				;; files.length == 2 && files[0] == 'pattern01.txt' && files[1] == 'pattern02.txt'
+pathIn='';		patternIn='pattern??????.txt';	 	flagsIn=Bunch.FILE;				;; files.length == 3 && files[0] == 'pattern120034.txt' && files[1] == 'pattern120056.txt' && files[2] == 'patternABCDEF.txt'
+//@testing regex (capture group)
+// Note the asterisk without a preceding dot. Asterisks mean "any character". Dots are interpreted simply as dots.
+pathIn='';		patternIn='pattern(*).txt'; 		flagsIn=Bunch.FILE;				;; files.length == 5
+//@testing regex [character range]
+pathIn='';		patternIn='pattern[0-9]*.txt'; 		flagsIn=Bunch.FILE;				;; files.length == 4
+pathIn='';		patternIn='pattern[A-F]*.txt'; 		flagsIn=Bunch.FILE;				;; files.length == 1
+pathIn='';		patternIn='pattern[0-9,A-F]*.txt'; 	flagsIn=Bunch.FILE;				;; files.length == 5
+pathIn='';		patternIn='pattern[^0-9]*.txt';		flagsIn=Bunch.FILE;				;; files.length == 1
+pathIn='';		patternIn='pattern[^A-Z]*.txt';		flagsIn=Bunch.FILE;				;; files.length == 4
+//@testing regex {quantifier range}
+pathIn='';		patternIn='pattern[0-9]{2}.txt*'; 	flagsIn=Bunch.FILE;				;; files.length == 2 && files[0] == 'pattern01.txt' && files[1] == 'pattern02.txt'
+pathIn='';		patternIn='pattern[0-9]{6}.txt*'; 	flagsIn=Bunch.FILE;				;; files.length == 2 && files[0] == 'pattern120034.txt' && files[1] == 'pattern120056.txt'
+pathIn='';		patternIn='pattern[0-9]{2,6}.txt*';	flagsIn=Bunch.FILE;				;; files.length == 4 && files[0] == 'pattern01.txt' && files[1] == 'pattern02.txt' && files[2] == 'pattern120034.txt' && files[3] == 'pattern120056.txt'
+//@testing regex OR |
+pathIn='';		patternIn='regular.(js|h)';			flagsIn=Bunch.FILE;				;; files.length == 2 && files[0] == 'regular.h' && files[1] == 'regular.js'
+pathIn='';		patternIn='regular*.(js|h)';		flagsIn=Bunch.FILE;				;; files.length == 3 && files[0] == 'regular.class.js' && files[1] == 'regular.h' && files[2] == 'regular.js'
+pathIn='';		patternIn='regular.(cpp|h|txt)';	flagsIn=Bunch.FILE;				;; files.length == 3 && files[0] == 'regular.cpp' && files[1] == 'regular.h' && files[2] == 'regular.txt'
+//@testing regex escapes \\
+// Note the double reverse-solidus which is needed by the JavaScript interpreter, not by the RegExp engine
+pathIn='';		patternIn='*\\(*\\)*';	flagsIn=Bunch.FILE + Bunch.DIRECTORY;		;; files.length == 1 && files[0] == 'escape (one).txt'
+pathIn='';		patternIn='*\\[*\\]*';	flagsIn=Bunch.FILE + Bunch.DIRECTORY;		;; files.length == 1 && files[0] == 'escape [two].txt'
+pathIn='';		patternIn='*\\{*\\}*';	flagsIn=Bunch.FILE + Bunch.DIRECTORY;		;; files.length == 1 && files[0] == 'escape {three}.txt'
