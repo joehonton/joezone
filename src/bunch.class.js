@@ -210,7 +210,7 @@ export default class Bunch {
 	    			shadowChars[i] = '\\$';		// regex: matches end of string, so it must be escaped to \$
 	    			break;
 	    			
-	    		// The rest of these are for explicit documntation;
+	    		// The rest of these are for explicit documentation;
 	    		// the shadow is the same as the original;
 	    		// no escaping is needed.
 	    		// This means that filenames that actually contain these characters won't be found unless the user precedes them with an escape \
