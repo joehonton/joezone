@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
-import StackTrace from 'stack-trace.class';
-import Text from 'text.class';
-import use from 'use.function';
-import expect from 'expect.function';
+import StackTrace from './stack-trace.class';
+import Text from './text.class';
+import use from './use.function';
+import expect from './expect.function';
 
 export default class Log {
 	

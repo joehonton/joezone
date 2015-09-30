@@ -12,7 +12,7 @@
 import Crypto from 'crypto';
 import Pfile from './pfile.class';
 import TextReader from './text-reader.class';
-import expect from '../../joezone/src/expect.function.js';
+import expect from './expect.function';
 
 export default class SHA1 {
 		
