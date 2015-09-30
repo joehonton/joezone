@@ -41,8 +41,10 @@ export default class Bunch {
 	//    DIRECTORY: 2 to match directories
 	//    SYMLINK:   4 to match symbolic links
 
-    constructor(arg1, arg2, arg3) {    	
-    	if (arg1.constructor.name == 'Bunch')
+    constructor(arg1, arg2, arg3) { 
+    	if (arg1 == undefined)
+    		this._defaultConstructor();
+    	else if (arg1.constructor.name == 'Bunch')
     		this._copyConstructor(arg1);
     	else if (arg1.constructor.name == 'Pfile')
     		this._pfileConstructor(arg1, arg2);
@@ -52,6 +54,13 @@ export default class Bunch {
     		log.logic("The first argument to a new Bunch should be one of {Bunch, Pfile, String}");
 
     	Object.seal(this);
+    }
+    
+    //> default constructor
+    _defaultConstructor() {
+    	this._path = new Pfile('');
+        this._pattern = '*';
+        this._flags = Bunch.FILE;
     }
     
     //> rhs Bunch
@@ -144,22 +153,16 @@ export default class Bunch {
     		return;
     	}
     	
-/*    	// if the pattern does not contain a * or ? or [] or (), it is not a pattern, inform the user with log.logic
-    	if (this._pattern.indexOf('*') == -1 && this._pattern.indexOf('?') == -1 && this._pattern.indexOf('[') == -1 && this._pattern.indexOf('(') == -1) {
-    		log.logic(`The pattern "${this._pattern}" doesn't contain any wildcard characters, so it can only ever match one filename.`);
-    		return;
-    	}
-*/
     	// call fs.readdir to get the unfiltered list
     	var unfiltered = FS.readdirSync(this._path.name);
-
+    	unfiltered.sort();
+    	
     	var bFile    = (this._flags & Bunch.FILE) == Bunch.FILE; 
     	var bDir     = (this._flags & Bunch.DIRECTORY) == Bunch.DIRECTORY; 
     	var bSymlink = (this._flags & Bunch.SYMLINK) == Bunch.SYMLINK; 
 
     	// convert the pattern to a regex
     	var pattern = new RegExp(this.getSafePattern());
-    	//log.trace('regex', pattern);
 
     	var matches = new Array();
     	for (let i=0; i<unfiltered.length; i++) {
@@ -178,15 +181,13 @@ export default class Bunch {
 	    		else if (bSymlink && fqf.isSymbolicLink())
 	    			matches.push(pfile);
 	    	}
-    		//else
-    			//log.trace(`does not match: "${aFile}"`);
     	}
     	
-    	//log.trace(`filtered match count ${matches.length}`);
     	return matches;    			
     }
     
-    // Identify all regex special characters in the pattern, and escape them
+    // Identify all regex special characters in the pattern supplied by the user, and escape them
+    //< returns an escaped string suitable for use with RegExp()
     getSafePattern() {
        	var len = this._pattern.length;
     	// use a shadow array of characters to convert the patterns * ? . $ to their regex equivalents
@@ -232,9 +233,7 @@ export default class Bunch {
     	
     	var fullString = '^' + shadowChars.join("") + '$';
     	return fullString;
-    }
-    
-    
+    }    
 }
 
 
