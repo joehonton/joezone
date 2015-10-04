@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-import Text from './text.class';
+//import Text from './text.class';
 
 export default class StackTrace {
 		
@@ -28,7 +28,18 @@ export default class StackTrace {
 		var desiredOutput = '';
 		if (matches.length > 1)
 			desiredOutput += matches[1].trim();
-		desiredOutput = Text.rightAlign(desiredOutput, 30);
+		desiredOutput = StackTrace.rightAlign(desiredOutput, 30);
 		return `{${desiredOutput}}`;
 	}
+
+	// Can't use Text.rightAlign becuase it results in a circular require
+	//^ Right align the given string to fit within a fixed width character column
+    static rightAlign(s, width) {
+    	var columnLen = width;
+    	var stringLen = s.length;
+    	if (stringLen > columnLen)
+    		return s.substr(0,columnLen-3) + '...';
+    	else
+    		return Array(columnLen+1 - stringLen).join(' ') + s;
+    }
 }
