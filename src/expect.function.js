@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-import Text from './text.class';
+// import Text from './text.class';
 import StackTrace from './stack-trace.class';
 import use from './use.function';
 
@@ -26,7 +26,7 @@ export default function expect(obj, type, message) {
 		if (type == 'undefined')
 			return true;
 		else {
-			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(4)} Expected type '${type}', but got 'undefined' ${message}\n`);
+			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got 'undefined' ${message}\n`);
 			return false;
 		}
 	}
@@ -34,13 +34,13 @@ export default function expect(obj, type, message) {
 		if (type == 'null')
 			return true;
 		else {
-			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(4)} Expected type '${type}', but got 'null' ${message}\n`);
+			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got 'null' ${message}\n`);
 			return false;
 		}
 	}
 		
 	if (obj.constructor.name != type) {
-		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(4)} Expected type '${type}', but got '${obj.constructor.name}' ${message}\n`);
+		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got '${obj.constructor.name}' ${message}\n`);
 		return false;
 	}
 	return true;
