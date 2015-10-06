@@ -15,33 +15,53 @@ import use from './use.function';
 
 //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
 //> obj is the object to check
-//> type is a string containing a prototype.name to validate against
+//> expectedType is a string (or an array of strings) containing a prototype.name to validate against
 //> message to display if expectation not met
 //< true if the expectation was met, false if not
 //
-export default function expect(obj, type, message) {
+export default function expect(obj, expectedType, message) {
 	message = use(message, '');
-	
-	if (obj === undefined) {
-		if (type == 'undefined')
+
+	var validTypes;
+	if (expectedType.constructor.name == 'String') {
+		if (expectOne(obj, expectedType) == true)
 			return true;
-		else {
-			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got 'undefined' ${message}\n`);
-			return false;
+	}
+	else if (expectedType.constructor.name == 'Array') {
+		for (type of expectedType) {
+			if (expectOne(obj, type) == true)
+				return true;
 		}
 	}
-	if (obj === null) {
-		if (type == 'null')
-			return true;
-		else {
-			process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got 'null' ${message}\n`);
-			return false;
-		}
-	}
-		
-	if (obj.constructor.name != type) {
-		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} Expected type '${type}', but got '${obj.constructor.name}' ${message}\n`);
+	else {
+		process.stderr.write(`[*EXPECT*] Logic: 'type' should be a String or an Array of Strings`);
 		return false;
 	}
-	return true;
+
+	var s = '';
+	if (expectedType.constructor.name == 'String')
+		s = 'Expected type ' + expectedType;
+	else //if (expectedType.constructor.name == 'Array')
+		s = 'Expected of these types ' + expectedType.join('|');
+		
+	if (obj === undefined)
+		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got 'undefined' ${message}\n`);
+	else if (obj === null)
+		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got 'null' ${message}\n`);
+	else
+		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got '${obj.constructor.name}' ${message}\n`);
+	return false;
+}
+
+//^ A private helper to perform one object/type evaluation
+//< true if obj is type; false if not
+function expectOne(obj, type) {
+	if (obj === undefined)
+		return (type == 'undefined');
+	else if (obj === null)
+		return (type == 'null');
+	else if (obj.constructor.name != type)
+		return false;
+	else
+		return true;
 }
