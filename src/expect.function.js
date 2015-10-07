@@ -28,7 +28,7 @@ export default function expect(obj, expectedType, message) {
 			return true;
 	}
 	else if (expectedType.constructor.name == 'Array') {
-		for (type of expectedType) {
+		for (let type of expectedType) {
 			if (expectOne(obj, type) == true)
 				return true;
 		}
@@ -42,7 +42,7 @@ export default function expect(obj, expectedType, message) {
 	if (expectedType.constructor.name == 'String')
 		s = 'Expected type ' + expectedType;
 	else //if (expectedType.constructor.name == 'Array')
-		s = 'Expected of these types ' + expectedType.join('|');
+		s = "Expected one of these types '" + expectedType.join('|') + "'";
 		
 	if (obj === undefined)
 		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got 'undefined' ${message}\n`);
