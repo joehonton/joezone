@@ -111,6 +111,12 @@ export default class Log {
     	args = use(args, '');
     	process.stderr.write(`${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
     }
+    
+    stackTrace() {
+		var stack = (new Error).stack.split("\n");
+		for (let s of stack)
+			log.trace(s);
+    }
 }
 
 
