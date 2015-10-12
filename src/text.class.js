@@ -42,4 +42,13 @@ export default class Text {
     	else
     		return s + Array(columnLen+1 - stringLen).join(' ');
     }
+        
+    //^ Truncate any string longer than maxLength using ellipse "..."
+    static ellipsed(s, width) {
+    	if (s != "") {
+    		var ellipsis = (s.length > width) ? "..." : "";
+    		s = `${s.substr(0, width)}${ellipsis}`;
+    	}
+    	return s;
+    }
 } 
