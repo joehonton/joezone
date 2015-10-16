@@ -1,5 +1,13 @@
+//=============================================================================
+// File:         joezone/test/cases/pfile.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Aug 21, 2015
+//=============================================================================
+
 // @common
-import PFile from '../../src/pfile.class';
+import Pfile from '../../src/pfile.class';
 var pathToFixtures = 'test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------
@@ -8,7 +16,7 @@ var a = new Pfile().setPath(pathToFixtures);	// default constructor
 var b = new Pfile(pathToFixtures); 				// String constructor
 var c = new Pfile(a);							// Copy constructor
 
-//@testing
+//@testing equivalence
 ;; a.name == b.name && b.name == c.name;
 
 //-------------------------------------
@@ -51,7 +59,7 @@ var path = f.getPath();
 var filename = f.getFilename();
 var fqn = f.getFQN();
 
-//@testing	
+//@testing values
 filename = "";                    prefixPath = "abc";				;; path == ""              && filename == "abc"  		 &&  fqn == "abc"
 filename = "abc";                 prefixPath = "";					;; path == ""              && filename == "abc"  		 &&  fqn == "abc"
 filename = "regular.xyz";         prefixPath = "abc";				;; path == "abc"           && filename == "regular.xyz"  &&  fqn == "abc/regular.xyz"

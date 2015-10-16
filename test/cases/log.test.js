@@ -1,3 +1,11 @@
+//=============================================================================
+// File:         joezone/test/cases/log.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 13, 2015
+//=============================================================================
+
 // @common
 import Log from '../../src/log.class';
 var log = new Log();

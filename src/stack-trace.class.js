@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         /joezone/src/stack-trace.class.js
+// File:         joezone/src/stack-trace.class.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
 // License:      CC-BY-NC-ND 4.0

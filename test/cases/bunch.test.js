@@ -1,3 +1,11 @@
+//=============================================================================
+// File:         joezone/test/cases/bunch.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Aug 29, 2015
+//=============================================================================
+
 //@common
 import Pfile from '../../src/pfile.class';
 import Bunch from '../../src/bunch.class';
