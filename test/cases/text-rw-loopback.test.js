@@ -1,3 +1,11 @@
+//=============================================================================
+// File:         joezone/test/cases/text-rw-loopback.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 6, 2015
+//=============================================================================
+
 // @common
 import TextReader from '../../src/text-reader.class';
 import TextWriter from '../../src/text-writer.class';

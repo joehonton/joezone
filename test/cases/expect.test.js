@@ -1,3 +1,11 @@
+//=============================================================================
+// File:         joezone/test/cases/expect.test.js
+// Language:     Bequiesce
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 13, 2015
+//=============================================================================
+
 // @common
 import expect from '../../src/expect.function';
 class Simple {};
