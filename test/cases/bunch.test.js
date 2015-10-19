@@ -40,6 +40,9 @@ pattern = '*';			flags = Bunch.FILE;			;;	files.length == 15;
 pattern = '*';										;;	files.length == 15;		// where flags defaults to Bunch.FILE
 													;;	files.length == 15;		// where pattern defaults to '*'
 
+//@testing with non-existent path
+pattern = '../nonexistent';							;; files.length == 0;
+
 //-------------------------------------
 //@using Pfile constructor
 var pfile = new Pfile(fixturesPath).makeAbsolute();

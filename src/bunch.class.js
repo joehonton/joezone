@@ -138,19 +138,19 @@ export default class Bunch {
     	// if the path contains * or ?, inform the user with a log.invalid
     	if (this._path.name.indexOf('*') != -1 || this._path.name.indexOf('?') != -1) {
     		log.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`);
-    		return;
+    		return [];
     	}
     	
     	// if the path does not exist, inform the user with a log.logic
     	if (!this._path.exists()) {
     		log.logic(`The path "${this._path.name}" does not exist.`);
-    		return;
+    		return [];
     	}
     	
     	// if the pattern is an empty string, inform the user with a log.invalid
     	if (this._pattern == '') {
     		log.invalid(`The pattern is empty, did you mean "*"?`);
-    		return;
+    		return [];
     	}
     	
     	// call fs.readdir to get the unfiltered list
