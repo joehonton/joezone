@@ -4,11 +4,11 @@
   "description": "Joe's JavaScript Library",
   "scripts": {
     "build": 		"npm run exim-library",
-    "exim-library": "bash ../exim/exim ./src/library.exim ./es5",
+    "exim-library": "bash ../exim/exim ./src/library.exim /c/neonave/es5/joezone/src",
   	
     "test": 		"npm run exim-cases && npm run bequiesce",
-    "exim-cases":  	"bash ../exim/exim ./test/cases/test-cases.exim ./test/es5",
-    "bequiesce":    "bash ../bequiesce/bequiesce ./test/es5"
+    "exim-cases":  	"bash ../exim/exim ./test/cases/test-cases.exim /c/neonave/es5/joezone/test",
+    "bequiesce":    "bash ../bequiesce/bequiesce /c/neonave/es5/joezone/test"
     },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"
