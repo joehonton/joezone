@@ -9,7 +9,6 @@
 //
 //=============================================================================
 
-// import Text from './text.class';
 import StackTrace from './stack-trace.class';
 import use from './use.function';
 
