@@ -51,4 +51,14 @@ export default class Text {
     	}
     	return s;
     }
+    
+    //^ Count how many times the given character occurs in the given string
+    static countOccurences(s, c) {
+    	var count = 0;
+    	for (let i=0; i < s.length; i++) {
+    		if (s.charAt(i) == c)
+    			count++;
+    	}
+    	return count;
+    }
 } 
