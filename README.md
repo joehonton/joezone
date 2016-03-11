@@ -7,12 +7,13 @@ A JavaScript Library for node.js-based projects with no npm-module dependencies.
 
 ## Here's what I need:
 
-Filename assembly: Assemble a filename from its path parts. Split it into its path parts.
-POSIX file inspection: Does a file exists? Is it read-only? 
-POSIX directory inspection: Does a directory exist? Create a directory. Append relative path parts. Convert a relative path to an absolute path.
+1. Filename assembly: Assemble a filename from its path parts. Split it into its path parts.
+2. POSIX file inspection: Does a file exists? Is it read-only? 
+3. POSIX directory inspection: Does a directory exist? Create a directory. Append relative path parts. Convert a relative path to an absolute path.
 
 
-
+## Testing
+The joezone library has been tested using the [Bequiesce](http://bequiesce.com) test harness.
 
 ## joez.one
 
