@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
-import Crypto from 'crypto';
-import Pfile from './pfile.class';
-import TextReader from './text-reader.class';
-import expect from './expect.function';
+import expect 		from './expect.function';
+import Crypto 		from 'crypto';
+import Pfile 		from './pfile.class';
+import TextReader 	from './text-reader.class';
 
 export default class SHA1 {
 		
@@ -20,7 +20,7 @@ export default class SHA1 {
     	Object.seal(this);
     }
     
-    checksum(pfile) {
+    static checksum(pfile) {
     	expect(pfile,'Pfile');
     	
     	var crypto = Crypto.createHash('sha1');
@@ -34,6 +34,8 @@ export default class SHA1 {
     	}
     	
     	tr.close();
-    	return crypto.digest('hex');
+
+    	var digest = crypto.digest('hex');
+    	return digest;
     }
 }

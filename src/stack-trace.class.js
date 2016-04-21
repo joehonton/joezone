@@ -32,7 +32,7 @@ export default class StackTrace {
 		return `{${desiredOutput}}`;
 	}
 
-	// Can't use Text.rightAlign becuase it results in a circular require
+	// Can't use Text.rightAlign because it results in a circular require
 	//^ Right align the given string to fit within a fixed width character column
     static rightAlign(s, width) {
     	var columnLen = width;
