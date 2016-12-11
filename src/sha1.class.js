@@ -20,7 +20,7 @@ export default class SHA1 {
     	Object.seal(this);
     }
     
-    static checksum(pfile) {
+    checksum(pfile) {
     	expect(pfile,'Pfile');
     	
     	var crypto = Crypto.createHash('sha1');
