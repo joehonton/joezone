@@ -12,6 +12,7 @@
 //=============================================================================
 
 import T from './bunch.class.js';
+import T from './diff.class.js';
 import T from './expect.function.js';
 import T from './log.class.js';
 import T from './pfile.class.js';
