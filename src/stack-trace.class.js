@@ -9,8 +9,6 @@
 //
 //=============================================================================
 
-//import Text from './text.class';
-
 export default class StackTrace {
 		
     constructor() {
@@ -32,6 +30,19 @@ export default class StackTrace {
 		return `{${desiredOutput}}`;
 	}
 
+	static getSitus(depth) {
+		// create an Error object, but don't throw it
+		var stackTraceLine = (new Error).stack.split("\n")[depth];
+		
+		// extract the filename, line and column from the backtrace (assuming the backtrace pattern adopted by "node")
+		var regex1 = /at .*\((.*)\)/g;
+		var matches = regex1.exec(stackTraceLine);
+		var desiredOutput = '';
+		if (matches.length > 1)
+			desiredOutput += matches[1].trim();
+		return desiredOutput;
+	}
+	
 	// Can't use Text.rightAlign because it results in a circular require
 	//^ Right align the given string to fit within a fixed width character column
     static rightAlign(s, width) {

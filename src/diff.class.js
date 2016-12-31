@@ -38,8 +38,9 @@ export default class Diff {
     	expect(pfExpected, 'Pfile');
     	expect(pfActual, 'Pfile');
 
-    	var shaExpected = SHA1.checksum(pfExpected);
-    	var shaActual = SHA1.checksum(pfActual);
+    	var sha1 = new SHA1();
+    	var shaExpected = sha1.checksum(pfExpected);
+    	var shaActual = sha1.checksum(pfActual);
     	if (shaExpected == shaActual)
     		return '';
     	else {

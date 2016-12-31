@@ -11,6 +11,7 @@
 //
 //=============================================================================
 
+import T from './aver.function.js';
 import T from './bunch.class.js';
 import T from './diff.class.js';
 import T from './expect.function.js';
