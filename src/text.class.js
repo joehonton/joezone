@@ -61,4 +61,18 @@ export default class Text {
     	}
     	return count;
     }
+    
+    static padLeft(s, width) {
+    	expect(s, 'String');
+    	expect(width, 'Number');
+    	
+    	return (s.length > width) ? s : s + " ".repeat(width - s.length);
+    }
+
+    static padRight(s, width) {
+    	expect(s, 'String');
+    	expect(width, 'Number');
+    	
+    	return (s.length > width) ? s : " ".repeat(width - s.length) + s;
+    }
 } 
