@@ -16,6 +16,7 @@ import expect from './expect.function';
 export default class TextWriter {
 		
     constructor() {
+    	this.isStream = false;
     	this.fd = null;								// file descriptor from open()
     	Object.seal(this);
     }
@@ -24,7 +25,10 @@ export default class TextWriter {
     open(filename) {
     	expect(filename, 'String');
     	try {
-    		this.fd = FS.openSync(filename, 'w');
+    		if (filename == 'stdout')
+    			this.isStream = true;
+    		else
+    			this.fd = FS.openSync(filename, 'w');
    			return true;
     	} catch (e) {
     		log.abnormal(e.message);
@@ -33,7 +37,10 @@ export default class TextWriter {
     }
     
     isOpen() {
-    	return (this.fd != null);
+    	if (this.isStream)
+    		return true;
+    	else
+    		return (this.fd != null);
     }
     
     close() {
@@ -41,8 +48,12 @@ export default class TextWriter {
     		return;
     	
     	try {
-    		this.fd = FS.closeSync(this.fd);
-   			this.fd = null;
+    		if (this.isStream)
+    			return;
+    		else {
+    			this.fd = FS.closeSync(this.fd);
+    			this.fd = null;
+    		}
     	} catch (e) {
     		log.abnormal(e.message);
    			this.fd = null;
@@ -56,7 +67,10 @@ export default class TextWriter {
     		return null;
     	
     	try {
-        	FS.writeSync(this.fd, s);
+    		if (this.isStream)
+    			process.stdout.write(s);
+    		else
+    			FS.writeSync(this.fd, s);
     	} catch (e) {
     		log.abnormal(e.message);
     	}

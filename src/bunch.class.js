@@ -147,6 +147,12 @@ export default class Bunch {
     		return [];
     	}
     	
+    	// if the path is a file rather than a directory, inform the user with a log.logic
+    	if (this._path.isFile()) {
+    		log.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`);
+    		return [];
+    	}
+
     	// if the pattern is an empty string, inform the user with a log.invalid
     	if (this._pattern == '') {
     		log.invalid(`The pattern is empty, did you mean "*"?`);

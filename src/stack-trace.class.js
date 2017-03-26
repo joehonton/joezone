@@ -77,8 +77,10 @@ export default class StackTrace {
 		
 		var partsA = classAndMember.split('.');
 		info.classname = partsA[0];
-		if (partsA.length > 1)
+		if (partsA.length > 1) {
 			info.member = partsA[1];
+			info.member = info.member.replace(" (eval at evaluate", '');
+		}
 		
 		// extract the path, filename, line and column from the backtrace (assuming the backtrace pattern adopted by "node")
 		var regexB = /at .*\((.*)\)/g;

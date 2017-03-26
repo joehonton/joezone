@@ -57,7 +57,9 @@ export default class Pfile {
     //^ Concatentate a POSIX path string to the current filename. Call it multiple times to build it up.
     //> path may be an absolute path with leading slash; a relative path, with leading ./ and ../; or a filename
     addPath(path) {
-    	expect(path, 'String');
+    	expect(path, ['String', 'Pfile']);
+    	if (path.constructor.name == 'Pfile')
+    		path = path.name;
     	path = Pfile.posixStyle(path);
     	var len = this._filename.length;
     	if (len > 0 && this._filename.charAt(len-1) != '/')
