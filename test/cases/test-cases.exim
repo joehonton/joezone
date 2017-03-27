@@ -12,6 +12,7 @@
 //=============================================================================
 
 import T from './bunch.test.js';
+import T from './crc32.test.js';
 import T from './expect.test.js';
 import T from './log.test.js';
 import T from './pfile.test.js';
@@ -22,3 +23,4 @@ import T from './text-rw-loopback.test.js';
 import T from './text-writer.test.js';
 import T from './text.test.js';
 import T from './use.test.js';
+import T from './zip.test.js';

@@ -6,9 +6,12 @@
     "build": 		"npm run exim-library",
     "exim-library": "bash ../exim/exim ./src ../es5/joezone/src library.exim",
   	
-    "test": 		"npm run exim-cases && npm run bequiesce",
+    "test-all": 	"npm run exim-cases && npm run bequiesce",
     "exim-cases":  	"bash ../exim/exim ./test/cases ../es5/joezone/test/cases test-cases.exim",
-    "bequiesce":    "bash ../bequiesce/bequiesce ../es5/joezone/test/cases"
+    "bequiesce":    "bash ../bequiesce/bequiesce ../es5/joezone/test/cases",
+    
+    "test-crc32": 	"npm run exim-cases && npm run crc32",
+    "crc32":    	"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/crc32.test.js"
     },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"

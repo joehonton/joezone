@@ -13,6 +13,7 @@
 
 import T from './aver.function.js';
 import T from './bunch.class.js';
+import T from './crc32.class.js';
 import T from './diff.class.js';
 import T from './expect.function.js';
 import T from './log.class.js';
@@ -23,3 +24,4 @@ import T from './text-reader.class.js';
 import T from './text-writer.class.js';
 import T from './text.class.js';
 import T from './use.function.js';
+import T from './zip.class.js';
