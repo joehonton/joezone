@@ -11,7 +11,10 @@
     "bequiesce":    "bash ../bequiesce/bequiesce ../es5/joezone/test/cases",
     
     "test-crc32": 	"npm run exim-cases && npm run crc32",
-    "crc32":    	"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/crc32.test.js"
+    "crc32":    	"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/crc32.test.js",
+
+    "test-zip": 	"npm run exim-cases && npm run zip",
+    "zip":    		"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/zip.test.js"
     },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"

@@ -317,6 +317,25 @@ export default class Pfile {
     	}
     }
     
+    getFileSize() {
+    	try {
+    		var stats = FS.statSync(this._filename);
+    		return stats.size;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+     
+    //< returns a javascript Date object
+    getModificationTime() {
+    	try {
+    		var stats = FS.statSync(this._filename);
+    		return stats.mtime;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+
     isSpecialDirectory() {
     	if ( this._filename == '.' || this._filename == '..')
     		return true;

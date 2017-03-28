@@ -10,54 +10,43 @@
 //=============================================================================
 
 import FS from 'fs';
-import Log from './log.class';
-import expect from './expect.function';
+import Log 				from './log.class';
+import expect 			from './expect.function';
+import BinaryWriter		from './binary-writer.class';
 
-export default class TextWriter {
+export default class TextWriter extends BinaryWriter {
 		
     constructor() {
+    	super();
     	this.isStream = false;
-    	this.fd = null;								// file descriptor from open()
     	Object.seal(this);
     }
     
+    //> filename is a fully qualified filename or the value 'stdout'
     //< returns true or false
     open(filename) {
-    	expect(filename, 'String');
-    	try {
-    		if (filename == 'stdout')
-    			this.isStream = true;
-    		else
-    			this.fd = FS.openSync(filename, 'w');
+    	expect(filename, ['String', 'Pfile']);
+    	
+   		if (filename == 'stdout') {
+   			this.isStream = true;
    			return true;
-    	} catch (e) {
-    		log.abnormal(e.message);
-    		return false;
-    	}
+   		}
+   		else
+   			return super.open(filename);
     }
     
     isOpen() {
     	if (this.isStream)
     		return true;
     	else
-    		return (this.fd != null);
+    		return super.isOpen();
     }
     
     close() {
-    	if (!this.isOpen())
-    		return;
-    	
-    	try {
-    		if (this.isStream)
-    			return;
-    		else {
-    			this.fd = FS.closeSync(this.fd);
-    			this.fd = null;
-    		}
-    	} catch (e) {
-    		log.abnormal(e.message);
-   			this.fd = null;
-    	}
+   		if (this.isStream)
+   			return;
+   		else
+   			return super.close();
     }
 
     //^ Write a sequence of chars
@@ -71,7 +60,8 @@ export default class TextWriter {
     			process.stdout.write(s);
     		else
     			FS.writeSync(this.fd, s);
-    	} catch (e) {
+    	}
+    	catch (e) {
     		log.abnormal(e.message);
     	}
     }

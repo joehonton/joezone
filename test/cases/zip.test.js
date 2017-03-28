@@ -10,27 +10,87 @@
 import Zip 				from '../../src/zip.class';
 import Diff				from '../../src/diff.class';
 import Pfile 			from '../../src/pfile.class';
+import SHA1				from '../../src/sha1.class';
 
-// @using
-var file1 = '/musings/joezone/test/fixtures/zip-tests/abc1.txt';
-var file2 = '/musings/joezone/test/fixtures/zip-tests/abc2.txt';
-var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/xyz.zip');
-var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/trial.zip');
+
+
+// @using create empty
+var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/empty-proof.zip');
+var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/empty-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);
-zip.addFile(file1);
-zip.addFile(file2);
 zip.close();
+var sha1 = new SHA1();
+checksum1 = sha1.checksumBinary(pfProof);
+checksum2 = sha1.checksumBinary(pfTrial);
+if (checksum1 == checksum2)
+	FS.unlinkSync(pfTrial.name);
+	
+//@testing create empty
+var checksum1, checksum2;						;; checksum1 == checksum2
 
-var diff = new Diff('\x1b[41m', '\x1b[0m', '\x1b[42m', '\x1b[0m');  // red/green console
-var textDiff = diff.diffFiles(pfProof, pfTrial);
-if (textDiff != '')
-	console.log(textDiff);
-if (textDiff == '')
+
+// @using abc
+var file1 = '/musings/joezone/test/fixtures/zip-tests/abc1.txt';
+var file2 = '/musings/joezone/test/fixtures/zip-tests/abc2.txt';
+var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/abc-proof.zip');
+var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/abc-trial.zip');
+
+var zip = new Zip();
+zip.create(pfTrial.name);
+zip.addFile(file1, '');
+zip.addFile(file2, '');
+zip.close();
+						
+var sha1 = new SHA1();
+checksum1 = sha1.checksumBinary(pfProof);
+checksum2 = sha1.checksumBinary(pfTrial);
+if (checksum1 == checksum2)
 	FS.unlinkSync(pfTrial.name);
 
-// @testing
-;; textDiff == '';
-							
-							
+//@testing abc
+var checksum1, checksum2;						;; checksum1 == checksum2
+
+
+// @using こんにちは
+var file3 = '/musings/joezone/test/fixtures/zip-tests/こんにちは.txt';
+var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/こんにちは-proof.zip');
+var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/こんにちは-trial.zip');
+
+var zip = new Zip();
+zip.create(pfTrial.name);
+zip.addFile(file3, '');
+zip.close();
+var sha1 = new SHA1();
+checksum1 = sha1.checksumBinary(pfProof);
+checksum2 = sha1.checksumBinary(pfTrial);
+if (checksum1 == checksum2)
+	FS.unlinkSync(pfTrial.name);
+	
+//@testing こんにちは
+var checksum1, checksum2;						;; checksum1 == checksum2
+
+
+// @using path/to/file
+var file1 = '/musings/joezone/test/fixtures/zip-tests/abc1.txt';
+var file2 = '/musings/joezone/test/fixtures/zip-tests/abc2.txt';
+var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/path-proof.zip');
+var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/path-trial.zip');
+
+var zip = new Zip();
+zip.create(pfTrial.name);
+zip.addFile(file1, 'path/to/one');
+zip.addFile(file2, 'path/to/two');
+zip.close();
+						
+var sha1 = new SHA1();
+checksum1 = sha1.checksumBinary(pfProof);
+checksum2 = sha1.checksumBinary(pfTrial);
+if (checksum1 == checksum2)
+	FS.unlinkSync(pfTrial.name);
+
+//@testing path/to/file
+var checksum1, checksum2;						;; checksum1 == checksum2
+
+

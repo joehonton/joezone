@@ -112,46 +112,6 @@ class CRC32 {
 	getResult() {
 		// Finalize the CRC
 		var result = this.crc ^ 0xffffffff;
-		return CRC32.format8hex(result);
-	}
-	
-	getPkzipResult() {
-		// Finalize the CRC
-		var result = this.crc ^ 0xffffffff;
-		return CRC32.formatPkzip(result);
-	}
-
-	// format the number in little endian hexadecimal compatible with PZKIP
-	static formatPkzip(number) {
-		expect(number, 'Number');
-		aver(number <= 4294967296);
-		aver(number >= -4294967296);
-		
-		var chars = CRC32.format8hex(number);
-		return chars.substr(6,2) + chars.substr(4,2) + chars.substr(2,2) + chars.substr(0,2);
-	}
-	
-	// format the given number as a string of 32 zeros and ones
-	static format32bits(number) {
-		expect(number, 'Number');
-		aver(number <= 4294967296);
-		aver(number >= -4294967296);
-
-		var result = (number < 0 ? (0xFFFFFFFF + number + 1) : number).toString(2);
-		while (result.length < 32)
-			result = "0" + result;
-		return result;
-	}
- 
-	// format the given number as a string of 8 hexadecimal numbers
-	static format8hex(number) {
-		expect(number, 'Number');
-		aver(number <= 4294967296);
-		aver(number >= -4294967296);
-
-		var result = (number < 0 ? (0xFFFFFFFF + number + 1) : number).toString(16);
-		while (result.length < 8)
-			result = "0" + result;
 		return result;
 	}
 }

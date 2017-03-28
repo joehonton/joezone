@@ -9,7 +9,8 @@
 //
 //=============================================================================
 
-import expect from './expect.function';
+import expect 	from './expect.function';
+import aver		from './aver.function';
 
 export default class Text {
 		
@@ -75,4 +76,76 @@ export default class Text {
     	
     	return (s.length > width) ? s : " ".repeat(width - s.length) + s;
     }
+	
+	// format the given number as a string of 32 zeros and ones
+	static format32bits(number) {
+		expect(number, 'Number');
+		aver(number < 4294967296);
+		aver(number >= -2147483648);
+
+		var result = (number < 0 ? (0xFFFFFFFF + number + 1) : number).toString(2);
+		while (result.length < 32)
+			result = "0" + result;
+		return result;
+	}
+ 
+	// format the given number as a string of 16 zeros and ones
+	static format16bits(number) {
+		expect(number, 'Number');
+		aver(number < 65536);
+		aver(number >= -32768);
+
+		var result = (number < 0 ? (0xFFFF + number + 1) : number).toString(2);
+		while (result.length < 16)
+			result = "0" + result;
+		return result;
+	}
+ 
+	// format the given number as a string of 8 zeros and ones
+	static format8bits(number) {
+		expect(number, 'Number');
+		aver(number < 256);
+		aver(number >= -128);
+
+		var result = (number < 0 ? (0xFF + number + 1) : number).toString(2);
+		while (result.length < 8)
+			result = "0" + result;
+		return result;
+	}
+ 
+	// format the given 32-bit number (4 bytes) as a string of 8 hexadecimal numbers
+	static format32hex(number) {
+		expect(number, 'Number');
+		aver(number < 4294967296);
+		aver(number >= -2147483648);
+
+		var result = (number < 0 ? (0xFFFFFFFF + number + 1) : number).toString(16);
+		while (result.length < 8)
+			result = "0" + result;
+		return result;
+	}
+	
+	// format the given 16-bit number (2 bytes) as a string of 4 hexadecimal numbers
+	static format16hex(number) {
+		expect(number, 'Number');
+		aver(number < 65536);
+		aver(number >= -32768);
+
+		var result = (number < 0 ? (0xFFFF + number + 1) : number).toString(16);
+		while (result.length < 4)
+			result = "0" + result;
+		return result;
+	}
+	
+	// format the given 8-bit number (1 byte) as a string of 2 hexadecimal numbers
+	static format8hex(number) {
+		expect(number, 'Number');
+		aver(number < 256);
+		aver(number >= -128);
+
+		var result = (number < 0 ? (0xFF + number + 1) : number).toString(16);
+		while (result.length < 2)
+			result = "0" + result;
+		return result;
+	}
 } 
