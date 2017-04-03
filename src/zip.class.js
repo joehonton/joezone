@@ -208,9 +208,13 @@ export default class Zip {
 	//> path is a directory path to prepend to the bare filename obtained from the first argument,
 	//   so the name written to the local file header will be path + filename.getFilename()
     addFile(filename, path) {
-    	expect(filename, 'String');
+    	expect(filename, ['String', 'Pfile']);
+    	expect(path, ['String', 'Pfile']);
+    	
     	if (filename.constructor.name == 'String')
 			filename = new Pfile(filename);
+    	if (path.constructor.name == 'String')
+			path = new Pfile(path);
     	
     	if (!filename.exists() || !filename.isFile()) {
     		log.abnormal(`File does not exist "${filename.name}", skipping`);

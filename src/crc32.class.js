@@ -15,7 +15,7 @@ import aver 		from './aver.function';
 import TextReader	from './text-reader.class';
 import Pfile		from './pfile.class';
 
-class CRC32 {
+export default class CRC32 {
 
     constructor() {
     	this.table = new Int32Array(256);
