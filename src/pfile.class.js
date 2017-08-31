@@ -343,12 +343,20 @@ export default class Pfile {
     		return false;
     }
     
-    // Convert all Windows separators to Posix-style forward solidus
+    // Convert all Windows-style reverse-solidus to Posix-style forward solidus separators
     //> a string that may contain one or more '\'
     //< a string with all '\' replaced with '/'
     static posixStyle(path) {
     	expect(path, 'String');
     	return path.replace(/\\/g, '/');
+    }
+
+    // Convert all Posix-style forward solidus to Windows-style reverse-solidus separators 
+    //> a string that may contain one or more '/'
+    //< a string with all '/' replaced with '\'
+    static windowsStyle(path) {
+    	expect(path, 'String');
+    	return path.replace(/\//g, '\\');
     }
 }
 
