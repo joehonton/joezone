@@ -22,5 +22,4 @@ import T from './text-reader.test.js';
 import T from './text-rw-loopback.test.js';
 import T from './text-writer.test.js';
 import T from './text.test.js';
-import T from './use.test.js';
 import T from './zip.test.js';
