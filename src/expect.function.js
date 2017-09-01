@@ -10,7 +10,6 @@
 //=============================================================================
 
 import StackTrace from './stack-trace.class';
-import use from './use.function';
 
 //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
 //> obj is the object to check
@@ -19,10 +18,18 @@ import use from './use.function';
 //< true if the expectation was met, false if not
 //
 export default function expect(obj, expectedType, message) {
-	message = use(message, '');
+	message = message || '';
 
 	var validTypes;
-	if (expectedType.constructor.name == 'String') {
+	if (expectedType === undefined) {
+		logicMessage(`'type' should be a String or an Array of Strings, but is undefined`);
+		return false;
+	}
+	else if (expectedType === null) {
+		logicMessage(`'type' should be a String or an Array of Strings, but is null`);
+		return false;
+	}
+	else if (expectedType.constructor.name == 'String') {
 		if (expectOne(obj, expectedType) == true)
 			return true;
 	}
@@ -33,22 +40,22 @@ export default function expect(obj, expectedType, message) {
 		}
 	}
 	else {
-		process.stderr.write(`[*EXPECT*] Logic: 'type' should be a String or an Array of Strings`);
+		logicMessage(`'type' should be a String or an Array of Strings`);
 		return false;
 	}
 
 	var s = '';
 	if (expectedType.constructor.name == 'String')
-		s = 'Expected type ' + expectedType;
+		s = `Expected type '${expectedType}'`;
 	else //if (expectedType.constructor.name == 'Array')
 		s = "Expected one of these types '" + expectedType.join('|') + "'";
 		
 	if (obj === undefined)
-		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got 'undefined' ${message}\n`);
+		expectMessage(`${s}, but got 'undefined' ${message}`);
 	else if (obj === null)
-		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got 'null' ${message}\n`);
+		expectMessage(`${s}, but got 'null' ${message}`);
 	else
-		process.stderr.write(`[*EXPECT*]${StackTrace.getFunctionName(3)} ${s}, but got '${obj.constructor.name}' ${message}\n`);
+		expectMessage(`${s}, but got '${obj.constructor.name}' ${message}`);
 	return false;
 }
 
@@ -64,3 +71,24 @@ function expectOne(obj, type) {
 	else
 		return true;
 }
+
+function logicMessage(message) {
+	message = message || '';
+	writeToConsoleOrStderr(`[*EXPECT*] Logic: ${message}\n`);
+}
+
+function expectMessage(message) {
+	message = message || '';
+	writeToConsoleOrStderr(`[*EXPECT*]${StackTrace.getFunctionName(4)} ${message}\n`);
+}
+
+//^ Send message to browser console or CLI stderr
+function writeToConsoleOrStderr(message) {
+	if (typeof console == 'object' && typeof console.warn == 'function')
+		console.warn(message);
+	else if (typeof process == 'object' && typeof process.stderr == 'object' && typeof process.stderr.write == 'function')
+		process.stderr.write(message);
+	else
+		throw new Error(message);
+}
+

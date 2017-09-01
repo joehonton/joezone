@@ -11,12 +11,19 @@
 
 import StackTrace from './stack-trace.class';
 import Text from './text.class';
-import use from './use.function';
 import expect from './expect.function';
 
 export default class Log {
 	
-    constructor() {    	
+	// processName is an optional parameter; use it when the appplication has multiple threads or processes
+    constructor(processName) {
+    	expect(processName, ['String', 'undefined']);
+    	
+    	if (processName === undefined)
+    		this.processName = '';
+    	else
+    		this.processName = `[${processName}]`;
+    	
     	this.tag = {
 			todo:      "    [TODO]",
 			trace:     "   [TRACE]",
@@ -28,6 +35,7 @@ export default class Log {
 			hopeless:  "[HOPELESS]",
 			exit:      "[    EXIT]"
     	};
+    	
     	Object.seal(this);
     }
     
@@ -98,7 +106,7 @@ export default class Log {
     
     //^ Exit the process with the given return code
     exit(rc, message) {
-    	message = use(message, '');
+    	message = message || '';
     	expect(rc, 'Number');
     	expect(message, 'String');
     	this.stderr(this.tag.exit, rc, ` ${message}\n`);
@@ -107,16 +115,29 @@ export default class Log {
     
     //^ Send message to stderr
     stderr(tag, message, args) {
-    	message = use(message, '');
-    	args = use(args, '');
-    	process.stderr.write(`${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
+    	message = message || '';
+    	args = args || '';
+    	expect(message, 'String');
+    	expect(args, 'String');
+//?    	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
+    	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}`);
     }
     
     stackTrace() {
 		var stack = (new Error).stack.split("\n");
 		for (let s of stack)
-			log.trace(s);
+			this.trace(s);
     }
+    
+	//^ Send message to browser console or CLI stderr
+	writeToConsoleOrStderr(message) {
+		if (typeof console == 'object' && typeof console.warn == 'function')
+			console.warn(message);
+		else if (typeof process == 'object' && typeof process.stderr == 'object' && typeof process.stderr.write == 'function')
+			process.stderr.write(message);
+		else
+			throw new Error(message);
+	}
 }
 
 
