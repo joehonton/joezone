@@ -222,6 +222,14 @@ export default class Pfile {
     	}
     }
     
+    // delete a file
+    unlinkFile() {
+		if (this.exists() && this.isFile())
+			FS.unlinkSync(this._filename);
+    }
+    
+    // TODO unlinkDir()
+    
     //^ make the directory structure
     //< true on success, false on failure
     mkDir() {

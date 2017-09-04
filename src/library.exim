@@ -23,5 +23,4 @@ import T from './stack-trace.class.js';
 import T from './text-reader.class.js';
 import T from './text-writer.class.js';
 import T from './text.class.js';
-import T from './use.function.js';
 import T from './zip.class.js';
