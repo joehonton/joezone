@@ -15,6 +15,5 @@
   },
   "main": "dbg/joezone.lib.js",
   "author": "Joe Honton",
-  "license": "CC-BY-NC-ND-4.0",
-  "postversion": "git push --tags"
+  "license": "CC-BY-NC-ND-4.0"
 }
