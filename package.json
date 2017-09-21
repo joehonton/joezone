@@ -13,6 +13,8 @@
     "test-zip": "npm run exim-cases && npm run zip",
     "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js"
   },
+  "main": "dbg/joezone.lib.js",
   "author": "Joe Honton",
-  "license": "CC-BY-NC-ND-4.0"
+  "license": "CC-BY-NC-ND-4.0",
+  "postversion": "git push --tags"
 }
