@@ -1,21 +1,18 @@
 {
   "name": "joezone",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Joe's JavaScript Library",
   "scripts": {
-    "build": 		"npm run exim-library",
+    "build": "npm run exim-library",
     "exim-library": "bash /musings/exim/exim ./src ./dbg joezone.lib.js",
-  	
-    "test-all": 	"npm run exim-cases && npm run bequiesce",
-    "exim-cases":  	"bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
-    "bequiesce":    "bash /musings/bequiesce/bequiesce ./test/cases/dbg",
-    
-    "test-crc32": 	"npm run exim-cases && npm run crc32",
-    "crc32":    	"bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
-
-    "test-zip": 	"npm run exim-cases && npm run zip",
-    "zip":    		"bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js"
-    },
+    "test-all": "npm run exim-cases && npm run bequiesce",
+    "exim-cases": "bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
+    "bequiesce": "bash /musings/bequiesce/bequiesce ./test/cases/dbg",
+    "test-crc32": "npm run exim-cases && npm run crc32",
+    "crc32": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
+    "test-zip": "npm run exim-cases && npm run zip",
+    "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js"
+  },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"
 }
