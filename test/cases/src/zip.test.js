@@ -7,12 +7,10 @@
 //=============================================================================
 
 // @common
-import Zip 				from '../../src/zip.class';
-import Diff				from '../../src/diff.class';
-import Pfile 			from '../../src/pfile.class';
-import SHA1				from '../../src/sha1.class';
-
-
+import Zip 				from '../../../dbg/zip.class';
+import Diff				from '../../../dbg/diff.class';
+import Pfile 			from '../../../dbg/pfile.class';
+import SHA1				from '../../../dbg/sha1.class';
 
 // @using create empty
 var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/empty-proof.zip');

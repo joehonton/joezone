@@ -7,8 +7,8 @@
 //=============================================================================
 
 //@using SHA1 checksum
-import SHA1 from '../../src/sha1.class';
-import Pfile from '../../src/pfile.class';
+var SHA1 = require('../../../dbg/sha1.class.js');
+var Pfile = require('../../../dbg/pfile.class.js');
 
 var sha1 = new SHA1();
 checksum1 = sha1.checksum(new Pfile("test/input/utf8-codepoints"));

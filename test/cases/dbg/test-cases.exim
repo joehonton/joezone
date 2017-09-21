@@ -1,0 +1,25 @@
+//=============================================================================
+//
+// File:         joezone/test/cases/test-cases.exim
+// Language:     ECMAScript 2015
+// Copyright:    Joe Honton © 2015
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Sep 27, 2015
+// Contents:     Use this to compile all test cases
+//
+// Example:      bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim
+//
+//=============================================================================
+
+var T = require('./bunch.test.js');
+var T = require('./crc32.test.js');
+var T = require('./expect.test.js');
+var T = require('./log.test.js');
+var T = require('./pfile.test.js');
+var T = require('./sha1.test.js');
+var T = require('./stack-trace.test.js');
+var T = require('./text-reader.test.js');
+var T = require('./text-rw-loopback.test.js');
+var T = require('./text-writer.test.js');
+var T = require('./text.test.js');
+var T = require('./zip.test.js');

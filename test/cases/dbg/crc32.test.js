@@ -7,10 +7,10 @@
 //=============================================================================
 
 // @common
-import CRC32 			from '../../src/crc32.class';
-import Log				from '../../src/log.class';
-import Text				from '../../src/text.class';
-import aver				from '../../src/aver.function';
+var CRC32 = require('../../../dbg/crc32.class.js');
+var Log = require('../../../dbg/log.class.js');
+var Text = require('../../../dbg/text.class.js');
+var aver = require('../../../dbg/aver.function.js');
 var log = new Log();
 
 // @using initialize

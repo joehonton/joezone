@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import TextReader from '../../src/text-reader.class';
+var TextReader = require('../../../dbg/text-reader.class.js');
 
 //@using open, getline, close
 var tr = new TextReader();

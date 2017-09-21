@@ -7,8 +7,8 @@
 //=============================================================================
 
 // @common
-import TextReader from '../../src/text-reader.class';
-import TextWriter from '../../src/text-writer.class';
+var TextReader = require('../../../dbg/text-reader.class.js');
+var TextWriter = require('../../../dbg/text-writer.class.js');
 
 //@using TextReader and TextWriter
 var tr = new TextReader();
@@ -33,8 +33,8 @@ var linecount = 0;								;; linecount == 4217
 
 
 //@using SHA1 checksum
-import SHA1 from '../../src/sha1.class';
-import Pfile from '../../src/pfile.class';
+var SHA1 = require('../../../dbg/sha1.class.js');
+var Pfile = require('../../../dbg/pfile.class.js');
 var sha1 = new SHA1();
 checksum1 = sha1.checksum(new Pfile("test/input/utf8-codepoints"));
 checksum2 = sha1.checksum(new Pfile("test/output/utf8-codepoints"));

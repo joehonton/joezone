@@ -7,7 +7,7 @@
 // Initial date: Sep 27, 2015
 // Contents:     Use this to compile all test cases
 //
-// Example:      bash ../exim/exim ./test/cases ../es5/joezone/test/cases test-cases.exim
+// Example:      bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim
 //
 //=============================================================================
 

@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import Log from '../../src/log.class';
+var Log = require('../../../dbg/log.class.js');
 var log = new Log();
 
 //@using todo

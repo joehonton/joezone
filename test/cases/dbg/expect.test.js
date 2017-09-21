@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import expect from '../../src/expect.function';
+var expect = require('../../../dbg/expect.function.js');
 class Simple {};
 class SubClass extends Simple {}; 
 

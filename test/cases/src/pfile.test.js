@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import Pfile from '../../src/pfile.class';
+import Pfile from '../../../dbg/pfile.class';
 var pathToFixtures = 'test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------

@@ -4,17 +4,17 @@
   "description": "Joe's JavaScript Library",
   "scripts": {
     "build": 		"npm run exim-library",
-    "exim-library": "bash ../exim/exim ./src ../es5/joezone/src library.exim",
+    "exim-library": "bash /musings/exim/exim ./src ./dbg joezone.lib.js",
   	
     "test-all": 	"npm run exim-cases && npm run bequiesce",
-    "exim-cases":  	"bash ../exim/exim ./test/cases ../es5/joezone/test/cases test-cases.exim",
-    "bequiesce":    "bash ../bequiesce/bequiesce ../es5/joezone/test/cases",
+    "exim-cases":  	"bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
+    "bequiesce":    "bash /musings/bequiesce/bequiesce ./test/cases/dbg",
     
     "test-crc32": 	"npm run exim-cases && npm run crc32",
-    "crc32":    	"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/crc32.test.js",
+    "crc32":    	"bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
 
     "test-zip": 	"npm run exim-cases && npm run zip",
-    "zip":    		"bash ../bequiesce/bequiesce ../es5/joezone/test/cases/zip.test.js"
+    "zip":    		"bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js"
     },
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0"

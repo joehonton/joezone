@@ -1,23 +1,28 @@
 //=============================================================================
 //
-// File:         joezone/src/expect.function.js
+// File:         /joezone/proxy-expect.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2015
-// License:      CC-BY-NC-ND 4.0
+// License:      CC-BY-SA 4.0
 // Initial date: Sep 13, 2015
-// Contents:     Explicit type checking 
+// Contents:     This is a surrogate for the real 'expect' function for cases
+//               where a class object is serialized for use over a socket and
+//               the defined type is turned into an anonymous object.
+//               In order to use this surrogate fuction, define a class property
+//               called 'jsClassName' whose value is set in the constructor
+//               to be equal to the real class name.
 //
 //=============================================================================
 
 var StackTrace = require('./stack-trace.class.js');
 
 //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
-//> obj is the object to check
-//> expectedType is a string (or an array of strings) containing a prototype.name to validate against
+//> obj is an anonymous Object to check, with a 'jsClassName' property
+//> expectedType is a string containing the expected class name
 //> message to display if expectation not met
 //< true if the expectation was met, false if not
 //
-module.exports = function expect(obj, expectedType, message) {
+module.exports = function proxyExpect(obj, expectedType, message) {
 	message = message || '';
 
 	var validTypes;
@@ -58,16 +63,26 @@ module.exports = function expect(obj, expectedType, message) {
 		expectMessage(`${s}, but got '${obj.constructor.name}' ${message}`);
 	return false;
 }
-
+	
 //^ A private helper to perform one object/type evaluation
 //< true if obj is type; false if not
-function expectOne(obj, type) {
+function expectOne(obj, expectedType) {
 	if (obj === undefined)
-		return (type == 'undefined');
+		expectMessage(`Expected 'Object', but got 'undefined' ${message}`);
 	else if (obj === null)
-		return (type == 'null');
-	else if (obj.constructor.name != type)
-		return false;
+		expectMessage(`Expected 'Object', but got 'null' ${message}`);
+	else if (obj.constructor.name != 'Object')
+		expectMessage(`Expected 'Object', but got '${obj.constructor.name}' ${message}`);
+	else if (obj.jsClassName === undefined)
+		expectMessage(`Expected 'jsClassName' to be a String, but got 'undefined' ${message}`);
+	else if (obj.jsClassName === null)
+		expectMessage(`Expected 'jsClassName' to be a String, but got 'null' ${message}`);
+	else if (obj.jsClassName.constructor.name != 'String')
+		expectMessage(`Expected 'jsClassName' to be a String, but got '${obj.jsClassname.constructor.name}' ${message}`);
+	else if (expectedType.constructor.name != 'String')
+		expectMessage(`Expected 'expectedType' to be a String, but got '${expectedType.constructor.name}' ${message}`);
+	else if (obj.jsClassName != expectedType)
+		expectMessage(`Expected '${expectedType}', but got '${obj.jsClassName}' ${message}`);
 	else
 		return true;
 }
@@ -91,4 +106,3 @@ function writeToConsoleOrStderr(message) {
 	else
 		throw new Error(message);
 }
-

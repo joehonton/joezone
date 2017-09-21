@@ -7,8 +7,8 @@
 //=============================================================================
 
 //@common
-import Pfile from '../../src/pfile.class';
-import Bunch from '../../src/bunch.class';
+import Pfile from '../../../dbg/pfile.class';
+import Bunch from '../../../dbg/bunch.class';
 var fixturesPath = 'test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------

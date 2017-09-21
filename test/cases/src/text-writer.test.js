@@ -7,7 +7,7 @@
 //=============================================================================
 
 // @common
-import TextWriter from '../../src/text-writer.class';
+import TextWriter from '../../../dbg/text-writer.class';
 
 //@using open, putline, puts, close
 var tw = new TextWriter();
