@@ -20,7 +20,7 @@ import Diff 		from './diff.class.js';
 import expect 		from './expect.function.js';
 import Log 			from './log.class.js';
 import Pfile 		from './pfile.class.js';
-import ProxyExpect 	from './proxy-expect.function.js';
+import proxyExpect 	from './proxy-expect.function.js';
 import SHA1 		from './sha1.class.js';
 import StackTrace 	from './stack-trace.class.js';
 import TextReader 	from './text-reader.class.js';
