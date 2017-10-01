@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-var StackTrace = require('./stack-trace.class.js');
+import StackTrace			from './stack-trace.class';
 
 //^ Check to make sure the given argument is of the expected type, and write an entry when it's not
 //> obj is the object to check
@@ -17,7 +17,7 @@ var StackTrace = require('./stack-trace.class.js');
 //> message to display if expectation not met
 //< true if the expectation was met, false if not
 //
-module.exports = function expect(obj, expectedType, message) {
+export default function expect(obj, expectedType, message) {
 	message = message || '';
 
 	var validTypes;

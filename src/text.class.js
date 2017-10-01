@@ -9,10 +9,10 @@
 //
 //=============================================================================
 
-var expect = require('./expect.function.js');
-var aver = require('./aver.function.js');
+import expect			from './expect.function';
+import aver				from './aver.function';
 
-module.exports = class Text {
+export default class Text {
 		
     constructor() {
     	Object.seal(this);

@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-module.exports = class StackTrace {
+export default class StackTrace {
 		
     constructor() {
     	Object.seal(this);

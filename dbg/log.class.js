@@ -119,7 +119,6 @@ module.exports = class Log {
     	args = args || '';
     	expect(message, 'String');
     	expect(args, 'String');
-//?    	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
     	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}`);
     }
     

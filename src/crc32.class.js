@@ -10,12 +10,12 @@
 //               For online testing see http://www.md5calc.com/ and choose "CRC32B"
 //=============================================================================
 
-var expect = require('./expect.function.js');
-var aver = require('./aver.function.js');
-var TextReader = require('./text-reader.class.js');
-var Pfile = require('./pfile.class.js');
+import expect			from './expect.function';
+import aver				from './aver.function';
+import TextReader		from './text-reader.class';
+import Pfile			from './pfile.class';
 
-module.exports = class CRC32 {
+export default class CRC32 {
 
     constructor() {
     	this.table = new Int32Array(256);

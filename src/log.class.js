@@ -9,11 +9,11 @@
 //
 //=============================================================================
 
-var StackTrace = require('./stack-trace.class.js');
-var Text = require('./text.class.js');
-var expect = require('./expect.function.js');
+import StackTrace		from './stack-trace.class';
+import Text				from './text.class';
+import expect			from './expect.function';
 
-module.exports = class Log {
+export default class Log {
 	
 	// processName is an optional parameter; use it when the appplication has multiple threads or processes
     constructor(processName) {
@@ -119,7 +119,6 @@ module.exports = class Log {
     	args = args || '';
     	expect(message, 'String');
     	expect(args, 'String');
-//?    	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}\n`);
     	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}`);
     }
     

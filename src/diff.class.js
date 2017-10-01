@@ -9,11 +9,12 @@
 //
 //=============================================================================
 
-var expect = require('./expect.function.js');
-var SHA1 = require('./sha1.class.js');
-var Pfile = require('./pfile.class.js');
+import FS				from 'fs';
+import expect			from './expect.function';
+import SHA1				from './sha1.class';
+import Pfile			from './pfile.class';
 
-module.exports = class Diff {
+export default class Diff {
 	
 	//^ Common ways to call this constructor.
 	// red/green console:  Diff('\x1b[31m', '\x1b[30m', '\x1b[32m', '\x1b[30m');

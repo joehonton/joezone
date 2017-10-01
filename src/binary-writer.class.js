@@ -9,12 +9,12 @@
 //
 //=============================================================================
 
-var FS = require('fs');
-var Log = require('./log.class.js');
-var expect = require('./expect.function.js');
-var aver = require('./aver.function.js');
+import FS				from 'fs';
+import Log				from './log.class';
+import expect			from './expect.function';
+import aver				from './aver.function';
 
-module.exports = class BinaryWriter {
+export default class BinaryWriter {
 		
     constructor() {
     	this.fd = null;								// file descriptor from open()
