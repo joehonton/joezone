@@ -9,13 +9,13 @@
 //               Caution: local file headers are in Little Endian format
 //=============================================================================
 
-var FS = require('fs');
-var expect = require('./expect.function.js');
-var Pfile = require('./pfile.class.js');
-var CRC32 = require('./crc32.class.js');
-var BinaryReader = require('./binary-reader.class.js');
-var BinaryWriter = require('./binary-writer.class.js');
-var Log = require('./log.class.js');
+import FS				from  'fs';
+import expect			from './expect.function';
+import Pfile			from './pfile.class';
+import CRC32			from './crc32.class';
+import BinaryReader		from './binary-reader.class';
+import BinaryWriter		from './binary-writer.class';
+import Log				from './log.class';
 
 class CentralDirectoryRecord {
 	
@@ -181,7 +181,7 @@ class LocalFileHeader {
 	}
 }
 
-module.exports = class Zip {
+export default class Zip {
 		
     constructor() {
     	this.bw = new BinaryWriter();

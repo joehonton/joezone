@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-import FS from 'fs';
+import FS				from  'fs';
 import Log 				from './log.class';
 import expect 			from './expect.function';
 import BinaryWriter		from './binary-writer.class';

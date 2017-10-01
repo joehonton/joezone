@@ -9,13 +9,13 @@
 //
 //=============================================================================
 
-var expect = require('./expect.function.js');
-var Crypto = require('crypto');
-var Pfile = require('./pfile.class.js');
-var BinaryReader = require('./binary-reader.class.js');
-var TextReader = require('./text-reader.class.js');
+import Crypto			from  'crypto';
+import expect			from './expect.function';
+import Pfile			from './pfile.class';
+import BinaryReader		from './binary-reader.class';
+import TextReader		from './text-reader.class';
 
-module.exports = class SHA1 {
+export default class SHA1 {
 		
     constructor() {
     	Object.seal(this);

@@ -9,11 +9,11 @@
 //
 //=============================================================================
 
-var FS = require('fs');
-var Log = require('./log.class.js');
-var expect = require('./expect.function.js');
+import FS				from 'fs';
+import Log				from './log.class';
+import expect			from './expect.function';
 
-module.exports = class BinaryReader {
+export default class BinaryReader {
 		
     constructor() {
     	this.fd = null;								// file descriptor from open()

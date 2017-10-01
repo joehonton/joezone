@@ -9,12 +9,12 @@
 //
 //=============================================================================
 
-var FS = require('fs');
-var Log = require('./log.class.js');
-var expect = require('./expect.function.js');
-var BinaryReader = require('./binary-reader.class.js');
+import FS				from  'fs';
+import Log				from './log.class';
+import expect			from './expect.function';
+import BinaryReader		from './binary-reader.class';
 
-module.exports = class TextReader extends BinaryReader {
+export default class TextReader extends BinaryReader {
 		
     constructor() {
     	super();
