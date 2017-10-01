@@ -9,6 +9,7 @@
 //
 //=============================================================================
 
+var FS = require('fs');
 var expect = require('./expect.function.js');
 var SHA1 = require('./sha1.class.js');
 var Pfile = require('./pfile.class.js');

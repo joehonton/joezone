@@ -9,8 +9,8 @@
 //
 //=============================================================================
 
-var expect = require('./expect.function.js');
 var Crypto = require('crypto');
+var expect = require('./expect.function.js');
 var Pfile = require('./pfile.class.js');
 var BinaryReader = require('./binary-reader.class.js');
 var TextReader = require('./text-reader.class.js');

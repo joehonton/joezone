@@ -20,14 +20,13 @@ var Diff = require('./diff.class.js');
 var expect = require('./expect.function.js');
 var Log = require('./log.class.js');
 var Pfile = require('./pfile.class.js');
-var ProxyExpect = require('./proxy-expect.function.js');
+var proxyExpect = require('./proxy-expect.function.js');
 var SHA1 = require('./sha1.class.js');
 var StackTrace = require('./stack-trace.class.js');
 var TextReader = require('./text-reader.class.js');
 var TextWriter = require('./text-writer.class.js');
 var Text = require('./text.class.js');
 var Zip = require('./zip.class.js');
-
 
 module.exports = {
 	aver,
