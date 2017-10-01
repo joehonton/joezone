@@ -38,7 +38,7 @@ module.exports = {
 	expect,
 	Log,
 	Pfile,
-	ProxyExpect,
+	proxyExpect,
 	SHA1,
 	StackTrace,
 	TextReader,

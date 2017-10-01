@@ -38,7 +38,7 @@ export default {
 	expect,
 	Log,
 	Pfile,
-	ProxyExpect,
+	proxyExpect,
 	SHA1,
 	StackTrace,
 	TextReader,
