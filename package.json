@@ -1,6 +1,6 @@
 {
   "name": "joezone",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Joe's JavaScript Library",
   "scripts": {
     "build": "npm run exim-library",
@@ -12,7 +12,7 @@
     "crc32": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
     "test-zip": "npm run exim-cases && npm run zip",
     "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js",
-      "bump-version": "npm version patch && git push && git push --tags"
+    "bump-version": "npm version patch && git push && git push --tags"
   },
   "main": "dbg/joezone.lib.js",
   "author": "Joe Honton",
