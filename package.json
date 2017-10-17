@@ -11,7 +11,8 @@
     "test-crc32": "npm run exim-cases && npm run crc32",
     "crc32": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
     "test-zip": "npm run exim-cases && npm run zip",
-    "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js"
+    "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js",
+      "bump-version": "npm version patch && git push && git push --tags"
   },
   "main": "dbg/joezone.lib.js",
   "author": "Joe Honton",
