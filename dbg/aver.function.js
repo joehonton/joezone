@@ -14,7 +14,7 @@ var expect = require('./expect.function.js');
 var StackTrace = require('./stack-trace.class.js');
 
 //^ Log a message when a statement does not evaluate to true
-//> statement is a boolean when it reaches this function.  It is an expression when written byt the caller.
+//> statement is a boolean when it reaches this function.  It is an expression when written by the caller.
 //> message to display if the statement is not true
 //< true if the statement is true, false if the statement is false
 //

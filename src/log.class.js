@@ -116,9 +116,13 @@ export default class Log {
     //^ Send message to stderr
     stderr(tag, message, args) {
     	message = message || '';
-    	args = args || '';
+    	if (message instanceof Error)
+    		message = message.message;
     	expect(message, 'String');
+
+    	args = args || '';
     	expect(args, 'String');
+    	
     	this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}`);
     }
     
