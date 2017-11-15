@@ -35,12 +35,12 @@ module.exports = function proxyExpect(obj, expectedType, message) {
 		return false;
 	}
 	else if (expectedType.constructor.name == 'String') {
-		if (expectOne(obj, expectedType) == true)
+		if (expectOne(obj, expectedType, message) == true)
 			return true;
 	}
 	else if (expectedType.constructor.name == 'Array') {
 		for (let type of expectedType) {
-			if (expectOne(obj, type) == true)
+			if (expectOne(obj, type, message) == true)
 				return true;
 		}
 	}
@@ -66,7 +66,7 @@ module.exports = function proxyExpect(obj, expectedType, message) {
 	
 //^ A private helper to perform one object/type evaluation
 //< true if obj is type; false if not
-function expectOne(obj, expectedType) {
+function expectOne(obj, expectedType, message) {
 	if (obj === undefined)
 		expectMessage(`Expected 'Object', but got 'undefined' ${message}`);
 	else if (obj === null)
