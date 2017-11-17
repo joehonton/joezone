@@ -25,6 +25,8 @@ export default class StackTrace {
 		var regex1 = /at (.*) ?\(/g;
 		var matches = regex1.exec(stackTraceLine);
 		var desiredOutput = '';
+		if (matches == null)
+			return stackTraceLine;
 		if (matches.length > 1)
 			desiredOutput += matches[1].trim();
 		desiredOutput = StackTrace.rightAlign(desiredOutput, 30);
