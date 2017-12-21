@@ -224,11 +224,31 @@ export default class Pfile {
     
     // delete a file
     unlinkFile() {
-		if (this.exists() && this.isFile())
-			FS.unlinkSync(this._filename);
+    	try {
+    		if (this.exists() && this.isFile()) {
+    			FS.unlinkSync(this._filename);
+    			return true;
+    		}
+    		else
+    			return false;
+    	} catch(e) {
+    		return false;
+    	}
     }
     
-    // TODO unlinkDir()
+    // delete a directory, if it is empty, fails if it contains files
+    rmDir() {
+    	try {
+    		if (this.exists() && this.isDirectory()) {
+    			FS.rmdirSync(this._filename);
+    			return true;
+    		}
+    		else
+    			return false;
+    	} catch(e) {
+    		return false;
+    	}
+    }
     
     //^ make the directory structure
     //< true on success, false on failure
