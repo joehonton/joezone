@@ -21,6 +21,29 @@ module.exports = class TextReader extends BinaryReader {
     	Object.seal(this);
     }
     
+    //^ Use this to determine if it's safe to read this file as text
+    //  Resets the pointer to the beginning of file afterwards so it's meaningful to use getline()
+    //< returns true if this appears to be a binary file, false if it appears to be text, null if not open or an empty file
+    isBinary() {
+    	if (!this.isOpen())
+    		return null;
+    	
+    	var a = this.readOctet();
+    	if (a == -1)
+    		return null;
+    	
+    	var hasZero = false;
+    	var limit = 80 * 20;	// just scan the first 20 or so lines
+    	while (a != -1 && limit > 0 && hasZero == false) {
+        	a = this.readOctet();
+    		if (a == 0x00)
+        		hasZero = true;
+    		limit--;
+    	}
+    	this.initialize();
+    	return hasZero;
+    }
+    
     //^ get the next byte from the buffer.
     //  Automatically call readBlock when necessary
     //< returns a JavaScript Number from 0 to 255 corresponding to all possible 8-bit values
