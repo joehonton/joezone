@@ -27,6 +27,8 @@ export default class Pfile {
 
     	if (path.constructor.name == 'Pfile')
     		this._copyConstructor(path);
+    	else if (path.constructor.name == 'Object' && '_filename' in path)
+    		this._copyConstructor(path);
     	else
     		this._normalConstructor(path);
     	
