@@ -1,6 +1,6 @@
 {
   "name": "joezone",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Joe's JavaScript Library",
   "scripts": {
     "build": "npm run exim-library",
