@@ -13,8 +13,8 @@ import Pfile 			from '../../../dbg/pfile.class';
 import SHA1				from '../../../dbg/sha1.class';
 
 // @using create empty
-var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/empty-proof.zip');
-var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/empty-trial.zip');
+var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/empty-proof.zip');
+var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/empty-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -30,10 +30,10 @@ var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using abc
-var file1 = '/musings/joezone/test/fixtures/zip-tests/abc1.txt';
-var file2 = '/musings/joezone/test/fixtures/zip-tests/abc2.txt';
-var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/abc-proof.zip');
-var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/abc-trial.zip');
+var file1 = '/musings/lib/joezone/test/fixtures/zip-tests/abc1.txt';
+var file2 = '/musings/lib/joezone/test/fixtures/zip-tests/abc2.txt';
+var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/abc-proof.zip');
+var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/abc-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -52,9 +52,9 @@ var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using こんにちは
-var file3 = '/musings/joezone/test/fixtures/zip-tests/こんにちは.txt';
-var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/こんにちは-proof.zip');
-var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/こんにちは-trial.zip');
+var file3 = '/musings/lib/joezone/test/fixtures/zip-tests/こんにちは.txt';
+var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/こんにちは-proof.zip');
+var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/こんにちは-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -71,10 +71,10 @@ var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using path/to/file
-var file1 = '/musings/joezone/test/fixtures/zip-tests/abc1.txt';
-var file2 = '/musings/joezone/test/fixtures/zip-tests/abc2.txt';
-var pfProof = new Pfile('/musings/joezone/test/fixtures/zip-tests/path-proof.zip');
-var pfTrial = new Pfile('/musings/joezone/test/fixtures/zip-tests/path-trial.zip');
+var file1 = '/musings/lib/joezone/test/fixtures/zip-tests/abc1.txt';
+var file2 = '/musings/lib/joezone/test/fixtures/zip-tests/abc2.txt';
+var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/path-proof.zip');
+var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/path-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);

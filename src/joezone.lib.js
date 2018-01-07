@@ -23,6 +23,7 @@ import Pfile 		from './pfile.class.js';
 import proxyExpect 	from './proxy-expect.function.js';
 import SHA1 		from './sha1.class.js';
 import StackTrace 	from './stack-trace.class.js';
+import Terminal 	from './terminal.class.js';
 import TextReader 	from './text-reader.class.js';
 import TextWriter 	from './text-writer.class.js';
 import Text 		from './text.class.js';
@@ -41,6 +42,7 @@ export default {
 	proxyExpect,
 	SHA1,
 	StackTrace,
+	Terminal,
 	TextReader,
 	TextWriter,
 	Text,

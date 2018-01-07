@@ -1,20 +1,25 @@
 {
   "name": "joezone",
+  "description": "Just what I need, and nothing more.",
   "version": "1.1.11",
-  "description": "Joe's JavaScript Library",
+  "author": "Joe Honton",
+  "license": "CC-BY-NC-ND-4.0",
+  "private": true,
+  "main": "dbg/joezone.lib.js",
   "scripts": {
     "build": "npm run exim-library",
-    "exim-library": "bash /musings/exim/exim ./src ./dbg joezone.lib.js",
+    "exim-library": "bash /musings/lib/exim/exim ./src ./dbg joezone.lib.js",
     "test-all": "npm run exim-cases && npm run bequiesce",
-    "exim-cases": "bash /musings/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
-    "bequiesce": "bash /musings/bequiesce/bequiesce ./test/cases/dbg",
+    "exim-cases": "bash /musings/lib/exim/exim ./test/cases/src ./test/cases/dbg test-cases.exim",
+    "bequiesce": "bash /musings/lib/bequiesce/bequiesce ./test/cases/dbg",
     "test-crc32": "npm run exim-cases && npm run crc32",
-    "crc32": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
+    "crc32": "bash /musings/lib/bequiesce/bequiesce ./test/cases/dbg/crc32.test.js",
     "test-zip": "npm run exim-cases && npm run zip",
-    "zip": "bash /musings/bequiesce/bequiesce ./test/cases/dbg/zip.test.js",
+    "zip": "bash /musings/lib/bequiesce/bequiesce ./test/cases/dbg/zip.test.js",
     "bump-version": "npm version patch && git push && git push --tags"
   },
-  "main": "dbg/joezone.lib.js",
-  "author": "Joe Honton",
-  "license": "CC-BY-NC-ND-4.0"
+  "files": [
+  	"dbg",
+  	"dist"
+  ]
 }

@@ -23,6 +23,7 @@ var Pfile = require('./pfile.class.js');
 var proxyExpect = require('./proxy-expect.function.js');
 var SHA1 = require('./sha1.class.js');
 var StackTrace = require('./stack-trace.class.js');
+var Terminal = require('./terminal.class.js');
 var TextReader = require('./text-reader.class.js');
 var TextWriter = require('./text-writer.class.js');
 var Text = require('./text.class.js');
@@ -41,6 +42,7 @@ module.exports = {
 	proxyExpect,
 	SHA1,
 	StackTrace,
+	Terminal,
 	TextReader,
 	TextWriter,
 	Text,
