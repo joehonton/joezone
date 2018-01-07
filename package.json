@@ -5,7 +5,7 @@
   "author": "Joe Honton",
   "license": "CC-BY-NC-ND-4.0",
   "private": true,
-  "main": "dbg/joezone.lib.js",
+  "main": "dist/joezone.lib.js",
   "scripts": {
     "build": "npm run exim-library",
     "exim-library": "bash /musings/lib/exim/exim ./src ./dbg joezone.lib.js",
@@ -19,7 +19,7 @@
     "bump-version": "npm version patch && git push && git push --tags"
   },
   "files": [
-    "dbg",
-    "dist"
+  	"dbg",
+  	"dist"
   ]
 }

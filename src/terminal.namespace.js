@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// File:         bifurcate/src/terminal.class.js
+// File:         bifurcate/src/terminal.namespace.js
 // Language:     ECMAScript 2015
 // Copyright:    Joe Honton © 2018
 // License:      CC-BY-NC-ND 4.0
@@ -9,7 +9,7 @@
 //
 //=============================================================================
 
-module.exports = class Terminal {
+export default class terminal {
 
 	static gray(str)	{ return `\x1b[90m${str}\x1b[0m`; }
 	static red(str)		{ return `\x1b[91m${str}\x1b[0m`; }
@@ -21,39 +21,39 @@ module.exports = class Terminal {
 	static white(str)	{ return `\x1b[97m${str}\x1b[0m`; }
 
 	static trace(...params) {
-		Terminal.write(Terminal.gray(  '   [TRACE] '), params.join(''));
+		terminal.write(terminal.gray(  '   [TRACE] '), params.join(''));
 	}
 	
 	static invalid(...params) {
-		Terminal.write(Terminal.yellow(' [INVALID] '), params.join(''));
+		terminal.write(terminal.yellow(' [INVALID] '), params.join(''));
 	}
 	
 	static warning(...params) {
-		Terminal.write(Terminal.yellow(' [WARNING] '), params.join(''));
+		terminal.write(terminal.yellow(' [WARNING] '), params.join(''));
 	}
 	
 	static abnormal(...params) {
-		Terminal.write(Terminal.red(   '[ABNORMAL] ') + Terminal.getFunctionName(4), params.join(''));
+		terminal.write(terminal.red(   '[ABNORMAL] ') + terminal.getFunctionName(4), params.join(''));
 	}
 	
 	static logic(...params) {
-		Terminal.write(Terminal.red(   '   [LOGIC] ') + Terminal.getFunctionName(4), params.join(''));
+		terminal.write(terminal.red(   '   [LOGIC] ') + terminal.getFunctionName(4), params.join(''));
 	}
 	
 	static setProcessName(name) {
-		Object.defineProperty(Terminal, 'processName', { value: name, writable: true});
+		Object.defineProperty(terminal, 'processName', { value: name, writable: true});
 	}
 	
 	static getProcessName() {
-		return (Terminal.processName == undefined) ? '' : Terminal.gray(Terminal.processName);
+		return (terminal.processName == undefined) ? '' : terminal.gray(terminal.processName);
 	}
 
 	static write(tag, message) {
-		Terminal.writeToConsoleOrStderr(Terminal.getProcessName() + tag + message + '\n');
+		terminal.writeToConsoleOrStderr(terminal.getProcessName() + tag + message + '\n');
 	}
 	
 	//^ Send message to browser console or CLI stderr
-	writeToConsoleOrStderr(message) {
+	static writeToConsoleOrStderr(message) {
 		if (typeof console == 'object' && typeof console.warn == 'function')
 			console.warn(message);
 		else if (typeof process == 'object' && typeof process.stderr == 'object' && typeof process.stderr.write == 'function')
@@ -76,11 +76,10 @@ module.exports = class Terminal {
 			return stackTraceLine;
 		if (matches.length > 1)
 			desiredOutput += matches[1].trim();
-		desiredOutput = Terminal.rightAlign(desiredOutput, 30);
+		desiredOutput = terminal.rightAlign(desiredOutput, 30);
 		return `{${desiredOutput}} `;
 	}
 
-	// Can't use Text.rightAlign because it results in a circular require
 	//^ Right align the given string to fit within a fixed width character column
     static rightAlign(s, width) {
     	var columnLen = width;

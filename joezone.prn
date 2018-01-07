@@ -21,6 +21,7 @@ exim {
 	source    src
 	dest      dbg
 	rootfile  joezone.lib.js
+	//overwrite older					// this will only become effective when exim becomes eximf
 }
 
 //
@@ -29,6 +30,7 @@ exim {
 	source    test/cases/src
 	dest      test/cases/dbg
 	rootfile  test-cases.exim
+	//overwrite older					// this will only become effective when exim becomes eximf
 }
 
 //
@@ -46,5 +48,6 @@ recurse {
 	source    dbg
 	dest      dist
 	//include   '*.class.js'
+	overwrite older
 	exec      minify
 }
