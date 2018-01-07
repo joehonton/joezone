@@ -1,1 +1,37 @@
-module.exports=class StackTrace{constructor(){Object.seal(this)}static getFunctionName(depth){var stackTraceLine=(new Error).stack.split("\n")[depth],regex1=/at (.*) ?\(/g,matches=regex1.exec(stackTraceLine),desiredOutput="";return null==matches?stackTraceLine:(matches.length>1&&(desiredOutput+=matches[1].trim()),`{${desiredOutput=StackTrace.rightAlign(desiredOutput,30)}}`)}static getSitus(depth){var stackTraceLine=(new Error).stack.split("\n")[depth],regex1=/at .*\((.*)\)/g,matches=regex1.exec(stackTraceLine),desiredOutput="";return matches.length>1&&(desiredOutput+=matches[1].trim()),desiredOutput}static getInfo(depth){var info={classname:"",member:"",path:"",filename:"",line:"",column:""},stackTraceLine=(new Error).stack.split("\n")[depth],regexA=/at (.*) ?\(/g,matchesA=regexA.exec(stackTraceLine),classAndMember="";matchesA.length>1&&(classAndMember=matchesA[1].trim());var partsA=classAndMember.split(".");info.classname=partsA[0],partsA.length>1&&(info.member=partsA[1],info.member=info.member.replace(" (eval at evaluate",""));var regexB=/at .*\((.*)\)/g,matchesB=regexB.exec(stackTraceLine),pathFileLineColumn="";matchesB.length>1&&(pathFileLineColumn=matchesB[1].trim());var partsB=pathFileLineColumn.split(":"),pathAndFile=partsB[0];partsB.length>1&&(info.line=partsB[1]),partsB.length>2&&(info.column=partsB[2]);var slash=pathAndFile.lastIndexOf("/");return-1!=slash?(info.path=pathAndFile.substr(0,slash),info.filename=pathAndFile.substr(slash+1)):info.filename=pathAndFile,info}static rightAlign(s,width){var columnLen=width,stringLen=s.length;return stringLen>columnLen?s.substr(0,columnLen-3)+"...":Array(columnLen+1-stringLen).join(" ")+s}};
+module.exports = class StackTrace {
+    constructor() {
+        Object.seal(this);
+    }
+    static getFunctionName(t) {
+        var e = new Error().stack.split('\n')[t], r = /at (.*) ?\(/g, a = r.exec(e), n = '';
+        return null == a ? e : (a.length > 1 && (n += a[1].trim()), `{${n = StackTrace.rightAlign(n, 30)}}`);
+    }
+    static getSitus(t) {
+        var e = new Error().stack.split('\n')[t], r = /at .*\((.*)\)/g, a = r.exec(e), n = '';
+        return a.length > 1 && (n += a[1].trim()), n;
+    }
+    static getInfo(t) {
+        var e = {
+            classname: '',
+            member: '',
+            path: '',
+            filename: '',
+            line: '',
+            column: ''
+        }, r = new Error().stack.split('\n')[t], a = /at (.*) ?\(/g, n = a.exec(r), l = '';
+        n.length > 1 && (l = n[1].trim());
+        var s = l.split('.');
+        e.classname = s[0], s.length > 1 && (e.member = s[1], e.member = e.member.replace(' (eval at evaluate', ''));
+        var i = /at .*\((.*)\)/g, c = i.exec(r), m = '';
+        c.length > 1 && (m = c[1].trim());
+        var g = m.split(':'), u = g[0];
+        g.length > 1 && (e.line = g[1]), g.length > 2 && (e.column = g[2]);
+        var h = u.lastIndexOf('/');
+        return -1 != h ? (e.path = u.substr(0, h), e.filename = u.substr(h + 1)) : e.filename = u, 
+        e;
+    }
+    static rightAlign(t, e) {
+        var r = e, a = t.length;
+        return a > r ? t.substr(0, r - 3) + '...' : Array(r + 1 - a).join(' ') + t;
+    }
+};

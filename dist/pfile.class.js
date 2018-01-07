@@ -1,1 +1,178 @@
-var FS=require("fs"),Log=require("./log.class.js"),expect=require("./expect.function.js");module.exports=class Pfile{constructor(path){void 0==path&&(path=""),"Pfile"==path.constructor.name?this._copyConstructor(path):"Object"==path.constructor.name&&"_filename"in path?this._copyConstructor(path):this._normalConstructor(path),Object.seal(this)}_normalConstructor(path){expect(path,"String"),this.setPath(path)}_copyConstructor(rhs){expect(rhs,"Pfile"),this._filename=rhs._filename}get name(){return this._filename}setPath(path){return expect(path,"String"),this._filename=Pfile.posixStyle(path),this}addPath(path){expect(path,["String","Pfile"]),"Pfile"==path.constructor.name&&(path=path.name),path=Pfile.posixStyle(path);var len=this._filename.length;return len>0&&"/"!=this._filename.charAt(len-1)?this._filename+="/"+path:this._filename+=path,this.canonicalize(),this}addPathBefore(path){expect(path,"String"),path=Pfile.posixStyle(path),this.isAbsolutePath()&&log.logic(`Attempting to add the path "${path}" before the absolute filename "${this._filename}" is probably not what you want.`);var len=path.length;return len>0&&"/"!=path.charAt(len-1)?this._filename=path+"/"+this._filename:this._filename=path+this._filename,this.canonicalize(),this}canonicalize(){this._filename=this._filename.replace("/./","/"),this._filename=this._filename.replace("//","/");for(var b=!0;b;)b=this.removeDoubleDots();var len=this._filename.length;len>1&&"/"==this._filename.charAt(len-1)&&(this._filename=this._filename.substr(0,len-1))}removeDoubleDots(){var parts=this._filename.split("/");for(let i=1;i<parts.length-1;i++)if(".."!=parts[i-1]&&".."==parts[i])return parts.splice(i-1,2),this._filename=parts.join("/"),!0;return!1}static getCwd(){return Pfile.posixStyle(process.cwd())}makeAbsolute(relativeTo){if(this.isAbsolutePath())return this;if(relativeTo=void 0==relativeTo?Pfile.getCwd():Pfile.posixStyle(relativeTo),expect(relativeTo,"String"),0==this._filename.length)return this._filename=relativeTo,this;var tmp=new Pfile(relativeTo);return tmp.isAbsolutePath()?(this.addPathBefore(relativeTo),this):(log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${relativeTo}" won't work.`),this)}getFQN(){return this._filename}getPath(){if(this.isDirectory())return this._filename;var parts=this._filename.split("/");return parts.splice(0,parts.length-1).join("/")}getFilename(){if(this.isDirectory())return"";var parts=this._filename.split("/");return parts[parts.length-1]}getStem(){var filename=this.getFilename(),parts=filename.split(".");return parts.length<=1?filename:2==parts.length&&0==parts[0].length?filename:parts.splice(0,parts.length-1).join(".")}getExtension(){var parts=this.getFilename().split(".");return parts.length<=1?"":2==parts.length&&0==parts[0].length?"":parts[parts.length-1]}addExtension(ext){return this._filename=`${this._filename}.${ext}`,this}replaceExtension(ext){var path=this.getPath(),stem=this.getStem();return this._filename=`${path}/${stem}.${ext}`,this}exists(){try{return FS.accessSync(this._filename,FS.F_OK),!0}catch(e){return!1}}unlinkFile(){try{return!(!this.exists()||!this.isFile())&&(FS.unlinkSync(this._filename),!0)}catch(e){return!1}}rmDir(){try{return!(!this.exists()||!this.isDirectory())&&(FS.rmdirSync(this._filename),!0)}catch(e){return!1}}mkDir(){if(this.exists())return!0;var path=new Pfile(this);path.makeAbsolute();var parts=path._filename.split("/");parts[0].length>1&&":"==parts[0].charAt(1)&&(parts[0]=parts[0].substr(2));var assemble=new Pfile("/");for(let i=0;i<parts.length;i++)if(parts[i].length>0&&(assemble.addPath(parts[i]),!assemble.exists()))try{FS.mkdirSync(assemble.getFQN())}catch(e){return!1}return!0}isAbsolutePath(){return 0!=this._filename.length&&("/"==this._filename.charAt(0)||this._filename.length>1&&":"==this._filename.charAt(1))}isRelativePath(){return 0!=this._filename.length&&!this.isAbsolutePath()}isDottedPath(){return 0!=this._filename.length&&"."==this._filename.charAt(0)}isDirectory(){try{var stats=FS.lstatSync(this._filename);return stats.isDirectory()}catch(e){return!1}}isFile(){try{var stats=FS.lstatSync(this._filename);return stats.isFile()}catch(e){return!1}}isSymbolicLink(){try{var stats=FS.lstatSync(this._filename);return stats.isSymbolickLink()}catch(e){return!1}}getFileSize(){try{var stats=FS.statSync(this._filename);return stats.size}catch(e){return!1}}getModificationTime(){try{var stats=FS.statSync(this._filename);return stats.mtime}catch(e){return!1}}isSpecialDirectory(){return"."==this._filename||".."==this._filename}static posixStyle(path){return expect(path,"String"),path.replace(/\\/g,"/")}static windowsStyle(path){return expect(path,"String"),path.replace(/\//g,"\\")}};
+var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js');
+
+module.exports = class Pfile {
+    constructor(e) {
+        void 0 == e && (e = ''), 'Pfile' == e.constructor.name ? this._copyConstructor(e) : 'Object' == e.constructor.name && '_filename' in e ? this._copyConstructor(e) : this._normalConstructor(e), 
+        Object.seal(this);
+    }
+    _normalConstructor(e) {
+        expect(e, 'String'), this.setPath(e);
+    }
+    _copyConstructor(e) {
+        expect(e, 'Pfile'), this._filename = e._filename;
+    }
+    get name() {
+        return this._filename;
+    }
+    setPath(e) {
+        return expect(e, 'String'), this._filename = Pfile.posixStyle(e), this;
+    }
+    addPath(e) {
+        expect(e, [ 'String', 'Pfile' ]), 'Pfile' == e.constructor.name && (e = e.name), 
+        e = Pfile.posixStyle(e);
+        var t = this._filename.length;
+        return t > 0 && '/' != this._filename.charAt(t - 1) ? this._filename += '/' + e : this._filename += e, 
+        this.canonicalize(), this;
+    }
+    addPathBefore(e) {
+        expect(e, 'String'), e = Pfile.posixStyle(e), this.isAbsolutePath() && log.logic(`Attempting to add the path "${e}" before the absolute filename "${this._filename}" is probably not what you want.`);
+        var t = e.length;
+        return t > 0 && '/' != e.charAt(t - 1) ? this._filename = e + '/' + this._filename : this._filename = e + this._filename, 
+        this.canonicalize(), this;
+    }
+    canonicalize() {
+        this._filename = this._filename.replace('/./', '/'), this._filename = this._filename.replace('//', '/');
+        for (var e = !0; e; ) e = this.removeDoubleDots();
+        var t = this._filename.length;
+        t > 1 && '/' == this._filename.charAt(t - 1) && (this._filename = this._filename.substr(0, t - 1));
+    }
+    removeDoubleDots() {
+        var e = this._filename.split('/');
+        for (let t = 1; t < e.length - 1; t++) if ('..' != e[t - 1] && '..' == e[t]) return e.splice(t - 1, 2), 
+        this._filename = e.join('/'), !0;
+        return !1;
+    }
+    static getCwd() {
+        return Pfile.posixStyle(process.cwd());
+    }
+    makeAbsolute(e) {
+        if (this.isAbsolutePath()) return this;
+        if (e = void 0 == e ? Pfile.getCwd() : Pfile.posixStyle(e), expect(e, 'String'), 
+        0 == this._filename.length) return this._filename = e, this;
+        var t = new Pfile(e);
+        return t.isAbsolutePath() ? (this.addPathBefore(e), this) : (log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${e}" won't work.`), 
+        this);
+    }
+    getFQN() {
+        return this._filename;
+    }
+    getPath() {
+        if (this.isDirectory()) return this._filename;
+        var e = this._filename.split('/');
+        return e.splice(0, e.length - 1).join('/');
+    }
+    getFilename() {
+        if (this.isDirectory()) return '';
+        var e = this._filename.split('/');
+        return e[e.length - 1];
+    }
+    getStem() {
+        var e = this.getFilename(), t = e.split('.');
+        return t.length <= 1 ? e : 2 == t.length && 0 == t[0].length ? e : t.splice(0, t.length - 1).join('.');
+    }
+    getExtension() {
+        var e = this.getFilename().split('.');
+        return e.length <= 1 ? '' : 2 == e.length && 0 == e[0].length ? '' : e[e.length - 1];
+    }
+    addExtension(e) {
+        return this._filename = `${this._filename}.${e}`, this;
+    }
+    replaceExtension(e) {
+        var t = this.getPath(), i = this.getStem();
+        return this._filename = `${t}/${i}.${e}`, this;
+    }
+    exists() {
+        try {
+            return FS.accessSync(this._filename, FS.F_OK), !0;
+        } catch (e) {
+            return !1;
+        }
+    }
+    unlinkFile() {
+        try {
+            return !(!this.exists() || !this.isFile()) && (FS.unlinkSync(this._filename), !0);
+        } catch (e) {
+            return !1;
+        }
+    }
+    rmDir() {
+        try {
+            return !(!this.exists() || !this.isDirectory()) && (FS.rmdirSync(this._filename), 
+            !0);
+        } catch (e) {
+            return !1;
+        }
+    }
+    mkDir() {
+        if (this.exists()) return !0;
+        var e = new Pfile(this);
+        e.makeAbsolute();
+        var t = e._filename.split('/');
+        t[0].length > 1 && ':' == t[0].charAt(1) && (t[0] = t[0].substr(2));
+        var i = new Pfile('/');
+        for (let e = 0; e < t.length; e++) if (t[e].length > 0 && (i.addPath(t[e]), !i.exists())) try {
+            FS.mkdirSync(i.getFQN());
+        } catch (e) {
+            return !1;
+        }
+        return !0;
+    }
+    isAbsolutePath() {
+        return 0 != this._filename.length && ('/' == this._filename.charAt(0) || this._filename.length > 1 && ':' == this._filename.charAt(1));
+    }
+    isRelativePath() {
+        return 0 != this._filename.length && !this.isAbsolutePath();
+    }
+    isDottedPath() {
+        return 0 != this._filename.length && '.' == this._filename.charAt(0);
+    }
+    isDirectory() {
+        try {
+            var e = FS.lstatSync(this._filename);
+            return e.isDirectory();
+        } catch (e) {
+            return !1;
+        }
+    }
+    isFile() {
+        try {
+            var e = FS.lstatSync(this._filename);
+            return e.isFile();
+        } catch (e) {
+            return !1;
+        }
+    }
+    isSymbolicLink() {
+        try {
+            var e = FS.lstatSync(this._filename);
+            return e.isSymbolickLink();
+        } catch (e) {
+            return !1;
+        }
+    }
+    getFileSize() {
+        try {
+            var e = FS.statSync(this._filename);
+            return e.size;
+        } catch (e) {
+            return !1;
+        }
+    }
+    getModificationTime() {
+        try {
+            var e = FS.statSync(this._filename);
+            return e.mtime;
+        } catch (e) {
+            return !1;
+        }
+    }
+    isSpecialDirectory() {
+        return '.' == this._filename || '..' == this._filename;
+    }
+    static posixStyle(e) {
+        return expect(e, 'String'), e.replace(/\\/g, '/');
+    }
+    static windowsStyle(e) {
+        return expect(e, 'String'), e.replace(/\//g, '\\');
+    }
+};

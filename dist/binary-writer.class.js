@@ -1,1 +1,74 @@
-var FS=require("fs"),Log=require("./log.class.js"),expect=require("./expect.function.js"),aver=require("./aver.function.js");module.exports=class{constructor(){this.fd=null,"BinaryWriter"==this.constructor.name&&Object.seal(this)}open(filename){expect(filename,["String","Pfile"]),"Pfile"==filename.constructor.name&&(filename=filename.name);try{return this.fd=FS.openSync(filename,"w"),!0}catch(e){return log.abnormal(e.message),!1}}isOpen(){return null!=this.fd}close(){if(this.isOpen())try{this.fd=FS.closeSync(this.fd),this.fd=null}catch(e){log.abnormal(e.message),this.fd=null}}writeText(s){if(expect(s,"String"),!this.isOpen())return null;try{FS.writeSync(this.fd,s)}catch(e){log.abnormal(e.message)}}writeBlock(buffer,bufferLength){expect(buffer,"Buffer"),expect(bufferLength,"Number");try{FS.writeSync(this.fd,buffer,0,bufferLength)}catch(e){log.abnormal(e.message)}}writeUint32(number){if(expect(number,"Number"),aver(number<4294967296),!this.isOpen())return null;try{var buffer=new ArrayBuffer(4),dataView=new DataView(buffer);dataView.setUint32(0,number,!0);var uint8Array=new Uint8Array(buffer);FS.writeSync(this.fd,uint8Array)}catch(e){log.abnormal(e.message)}}writeUint16(number){if(expect(number,"Number"),aver(number<65536),!this.isOpen())return null;try{var buffer=new ArrayBuffer(2),dataView=new DataView(buffer);dataView.setUint16(0,number,!0);var uint8Array=new Uint8Array(buffer);FS.writeSync(this.fd,uint8Array)}catch(e){log.abnormal(e.message)}}writeUint8(number){if(expect(number,"Number"),aver(number<256),!this.isOpen())return null;try{var buffer=new ArrayBuffer(1),dataView=new DataView(buffer);dataView.setUint8(0,number,!0);var uint8Array=new Uint8Array(buffer);FS.writeSync(this.fd,uint8Array)}catch(e){log.abnormal(e.message)}}};
+var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js'), aver = require('./aver.function.js');
+
+module.exports = class BinaryWriter {
+    constructor() {
+        this.fd = null, 'BinaryWriter' == this.constructor.name && Object.seal(this);
+    }
+    open(e) {
+        expect(e, [ 'String', 'Pfile' ]), 'Pfile' == e.constructor.name && (e = e.name);
+        try {
+            return this.fd = FS.openSync(e, 'w'), !0;
+        } catch (e) {
+            return log.abnormal(e.message), !1;
+        }
+    }
+    isOpen() {
+        return null != this.fd;
+    }
+    close() {
+        if (this.isOpen()) try {
+            this.fd = FS.closeSync(this.fd), this.fd = null;
+        } catch (e) {
+            log.abnormal(e.message), this.fd = null;
+        }
+    }
+    writeText(e) {
+        if (expect(e, 'String'), !this.isOpen()) return null;
+        try {
+            FS.writeSync(this.fd, e);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+    writeBlock(e, r) {
+        expect(e, 'Buffer'), expect(r, 'Number');
+        try {
+            FS.writeSync(this.fd, e, 0, r);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+    writeUint32(e) {
+        if (expect(e, 'Number'), aver(e < 4294967296), !this.isOpen()) return null;
+        try {
+            var r = new ArrayBuffer(4), t = new DataView(r);
+            t.setUint32(0, e, !0);
+            var n = new Uint8Array(r);
+            FS.writeSync(this.fd, n);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+    writeUint16(e) {
+        if (expect(e, 'Number'), aver(e < 65536), !this.isOpen()) return null;
+        try {
+            var r = new ArrayBuffer(2), t = new DataView(r);
+            t.setUint16(0, e, !0);
+            var n = new Uint8Array(r);
+            FS.writeSync(this.fd, n);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+    writeUint8(e) {
+        if (expect(e, 'Number'), aver(e < 256), !this.isOpen()) return null;
+        try {
+            var r = new ArrayBuffer(1), t = new DataView(r);
+            t.setUint8(0, e, !0);
+            var n = new Uint8Array(r);
+            FS.writeSync(this.fd, n);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+};

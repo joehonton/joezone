@@ -1,1 +1,27 @@
-var FS=require("fs"),Log=require("./log.class.js"),expect=require("./expect.function.js"),BinaryWriter=require("./binary-writer.class.js");module.exports=class extends BinaryWriter{constructor(){super(),this.isStream=!1,Object.seal(this)}open(filename){return expect(filename,["String","Pfile"]),"stdout"==filename?(this.isStream=!0,!0):super.open(filename)}isOpen(){return!!this.isStream||super.isOpen()}close(){return this.isStream?void 0:super.close()}puts(s){if(expect(s,"String"),!this.isOpen())return null;try{this.isStream?process.stdout.write(s):FS.writeSync(this.fd,s)}catch(e){log.abnormal(e.message)}}putline(line){this.puts(line+"\n")}};
+var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js'), BinaryWriter = require('./binary-writer.class.js');
+
+module.exports = class TextWriter extends BinaryWriter {
+    constructor() {
+        super(), this.isStream = !1, Object.seal(this);
+    }
+    open(e) {
+        return expect(e, [ 'String', 'Pfile' ]), 'stdout' == e ? (this.isStream = !0, !0) : super.open(e);
+    }
+    isOpen() {
+        return !!this.isStream || super.isOpen();
+    }
+    close() {
+        return this.isStream ? void 0 : super.close();
+    }
+    puts(e) {
+        if (expect(e, 'String'), !this.isOpen()) return null;
+        try {
+            this.isStream ? process.stdout.write(e) : FS.writeSync(this.fd, e);
+        } catch (e) {
+            log.abnormal(e.message);
+        }
+    }
+    putline(e) {
+        this.puts(e + '\n');
+    }
+};

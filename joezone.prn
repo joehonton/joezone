@@ -13,7 +13,7 @@
 template {
 	exim 		 node /musings/lib/exim/src/rewrite.js <source> <dest> <rootfile>
 	bequiesce    node /musings/lib/bequiesce/dbg/main.js <source>
-	minify       node /usr/lib/node_modules/uglify-es/bin/uglifyjs <source> --output <dest> --ecma 8 --compress		/* npm install -g uglify-es */
+	minify       node /usr/lib/node_modules/uglify-es/bin/uglifyjs <source> --output <dest> --compress --mangle --keep-classnames --keep-fnames --beautify quote_style=1 --ecma 8 		/* npm install -g uglify-es */
 }
 
 // ---------- rewrite export/import (src) ---------- 
@@ -47,7 +47,6 @@ recurse {
 recurse {
 	source    dbg
 	dest      dist
-	//include   '*.class.js'
 	overwrite older
 	exec      minify
 }

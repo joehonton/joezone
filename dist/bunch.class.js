@@ -1,1 +1,114 @@
-var FS=require("fs"),Pfile=require("./pfile.class.js"),Log=require("./log.class.js");module.exports=class Bunch{static get FILE(){return 1}static get DIRECTORY(){return 2}static get SYMLINK(){return 4}constructor(arg1,arg2,arg3){void 0==arg1?this._defaultConstructor():"Bunch"==arg1.constructor.name?this._copyConstructor(arg1):"Pfile"==arg1.constructor.name?this._pfileConstructor(arg1,arg2):"String"==arg1.constructor.name?this._stringConstructor(arg1,arg2,arg3):log.logic("The first argument to a new Bunch should be one of {Bunch, Pfile, String}"),Object.seal(this)}_defaultConstructor(){this._path=new Pfile(""),this._pattern="*",this._flags=Bunch.FILE}_copyConstructor(rhs){this._path=rhs._path,this._pattern=rhs._pattern,this._flags=rhs._flags}_pfileConstructor(pfile,flags){void 0==flags&&(flags=Bunch.FILE),this._path=new Pfile(pfile.getPath()),this._pattern=pfile.getFilename(),this._flags=flags}_stringConstructor(path,pattern,flags){void 0==pattern&&(pattern="*"),void 0==flags&&(flags=Bunch.FILE),this._path=new Pfile(path),this._pattern=pattern,this._flags=flags}set path(p){this._path=new Pfile(p)}get path(){return this._path}set pattern(p){this._pattern=p}get pattern(){return this._pattern}set flags(p){this._flags=p&Bunch.FILE+Bunch.DIRECTORY+Bunch.SYMLINK}get flags(){return this._flags}addPath(path){return this._path.addPath(path),this}find(returnFullyQualifiedPath){if(void 0==returnFullyQualifiedPath&&(returnFullyQualifiedPath=!1),this._path.isRelativePath()&&log.logic(`Using a relative path "${this._path.name}" is probably not what you want.`),-1!=this._path.name.indexOf("*")||-1!=this._path.name.indexOf("?"))return log.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`),[];if(!this._path.exists())return log.logic(`The path "${this._path.name}" does not exist.`),[];if(this._path.isFile())return log.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`),[];if(""==this._pattern)return log.invalid('The pattern is empty, did you mean "*"?'),[];var unfiltered=FS.readdirSync(this._path.name);unfiltered.sort();var bFile=(this._flags&Bunch.FILE)==Bunch.FILE,bDir=(this._flags&Bunch.DIRECTORY)==Bunch.DIRECTORY,bSymlink=(this._flags&Bunch.SYMLINK)==Bunch.SYMLINK,pattern=new RegExp(this.getSafePattern()),matches=new Array;for(let i=0;i<unfiltered.length;i++){var aFile=unfiltered[i];if(pattern.test(aFile)){var fqf=new Pfile(this._path).addPath(aFile),pfile=returnFullyQualifiedPath?fqf:new Pfile(aFile);bFile&&fqf.isFile()?matches.push(pfile):bDir&&fqf.isDirectory()?matches.push(pfile):bSymlink&&fqf.isSymbolicLink()&&matches.push(pfile)}}return matches}getSafePattern(){var len=this._pattern.length,shadowChars=new Array(len);for(let i=0;i<len;i++){var ch=this._pattern.charAt(i);switch(ch){case"*":shadowChars[i]=".*?";break;case"?":shadowChars[i]=".{1}";break;case".":shadowChars[i]="\\.";break;case"$":shadowChars[i]="\\$";break;case"\\":case"(":case"(":case"[":case"]":case"{":case"}":case"|":case"^":shadowChars[i]=ch;break;default:shadowChars[i]=ch}}var fullString="^"+shadowChars.join("")+"$";return fullString}};
+var FS = require('fs'), Pfile = require('./pfile.class.js'), Log = require('./log.class.js');
+
+module.exports = class Bunch {
+    static get FILE() {
+        return 1;
+    }
+    static get DIRECTORY() {
+        return 2;
+    }
+    static get SYMLINK() {
+        return 4;
+    }
+    constructor(t, e, a) {
+        void 0 == t ? this._defaultConstructor() : 'Bunch' == t.constructor.name ? this._copyConstructor(t) : 'Pfile' == t.constructor.name ? this._pfileConstructor(t, e) : 'String' == t.constructor.name ? this._stringConstructor(t, e, a) : log.logic('The first argument to a new Bunch should be one of {Bunch, Pfile, String}'), 
+        Object.seal(this);
+    }
+    _defaultConstructor() {
+        this._path = new Pfile(''), this._pattern = '*', this._flags = Bunch.FILE;
+    }
+    _copyConstructor(t) {
+        this._path = t._path, this._pattern = t._pattern, this._flags = t._flags;
+    }
+    _pfileConstructor(t, e) {
+        void 0 == e && (e = Bunch.FILE), this._path = new Pfile(t.getPath()), this._pattern = t.getFilename(), 
+        this._flags = e;
+    }
+    _stringConstructor(t, e, a) {
+        void 0 == e && (e = '*'), void 0 == a && (a = Bunch.FILE), this._path = new Pfile(t), 
+        this._pattern = e, this._flags = a;
+    }
+    set path(t) {
+        this._path = new Pfile(t);
+    }
+    get path() {
+        return this._path;
+    }
+    set pattern(t) {
+        this._pattern = t;
+    }
+    get pattern() {
+        return this._pattern;
+    }
+    set flags(t) {
+        this._flags = t & Bunch.FILE + Bunch.DIRECTORY + Bunch.SYMLINK;
+    }
+    get flags() {
+        return this._flags;
+    }
+    addPath(t) {
+        return this._path.addPath(t), this;
+    }
+    find(t) {
+        if (void 0 == t && (t = !1), this._path.isRelativePath() && log.logic(`Using a relative path "${this._path.name}" is probably not what you want.`), 
+        -1 != this._path.name.indexOf('*') || -1 != this._path.name.indexOf('?')) return log.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`), 
+        [];
+        if (!this._path.exists()) return log.logic(`The path "${this._path.name}" does not exist.`), 
+        [];
+        if (this._path.isFile()) return log.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`), 
+        [];
+        if ('' == this._pattern) return log.invalid('The pattern is empty, did you mean "*"?'), 
+        [];
+        var e = FS.readdirSync(this._path.name);
+        e.sort();
+        var a = (this._flags & Bunch.FILE) == Bunch.FILE, s = (this._flags & Bunch.DIRECTORY) == Bunch.DIRECTORY, i = (this._flags & Bunch.SYMLINK) == Bunch.SYMLINK, r = new RegExp(this.getSafePattern()), h = new Array();
+        for (let l = 0; l < e.length; l++) {
+            var n = e[l];
+            if (r.test(n)) {
+                var c = new Pfile(this._path).addPath(n), o = t ? c : new Pfile(n);
+                a && c.isFile() ? h.push(o) : s && c.isDirectory() ? h.push(o) : i && c.isSymbolicLink() && h.push(o);
+            }
+        }
+        return h;
+    }
+    getSafePattern() {
+        var t = this._pattern.length, e = new Array(t);
+        for (let s = 0; s < t; s++) {
+            var a = this._pattern.charAt(s);
+            switch (a) {
+              case '*':
+                e[s] = '.*?';
+                break;
+
+              case '?':
+                e[s] = '.{1}';
+                break;
+
+              case '.':
+                e[s] = '\\.';
+                break;
+
+              case '$':
+                e[s] = '\\$';
+                break;
+
+              case '\\':
+              case '(':
+              case '(':
+              case '[':
+              case ']':
+              case '{':
+              case '}':
+              case '|':
+              case '^':
+                e[s] = a;
+                break;
+
+              default:
+                e[s] = a;
+            }
+        }
+        var s = '^' + e.join('') + '$';
+        return s;
+    }
+};

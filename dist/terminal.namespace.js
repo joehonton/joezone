@@ -1,1 +1,67 @@
-module.exports=class terminal{static gray(str){return`[90m${str}[0m`}static red(str){return`[91m${str}[0m`}static green(str){return`[92m${str}[0m`}static yellow(str){return`[93m${str}[0m`}static blue(str){return`[94m${str}[0m`}static magenta(str){return`[95m${str}[0m`}static cyan(str){return`[96m${str}[0m`}static white(str){return`[97m${str}[0m`}static trace(...params){terminal.write(terminal.gray("   [TRACE] "),params.join(""))}static invalid(...params){terminal.write(terminal.yellow(" [INVALID] "),params.join(""))}static warning(...params){terminal.write(terminal.yellow(" [WARNING] "),params.join(""))}static abnormal(...params){terminal.write(terminal.red("[ABNORMAL] ")+terminal.getFunctionName(4),params.join(""))}static logic(...params){terminal.write(terminal.red("   [LOGIC] ")+terminal.getFunctionName(4),params.join(""))}static setProcessName(name){Object.defineProperty(terminal,"processName",{value:name,writable:!0})}static getProcessName(){return void 0==terminal.processName?"":terminal.gray(terminal.processName)}static write(tag,message){terminal.writeToConsoleOrStderr(terminal.getProcessName()+tag+message+"\n")}static writeToConsoleOrStderr(message){if("object"==typeof console&&"function"==typeof console.warn)console.warn(message);else{if("object"!=typeof process||"object"!=typeof process.stderr||"function"!=typeof process.stderr.write)throw new Error(message);process.stderr.write(message)}}static getFunctionName(depth){var stackTraceLine=(new Error).stack.split("\n")[depth],regex1=/at (.*) ?\(/g,matches=regex1.exec(stackTraceLine),desiredOutput="";return null==matches?stackTraceLine:(matches.length>1&&(desiredOutput+=matches[1].trim()),`{${desiredOutput=terminal.rightAlign(desiredOutput,30)}} `)}static rightAlign(s,width){var columnLen=width,stringLen=s.length;return stringLen>columnLen?s.substr(0,columnLen-3)+"...":" ".repeat(columnLen+1-stringLen)+s}};
+module.exports = class terminal {
+    static gray(t) {
+        return `[90m${t}[0m`;
+    }
+    static red(t) {
+        return `[91m${t}[0m`;
+    }
+    static green(t) {
+        return `[92m${t}[0m`;
+    }
+    static yellow(t) {
+        return `[93m${t}[0m`;
+    }
+    static blue(t) {
+        return `[94m${t}[0m`;
+    }
+    static magenta(t) {
+        return `[95m${t}[0m`;
+    }
+    static cyan(t) {
+        return `[96m${t}[0m`;
+    }
+    static white(t) {
+        return `[97m${t}[0m`;
+    }
+    static trace(...t) {
+        terminal.write(terminal.gray('   [TRACE] '), t.join(''));
+    }
+    static invalid(...t) {
+        terminal.write(terminal.yellow(' [INVALID] '), t.join(''));
+    }
+    static warning(...t) {
+        terminal.write(terminal.yellow(' [WARNING] '), t.join(''));
+    }
+    static abnormal(...t) {
+        terminal.write(terminal.red('[ABNORMAL] ') + terminal.getFunctionName(4), t.join(''));
+    }
+    static logic(...t) {
+        terminal.write(terminal.red('   [LOGIC] ') + terminal.getFunctionName(4), t.join(''));
+    }
+    static setProcessName(t) {
+        Object.defineProperty(terminal, 'processName', {
+            value: t,
+            writable: !0
+        });
+    }
+    static getProcessName() {
+        return void 0 == terminal.processName ? '' : terminal.gray(terminal.processName);
+    }
+    static write(t, e) {
+        terminal.writeToConsoleOrStderr(terminal.getProcessName() + t + e + '\n');
+    }
+    static writeToConsoleOrStderr(t) {
+        if ('object' == typeof console && 'function' == typeof console.warn) console.warn(t); else {
+            if ('object' != typeof process || 'object' != typeof process.stderr || 'function' != typeof process.stderr.write) throw new Error(t);
+            process.stderr.write(t);
+        }
+    }
+    static getFunctionName(t) {
+        var e = new Error().stack.split('\n')[t], r = /at (.*) ?\(/g, i = r.exec(e), n = '';
+        return null == i ? e : (i.length > 1 && (n += i[1].trim()), `{${n = terminal.rightAlign(n, 30)}} `);
+    }
+    static rightAlign(t, e) {
+        var r = e, i = t.length;
+        return i > r ? t.substr(0, r - 3) + '...' : ' '.repeat(r + 1 - i) + t;
+    }
+};

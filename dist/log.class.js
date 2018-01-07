@@ -1,1 +1,72 @@
-var StackTrace=require("./stack-trace.class.js"),Text=require("./text.class.js"),expect=require("./expect.function.js");module.exports=class{constructor(processName){expect(processName,["String","undefined"]),this.processName=void 0===processName?"":`[${processName}]`,this.tag={todo:"    [TODO]",trace:"   [TRACE]",normal:"  [NORMAL]",abnormal:"[ABNORMAL]",invalid:" [INVALID]",security:"[SECURITY]",logic:"   [LOGIC]",hopeless:"[HOPELESS]",exit:"[    EXIT]"},Object.seal(this)}todo(message,args){this.stderr(this.tag.todo,message,args)}trace(message,args){this.stderr(this.tag.trace,message,args)}normal(message,args){this.stderr(this.tag.normal,message,args)}abnormal(message,args){this.stderr(this.tag.abnormal,message,args)}abnormalHalt(message,args){this.stderr(this.tag.abnormal,message,args),this.exit(303,"HALT")}invalid(message,args){this.stderr(this.tag.invalid,message,args)}invalidHalt(message,args){this.stderr(this.tag.invalid,message,args),this.exit(505,"HALT")}security(message,args){this.stderr(this.tag.security,message,args)}securityHalt(message,args){this.stderr(this.tag.security,message,args),this.exit(707,"HALT")}logic(message,args){this.stderr(this.tag.logic,message,args)}logicHalt(message,args){this.stderr(this.tag.logic,message,args),this.exit(808,"HALT")}hopelessHalt(message,args){this.stderr(this.tag.hopeless,message,args),this.exit(909,"HALT")}exit(rc,message){message=message||"",expect(rc,"Number"),expect(message,"String"),this.stderr(this.tag.exit,rc,` ${message}\n`),process.exit(0)}stderr(tag,message,args){(message=message||"")instanceof Error&&(message=message.message),expect(message,"String"),expect(args=args||"","String"),this.writeToConsoleOrStderr(`${this.processName}${tag}${StackTrace.getFunctionName(4)} ${message}${args}`)}stackTrace(){var stack=(new Error).stack.split("\n");for(let s of stack)this.trace(s)}writeToConsoleOrStderr(message){if("object"==typeof console&&"function"==typeof console.warn)console.warn(message);else{if("object"!=typeof process||"object"!=typeof process.stderr||"function"!=typeof process.stderr.write)throw new Error(message);process.stderr.write(message)}}};
+var StackTrace = require('./stack-trace.class.js'), Text = require('./text.class.js'), expect = require('./expect.function.js');
+
+module.exports = class Log {
+    constructor(t) {
+        expect(t, [ 'String', 'undefined' ]), this.processName = void 0 === t ? '' : `[${t}]`, 
+        this.tag = {
+            todo: '    [TODO]',
+            trace: '   [TRACE]',
+            normal: '  [NORMAL]',
+            abnormal: '[ABNORMAL]',
+            invalid: ' [INVALID]',
+            security: '[SECURITY]',
+            logic: '   [LOGIC]',
+            hopeless: '[HOPELESS]',
+            exit: '[    EXIT]'
+        }, Object.seal(this);
+    }
+    todo(t, e) {
+        this.stderr(this.tag.todo, t, e);
+    }
+    trace(t, e) {
+        this.stderr(this.tag.trace, t, e);
+    }
+    normal(t, e) {
+        this.stderr(this.tag.normal, t, e);
+    }
+    abnormal(t, e) {
+        this.stderr(this.tag.abnormal, t, e);
+    }
+    abnormalHalt(t, e) {
+        this.stderr(this.tag.abnormal, t, e), this.exit(303, 'HALT');
+    }
+    invalid(t, e) {
+        this.stderr(this.tag.invalid, t, e);
+    }
+    invalidHalt(t, e) {
+        this.stderr(this.tag.invalid, t, e), this.exit(505, 'HALT');
+    }
+    security(t, e) {
+        this.stderr(this.tag.security, t, e);
+    }
+    securityHalt(t, e) {
+        this.stderr(this.tag.security, t, e), this.exit(707, 'HALT');
+    }
+    logic(t, e) {
+        this.stderr(this.tag.logic, t, e);
+    }
+    logicHalt(t, e) {
+        this.stderr(this.tag.logic, t, e), this.exit(808, 'HALT');
+    }
+    hopelessHalt(t, e) {
+        this.stderr(this.tag.hopeless, t, e), this.exit(909, 'HALT');
+    }
+    exit(t, e) {
+        e = e || '', expect(t, 'Number'), expect(e, 'String'), this.stderr(this.tag.exit, t, ` ${e}\n`), 
+        process.exit(0);
+    }
+    stderr(t, e, s) {
+        (e = e || '') instanceof Error && (e = e.message), expect(e, 'String'), expect(s = s || '', 'String'), 
+        this.writeToConsoleOrStderr(`${this.processName}${t}${StackTrace.getFunctionName(4)} ${e}${s}`);
+    }
+    stackTrace() {
+        var t = new Error().stack.split('\n');
+        for (let e of t) this.trace(e);
+    }
+    writeToConsoleOrStderr(t) {
+        if ('object' == typeof console && 'function' == typeof console.warn) console.warn(t); else {
+            if ('object' != typeof process || 'object' != typeof process.stderr || 'function' != typeof process.stderr.write) throw new Error(t);
+            process.stderr.write(t);
+        }
+    }
+};

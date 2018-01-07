@@ -1,1 +1,65 @@
-var expect=require("./expect.function.js"),aver=require("./aver.function.js");module.exports=class{constructor(){Object.seal(this)}static rightAlign(s,width){expect(s,"String"),expect(width,"Number");var columnLen=width,stringLen=s.length;return stringLen>columnLen?s.substr(0,columnLen-3)+"...":Array(columnLen+1-stringLen).join(" ")+s}static leftAlign(s,width){expect(s,"String"),expect(width,"Number");var columnLen=width,stringLen=s.length;return stringLen>columnLen?s.substr(0,columnLen-3)+"...":s+Array(columnLen+1-stringLen).join(" ")}static ellipsed(s,width){if(""!=s){var ellipsis=s.length>width?"...":"";s=`${s.substr(0,width)}${ellipsis}`}return s}static countOccurences(s,c){var count=0;for(let i=0;i<s.length;i++)s.charAt(i)==c&&count++;return count}static padLeft(s,width){return expect(s,"String"),expect(width,"Number"),s.length>width?s:s+" ".repeat(width-s.length)}static padRight(s,width){return expect(s,"String"),expect(width,"Number"),s.length>width?s:" ".repeat(width-s.length)+s}static format32bits(number){expect(number,"Number"),aver(number<4294967296),aver(number>=-2147483648);for(var result=(number<0?4294967295+number+1:number).toString(2);result.length<32;)result="0"+result;return result}static format16bits(number){expect(number,"Number"),aver(number<65536),aver(number>=-32768);for(var result=(number<0?65535+number+1:number).toString(2);result.length<16;)result="0"+result;return result}static format8bits(number){expect(number,"Number"),aver(number<256),aver(number>=-128);for(var result=(number<0?255+number+1:number).toString(2);result.length<8;)result="0"+result;return result}static format32hex(number){expect(number,"Number"),aver(number<4294967296),aver(number>=-2147483648);for(var result=(number<0?4294967295+number+1:number).toString(16);result.length<8;)result="0"+result;return result}static format16hex(number){expect(number,"Number"),aver(number<65536),aver(number>=-32768);for(var result=(number<0?65535+number+1:number).toString(16);result.length<4;)result="0"+result;return result}static format8hex(number){expect(number,"Number"),aver(number<256),aver(number>=-128);for(var result=(number<0?255+number+1:number).toString(16);result.length<2;)result="0"+result;return result}};
+var expect = require('./expect.function.js'), aver = require('./aver.function.js');
+
+module.exports = class Text {
+    constructor() {
+        Object.seal(this);
+    }
+    static rightAlign(t, e) {
+        expect(t, 'String'), expect(e, 'Number');
+        var r = e, a = t.length;
+        return a > r ? t.substr(0, r - 3) + '...' : Array(r + 1 - a).join(' ') + t;
+    }
+    static leftAlign(t, e) {
+        expect(t, 'String'), expect(e, 'Number');
+        var r = e, a = t.length;
+        return a > r ? t.substr(0, r - 3) + '...' : t + Array(r + 1 - a).join(' ');
+    }
+    static ellipsed(t, e) {
+        if ('' != t) {
+            var r = t.length > e ? '...' : '';
+            t = `${t.substr(0, e)}${r}`;
+        }
+        return t;
+    }
+    static countOccurences(t, e) {
+        var r = 0;
+        for (let a = 0; a < t.length; a++) t.charAt(a) == e && r++;
+        return r;
+    }
+    static padLeft(t, e) {
+        return expect(t, 'String'), expect(e, 'Number'), t.length > e ? t : t + ' '.repeat(e - t.length);
+    }
+    static padRight(t, e) {
+        return expect(t, 'String'), expect(e, 'Number'), t.length > e ? t : ' '.repeat(e - t.length) + t;
+    }
+    static format32bits(t) {
+        expect(t, 'Number'), aver(t < 4294967296), aver(t >= -2147483648);
+        for (var e = (t < 0 ? 4294967295 + t + 1 : t).toString(2); e.length < 32; ) e = '0' + e;
+        return e;
+    }
+    static format16bits(t) {
+        expect(t, 'Number'), aver(t < 65536), aver(t >= -32768);
+        for (var e = (t < 0 ? 65535 + t + 1 : t).toString(2); e.length < 16; ) e = '0' + e;
+        return e;
+    }
+    static format8bits(t) {
+        expect(t, 'Number'), aver(t < 256), aver(t >= -128);
+        for (var e = (t < 0 ? 255 + t + 1 : t).toString(2); e.length < 8; ) e = '0' + e;
+        return e;
+    }
+    static format32hex(t) {
+        expect(t, 'Number'), aver(t < 4294967296), aver(t >= -2147483648);
+        for (var e = (t < 0 ? 4294967295 + t + 1 : t).toString(16); e.length < 8; ) e = '0' + e;
+        return e;
+    }
+    static format16hex(t) {
+        expect(t, 'Number'), aver(t < 65536), aver(t >= -32768);
+        for (var e = (t < 0 ? 65535 + t + 1 : t).toString(16); e.length < 4; ) e = '0' + e;
+        return e;
+    }
+    static format8hex(t) {
+        expect(t, 'Number'), aver(t < 256), aver(t >= -128);
+        for (var e = (t < 0 ? 255 + t + 1 : t).toString(16); e.length < 2; ) e = '0' + e;
+        return e;
+    }
+};

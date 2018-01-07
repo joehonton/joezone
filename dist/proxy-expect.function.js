@@ -1,1 +1,42 @@
-var StackTrace=require("./stack-trace.class.js");module.exports=function(obj,expectedType,message){message=message||"";if(void 0===expectedType)return logicMessage("'type' should be a String or an Array of Strings, but is undefined"),!1;if(null===expectedType)return logicMessage("'type' should be a String or an Array of Strings, but is null"),!1;if("String"==expectedType.constructor.name){if(1==expectOne(obj,expectedType,message))return!0}else{if("Array"!=expectedType.constructor.name)return logicMessage("'type' should be a String or an Array of Strings"),!1;for(let type of expectedType)if(1==expectOne(obj,type,message))return!0}var s="";return s="String"==expectedType.constructor.name?`Expected type '${expectedType}'`:"Expected one of these types '"+expectedType.join("|")+"'",expectMessage(void 0===obj?`${s}, but got 'undefined' ${message}`:null===obj?`${s}, but got 'null' ${message}`:`${s}, but got '${obj.constructor.name}' ${message}`),!1};function expectOne(obj,expectedType,message){if(void 0===obj)expectMessage(`Expected 'Object', but got 'undefined' ${message}`);else if(null===obj)expectMessage(`Expected 'Object', but got 'null' ${message}`);else if("Object"!=obj.constructor.name)expectMessage(`Expected 'Object', but got '${obj.constructor.name}' ${message}`);else if(void 0===obj.jsClassName)expectMessage(`Expected 'jsClassName' to be a String, but got 'undefined' ${message}`);else if(null===obj.jsClassName)expectMessage(`Expected 'jsClassName' to be a String, but got 'null' ${message}`);else if("String"!=obj.jsClassName.constructor.name)expectMessage(`Expected 'jsClassName' to be a String, but got '${obj.jsClassname.constructor.name}' ${message}`);else if("String"!=expectedType.constructor.name)expectMessage(`Expected 'expectedType' to be a String, but got '${expectedType.constructor.name}' ${message}`);else{if(obj.jsClassName==expectedType)return!0;expectMessage(`Expected '${expectedType}', but got '${obj.jsClassName}' ${message}`)}}function logicMessage(message){writeToConsoleOrStderr(`[*EXPECT*] Logic: ${message=message||""}\n`)}function expectMessage(message){message=message||"",writeToConsoleOrStderr(`[*EXPECT*]${StackTrace.getFunctionName(4)} ${message}\n`)}function writeToConsoleOrStderr(message){if("object"==typeof console&&"function"==typeof console.warn)console.warn(message);else{if("object"!=typeof process||"object"!=typeof process.stderr||"function"!=typeof process.stderr.write)throw new Error(message);process.stderr.write(message)}}
+var StackTrace = require('./stack-trace.class.js');
+
+module.exports = function proxyExpect(e, t, s) {
+    s = s || '';
+    if (void 0 === t) return logicMessage('\'type\' should be a String or an Array of Strings, but is undefined'), 
+    !1;
+    if (null === t) return logicMessage('\'type\' should be a String or an Array of Strings, but is null'), 
+    !1;
+    if ('String' == t.constructor.name) {
+        if (1 == expectOne(e, t, s)) return !0;
+    } else {
+        if ('Array' != t.constructor.name) return logicMessage('\'type\' should be a String or an Array of Strings'), 
+        !1;
+        for (let r of t) if (1 == expectOne(e, r, s)) return !0;
+    }
+    var r = '';
+    return r = 'String' == t.constructor.name ? `Expected type '${t}'` : 'Expected one of these types \'' + t.join('|') + '\'', 
+    expectMessage(void 0 === e ? `${r}, but got 'undefined' ${s}` : null === e ? `${r}, but got 'null' ${s}` : `${r}, but got '${e.constructor.name}' ${s}`), 
+    !1;
+};
+
+function expectOne(e, t, s) {
+    if (void 0 === e) expectMessage(`Expected 'Object', but got 'undefined' ${s}`); else if (null === e) expectMessage(`Expected 'Object', but got 'null' ${s}`); else if ('Object' != e.constructor.name) expectMessage(`Expected 'Object', but got '${e.constructor.name}' ${s}`); else if (void 0 === e.jsClassName) expectMessage(`Expected 'jsClassName' to be a String, but got 'undefined' ${s}`); else if (null === e.jsClassName) expectMessage(`Expected 'jsClassName' to be a String, but got 'null' ${s}`); else if ('String' != e.jsClassName.constructor.name) expectMessage(`Expected 'jsClassName' to be a String, but got '${e.jsClassname.constructor.name}' ${s}`); else if ('String' != t.constructor.name) expectMessage(`Expected 'expectedType' to be a String, but got '${t.constructor.name}' ${s}`); else {
+        if (e.jsClassName == t) return !0;
+        expectMessage(`Expected '${t}', but got '${e.jsClassName}' ${s}`);
+    }
+}
+
+function logicMessage(e) {
+    writeToConsoleOrStderr(`[*EXPECT*] Logic: ${e = e || ''}\n`);
+}
+
+function expectMessage(e) {
+    e = e || '', writeToConsoleOrStderr(`[*EXPECT*]${StackTrace.getFunctionName(4)} ${e}\n`);
+}
+
+function writeToConsoleOrStderr(e) {
+    if ('object' == typeof console && 'function' == typeof console.warn) console.warn(e); else {
+        if ('object' != typeof process || 'object' != typeof process.stderr || 'function' != typeof process.stderr.write) throw new Error(e);
+        process.stderr.write(e);
+    }
+}
