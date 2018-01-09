@@ -9,7 +9,7 @@
 //@common
 var Pfile = require('../../../dbg/pfile.class.js');
 var Bunch = require('../../../dbg/bunch.class.js');
-var fixturesPath = 'test/fixtures/pfile-and-bunch-tests';
+var fixturesPath = '../test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------
 //@using String constructor

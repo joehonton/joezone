@@ -8,7 +8,7 @@
 
 // @common
 var Pfile = require('../../../dbg/pfile.class.js');
-var pathToFixtures = 'test/fixtures/pfile-and-bunch-tests';
+var pathToFixtures = '../test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------
 //@using three constructor types
@@ -37,18 +37,18 @@ var extension = f.getExtension();
 var fqn = f.getFQN();
 
 //@testing simple files
-fname = "regular.abc";		;; (!exists) && (!isFile) && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == "regular.abc"      && stem == "regular"       && extension == "abc" &&  fqn == "test/fixtures/pfile-and-bunch-tests/regular.abc"
-fname = "regular";			;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == "regular"          && stem == "regular"       && extension == ""    &&  fqn == "test/fixtures/pfile-and-bunch-tests/regular"
-fname = "regular.js";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == "regular.js"       && stem == "regular"       && extension == "js"  &&  fqn == "test/fixtures/pfile-and-bunch-tests/regular.js"
-fname = "regular.class.js";	;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == "regular.class.js" && stem == "regular.class" && extension == "js"  &&  fqn == "test/fixtures/pfile-and-bunch-tests/regular.class.js"
-fname = ".hidden-file";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == ".hidden-file"     && stem == ".hidden-file"  && extension == ""    &&  fqn == "test/fixtures/pfile-and-bunch-tests/.hidden-file"
+fname = "regular.abc";		;; (!exists) && (!isFile) && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == "regular.abc"      && stem == "regular"       && extension == "abc" &&  fqn == "../test/fixtures/pfile-and-bunch-tests/regular.abc"
+fname = "regular";			;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == "regular"          && stem == "regular"       && extension == ""    &&  fqn == "../test/fixtures/pfile-and-bunch-tests/regular"
+fname = "regular.js";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == "regular.js"       && stem == "regular"       && extension == "js"  &&  fqn == "../test/fixtures/pfile-and-bunch-tests/regular.js"
+fname = "regular.class.js";	;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == "regular.class.js" && stem == "regular.class" && extension == "js"  &&  fqn == "../test/fixtures/pfile-and-bunch-tests/regular.class.js"
+fname = ".hidden-file";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == ".hidden-file"     && stem == ".hidden-file"  && extension == ""    &&  fqn == "../test/fixtures/pfile-and-bunch-tests/.hidden-file"
 
 //@testing simple directory names
-fname = "pattern";			;; (exists)  && (!isFile) && (isDir)  && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests/pattern"     && filename == ""     && stem == ""              && extension == ""    &&  fqn == "test/fixtures/pfile-and-bunch-tests/pattern"
-fname = ".hidden-dir";		;; (exists)  && (!isFile) && (isDir)  && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests/.hidden-dir" && filename == ""     && stem == ""              && extension == ""    &&  fqn == "test/fixtures/pfile-and-bunch-tests/.hidden-dir"
+fname = "pattern";			;; (exists)  && (!isFile) && (isDir)  && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests/pattern"     && filename == ""     && stem == ""              && extension == ""    &&  fqn == "../test/fixtures/pfile-and-bunch-tests/pattern"
+fname = ".hidden-dir";		;; (exists)  && (!isFile) && (isDir)  && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests/.hidden-dir" && filename == ""     && stem == ""              && extension == ""    &&  fqn == "../test/fixtures/pfile-and-bunch-tests/.hidden-dir"
 
 //@testing relative files
-fname = "./regular.js";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (!isDotted) && (!isSymlink) && path == "test/fixtures/pfile-and-bunch-tests" && filename == "regular.js"       && stem == "regular"       && extension == "js"  &&  fqn == "test/fixtures/pfile-and-bunch-tests/regular.js"
+fname = "./regular.js";		;; (exists)  && (isFile)  && (!isDir) && (isRelative) && (!isAbsolute) && (isDotted) && (!isSymlink) && path == "../test/fixtures/pfile-and-bunch-tests" && filename == "regular.js"       && stem == "regular"       && extension == "js"  &&  fqn == "../test/fixtures/pfile-and-bunch-tests/regular.js"
 //TODO MORE
 	
 	

@@ -13,8 +13,8 @@ var TextWriter = require('../../../dbg/text-writer.class.js');
 //@using TextReader and TextWriter
 var tr = new TextReader();
 var tw = new TextWriter();
-tr.open("test/input/utf8-codepoints");
-tw.open("test/output/utf8-codepoints");
+tr.open("../test/input/utf8-codepoints");
+tw.open("../test/output/utf8-codepoints");
 
 var sourceline = tr.getline();
 tw.puts(sourceline);
@@ -36,8 +36,8 @@ var linecount = 0;								;; linecount == 4217
 var SHA1 = require('../../../dbg/sha1.class.js');
 var Pfile = require('../../../dbg/pfile.class.js');
 var sha1 = new SHA1();
-checksum1 = sha1.checksum(new Pfile("test/input/utf8-codepoints"));
-checksum2 = sha1.checksum(new Pfile("test/output/utf8-codepoints"));
+checksum1 = sha1.checksum(new Pfile("../test/input/utf8-codepoints"));
+checksum2 = sha1.checksum(new Pfile("../test/output/utf8-codepoints"));
 
 //@testing input/utf8-codepoints == output/utf8-codepoints 
 var checksum1, checksum2;						;; checksum1 == checksum2

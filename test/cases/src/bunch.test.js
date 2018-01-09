@@ -9,7 +9,7 @@
 //@common
 import Pfile from '../../../dbg/pfile.class';
 import Bunch from '../../../dbg/bunch.class';
-var fixturesPath = 'test/fixtures/pfile-and-bunch-tests';
+var fixturesPath = '../test/fixtures/pfile-and-bunch-tests';
 
 //-------------------------------------
 //@using String constructor

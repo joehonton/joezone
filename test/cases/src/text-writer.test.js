@@ -19,6 +19,6 @@ tw.close();
 var isClosed = !tw.isOpen();
 
 //@testing simple test
-var filename = "test/output/fileA"; var textline = "abcdefgh";			;; isOpen == true && isClosed == true;
-var filename = "test/output/fileB"; var textline = "ABCDEFGH";			;; isOpen == true && isClosed == true;
+var filename = "../test/output/fileA"; var textline = "abcdefgh";			;; isOpen == true && isClosed == true;
+var filename = "../test/output/fileB"; var textline = "ABCDEFGH";			;; isOpen == true && isClosed == true;
 		
