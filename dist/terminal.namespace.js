@@ -32,6 +32,9 @@ module.exports = class terminal {
     static warning(...t) {
         terminal.write(terminal.yellow(' [WARNING] '), t.join(''));
     }
+    static error(...t) {
+        terminal.write(terminal.red('   [ERROR] '), t.join(''));
+    }
     static abnormal(...t) {
         terminal.write(terminal.red('[ABNORMAL] ') + terminal.getFunctionName(4), t.join(''));
     }
