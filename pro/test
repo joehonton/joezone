@@ -12,23 +12,21 @@
 //=============================================================================
 
 template {
-	exim 		 node /musings/lib/exim/src/rewrite.js <source> <dest> <rootfile>
-	bequiesce    node /musings/lib/bequiesce/dbg/main.js <source>
+	eximjs 		 eximjs <source> <dest>
+	bequiesce    bequiesce <source>
 }
 
 // ---------- rewrite export/import (test) ---------- 
-exim {
+recurse {
 	source    '../test/cases/src'
 	dest      '../test/cases/dbg'
-	rootfile  test-cases.exim
-	//overwrite older					// this will only become effective when exim becomes eximf
+	overwrite older
+	exec      eximjs
 }
 
-//
 // ---------- run test cases ---------- 
 recurse {
 	source    '../test/cases/dbg'
-	dest      '../test/cases/null'		// TODO: must specify a 'dest' for prorenata at this time
 	include   '*.test.js'
 	exec      bequiesce
 }

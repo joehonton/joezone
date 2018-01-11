@@ -12,5 +12,6 @@
 
 // ---------- install node module dependencies ---------- 
 run {
-	// no dependencies, nothing to prepare
+	sh git pull origin
+	// no dependencies
 }
