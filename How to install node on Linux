@@ -1,0 +1,12 @@
+How to install node on Linux
+
+(see https://askubuntu.com/questions/898379/how-does-tar-command-work-for-installing-node-js/898385)
+
+
+cd /usr
+wget https://nodejs.org/dist/v8.9.3/node-v8.9.3-linux-x64.tar.xz
+tar --strip-components=1 -xf /usr/node-v8.9.3-linux-x64.tar.xz
+
+close shell and reopen with new shell
+
+whereis
