@@ -52,7 +52,7 @@ var s = 'abcdefghijklmnopqrstuvwxyz';			;; hex == '4c2750bd' // && pkzip == 'bd5
 	
 // @using files
 var result = 0;
-var fixtureDir = '/musings/lib/joezone/test/fixtures/zip-tests/';
+var fixtureDir = '../test/fixtures/zip-tests/';			// relative to CWD: /palau/lib/joezone/pro
 var crc32 = new CRC32();
 if (crc32.computeFileCRC(fixtureDir + file) == true)
 	result = crc32.getResult();

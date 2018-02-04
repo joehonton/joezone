@@ -12,9 +12,13 @@ import Diff				from '../../../dbg/diff.class';
 import Pfile 			from '../../../dbg/pfile.class';
 import SHA1				from '../../../dbg/sha1.class';
 
+var fixtureDir = '../test/fixtures/zip-tests/';			// relative to CWD: /palau/lib/joezone/pro
+
 // @using create empty
-var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/empty-proof.zip');
-var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/empty-trial.zip');
+var pfProof = new Pfile(fixtureDir + 'empty-proof.zip').makeAbsolute();;
+var pfTrial = new Pfile(fixtureDir + 'empty-trial.zip').makeAbsolute();;
+
+		process.stdout.write(pfTrial.name);
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -30,10 +34,10 @@ var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using abc
-var file1 = '/musings/lib/joezone/test/fixtures/zip-tests/abc1.txt';
-var file2 = '/musings/lib/joezone/test/fixtures/zip-tests/abc2.txt';
-var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/abc-proof.zip');
-var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/abc-trial.zip');
+var file1 = fixtureDir + 'abc1.txt';
+var file2 = fixtureDir + 'abc2.txt';
+var pfProof = new Pfile(fixtureDir + 'abc-proof.zip').makeAbsolute();;
+var pfTrial = new Pfile(fixtureDir + 'abc-trial.zip').makeAbsolute();
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -47,14 +51,18 @@ checksum2 = sha1.checksumBinary(pfTrial);
 if (checksum1 == checksum2)
 	FS.unlinkSync(pfTrial.name);
 
+process.stdout.write(checksum1 + pfProof.name + "\n");
+process.stdout.write(checksum2 + pfTrial.name + "\n");
+
+
 //@testing abc
 var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using こんにちは
-var file3 = '/musings/lib/joezone/test/fixtures/zip-tests/こんにちは.txt';
-var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/こんにちは-proof.zip');
-var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/こんにちは-trial.zip');
+var file3 = fixtureDir + 'こんにちは.txt';
+var pfProof = new Pfile(fixtureDir + 'こんにちは-proof.zip').makeAbsolute();;
+var pfTrial = new Pfile(fixtureDir + 'こんにちは-trial.zip').makeAbsolute();;
 
 var zip = new Zip();
 zip.create(pfTrial.name);
@@ -71,10 +79,10 @@ var checksum1, checksum2;						;; checksum1 == checksum2
 
 
 // @using path/to/file
-var file1 = '/musings/lib/joezone/test/fixtures/zip-tests/abc1.txt';
-var file2 = '/musings/lib/joezone/test/fixtures/zip-tests/abc2.txt';
-var pfProof = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/path-proof.zip');
-var pfTrial = new Pfile('/musings/lib/joezone/test/fixtures/zip-tests/path-trial.zip');
+var file1 = fixtureDir + 'abc1.txt';
+var file2 = fixtureDir + 'abc2.txt';
+var pfProof = new Pfile(fixtureDir + 'path-proof.zip');
+var pfTrial = new Pfile(fixtureDir + 'path-trial.zip');
 
 var zip = new Zip();
 zip.create(pfTrial.name);
