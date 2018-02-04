@@ -12,5 +12,5 @@
 
 // ---------- install app to user's path ---------- 
 run {
-	// joezone is a library, nothing to deploy
+	// joezone is a library, nothing to install
 }
