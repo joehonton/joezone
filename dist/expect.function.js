@@ -1,26 +1,26 @@
 var StackTrace = require('./stack-trace.class.js');
 
-module.exports = function expect(e, r, t) {
-    t = t || '';
-    if (void 0 === r) return logicMessage('\'type\' should be a String or an Array of Strings, but is undefined'), 
+module.exports = function expect(e, t, o) {
+    o = o || '';
+    if (void 0 === t) return logicMessage('\'type\' should be a String or an Array of Strings, but is undefined'), 
     !1;
-    if (null === r) return logicMessage('\'type\' should be a String or an Array of Strings, but is null'), 
+    if (null === t) return logicMessage('\'type\' should be a String or an Array of Strings, but is null'), 
     !1;
-    if ('String' == r.constructor.name) {
-        if (1 == expectOne(e, r)) return !0;
+    if ('String' == t.constructor.name) {
+        if (1 == expectOne(e, t)) return !0;
     } else {
-        if ('Array' != r.constructor.name) return logicMessage('\'type\' should be a String or an Array of Strings'), 
+        if ('Array' != t.constructor.name) return logicMessage('\'type\' should be a String or an Array of Strings'), 
         !1;
-        for (let t of r) if (1 == expectOne(e, t)) return !0;
+        for (let o of t) if (1 == expectOne(e, o)) return !0;
     }
-    var o = '';
-    return o = 'String' == r.constructor.name ? `Expected type '${r}'` : 'Expected one of these types \'' + r.join('|') + '\'', 
-    expectMessage(void 0 === e ? `${o}, but got 'undefined' ${t}` : null === e ? `${o}, but got 'null' ${t}` : `${o}, but got '${e.constructor.name}' ${t}`), 
+    var r = '';
+    return r = 'String' == t.constructor.name ? `Expected type '${t}'` : 'Expected one of these types \'' + t.join('|') + '\'', 
+    void 0 === e ? expectMessage(`${r}, but got 'undefined' ${o}`) : null === e ? expectMessage(`${r}, but got 'null' ${o}`) : void 0 === e.__proto__ ? expectMessage(`${r}, but got 'no prototype' ${o}`) : expectMessage(`${r}, but got '${e.constructor.name}' ${o}`), 
     !1;
 };
 
-function expectOne(e, r) {
-    return void 0 === e ? 'undefined' == r : null === e ? 'null' == r : e.constructor.name == r;
+function expectOne(e, t) {
+    return void 0 === e ? 'undefined' == t : null === e ? 'null' == t : void 0 === e.__proto__ ? 'no prototype' == t : e.constructor.name == t;
 }
 
 function logicMessage(e) {
