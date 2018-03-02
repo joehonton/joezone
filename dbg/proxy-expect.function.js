@@ -59,6 +59,8 @@ module.exports = function proxyExpect(obj, expectedType, message) {
 		expectMessage(`${s}, but got 'undefined' ${message}`);
 	else if (obj === null)
 		expectMessage(`${s}, but got 'null' ${message}`);
+	else if (obj.__proto__ === undefined)
+		expectMessage(`${s}, but got 'no prototype' ${message}`);
 	else
 		expectMessage(`${s}, but got '${obj.constructor.name}' ${message}`);
 	return false;
@@ -71,6 +73,8 @@ function expectOne(obj, expectedType, message) {
 		expectMessage(`Expected 'Object', but got 'undefined' ${message}`);
 	else if (obj === null)
 		expectMessage(`Expected 'Object', but got 'null' ${message}`);
+	else if (obj.__proto__ === undefined)
+		expectMessage(`Expected 'Object', but got 'no prototype' ${message}`);
 	else if (obj.constructor.name != 'Object')
 		expectMessage(`Expected 'Object', but got '${obj.constructor.name}' ${message}`);
 	else if (obj.jsClassName === undefined)

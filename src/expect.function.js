@@ -54,6 +54,8 @@ export default function expect(obj, expectedType, message) {
 		expectMessage(`${s}, but got 'undefined' ${message}`);
 	else if (obj === null)
 		expectMessage(`${s}, but got 'null' ${message}`);
+	else if (obj.__proto__ === undefined)
+		expectMessage(`${s}, but got 'no prototype' ${message}`);
 	else
 		expectMessage(`${s}, but got '${obj.constructor.name}' ${message}`);
 	return false;
@@ -66,6 +68,8 @@ function expectOne(obj, type) {
 		return (type == 'undefined');
 	else if (obj === null)
 		return (type == 'null');
+	else if (obj.__proto__ === undefined)
+		return (type == 'no prototype')
 	else if (obj.constructor.name != type)
 		return false;
 	else
