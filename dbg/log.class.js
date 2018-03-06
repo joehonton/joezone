@@ -117,7 +117,7 @@ module.exports = class Log {
     stderr(tag, message, args) {
     	message = message || '';
     	if (message instanceof Error)
-    		message = message.message;
+    		message = message.toString();
     	expect(message, 'String');
 
     	args = args || '';
