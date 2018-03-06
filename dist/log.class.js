@@ -55,9 +55,9 @@ module.exports = class Log {
         e = e || '', expect(t, 'Number'), expect(e, 'String'), this.stderr(this.tag.exit, t, ` ${e}\n`), 
         process.exit(0);
     }
-    stderr(t, e, s) {
-        (e = e || '') instanceof Error && (e = e.message), expect(e, 'String'), expect(s = s || '', 'String'), 
-        this.writeToConsoleOrStderr(`${this.processName}${t}${StackTrace.getFunctionName(4)} ${e}${s}`);
+    stderr(t, e, r) {
+        (e = e || '') instanceof Error && (e = e.toString()), expect(e, 'String'), expect(r = r || '', 'String'), 
+        this.writeToConsoleOrStderr(`${this.processName}${t}${StackTrace.getFunctionName(4)} ${e}${r}`);
     }
     stackTrace() {
         var t = new Error().stack.split('\n');
