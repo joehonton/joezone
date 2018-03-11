@@ -217,13 +217,56 @@ export default class Pfile {
     //^ Does this file or directory exist?
     exists() {
     	try {
-    		FS.accessSync(this._filename, FS.F_OK);
+    		FS.accessSync(this._filename, FS.constants.F_OK);
     		return true;
     	} catch(e) {
-    		return false;
+    		if (e.code == 'ENOENT')
+    			return false;
+    		else
+    			return true;
     	}
     }
     
+    // true if the current process has read access to the file
+    isReadable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.R_OK);
+    		return true;
+    	} catch(e) {
+    		if (e.code == 'EACCES')
+    			return false;
+    		else
+    			return true;
+    	}
+    }
+    
+    // true if the current process has write access to the file
+    isWritable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.W_OK);
+    		return true;
+    	} catch(e) {
+    		if (e.code == 'EACCES')
+    			return false;
+    		else
+    			return true;
+    	}
+    }
+    
+    // true if the current process has execute access to the file
+    // (This function is not meaningful on Windows)
+    isExecutable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.X_OK);
+    		return true;
+    	} catch(e) {
+    		if (e.code == 'EACCES')
+    			return false;
+    		else
+    			return true;
+    	}
+    }
+
     // delete a file
     unlinkFile() {
     	try {
@@ -361,37 +404,6 @@ export default class Pfile {
     	try {
     		var stats = FS.statSync(this._filename);
     		return stats.mtime;
-    	} catch(e) {
-    		return false;
-    	}
-    }
-
-    // true if the current process has read access to the file
-    isReadable() {
-    	try {
-    		FS.accessSync(this._filename, FS.constants.R_OK);
-    		return true;
-    	} catch(e) {
-    		return false;
-    	}
-    }
-    
-    // true if the current process has write access to the file
-    isWritable() {
-    	try {
-    		FS.accessSync(this._filename, FS.constants.W_OK);
-    		return true;
-    	} catch(e) {
-    		return false;
-    	}
-    }
-    
-    // true if the current process has execute access to the file
-    // (This function is not meaningful on Windows)
-    isExecutable() {
-    	try {
-    		FS.accessSync(this._filename, FS.constants.X_OK);
-    		return true;
     	} catch(e) {
     		return false;
     	}
