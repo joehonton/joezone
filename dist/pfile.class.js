@@ -83,9 +83,30 @@ module.exports = class Pfile {
     }
     exists() {
         try {
-            return FS.accessSync(this._filename, FS.F_OK), !0;
+            return FS.accessSync(this._filename, FS.constants.F_OK), !0;
         } catch (e) {
-            return !1;
+            return 'ENOENT' != e.code;
+        }
+    }
+    isReadable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.R_OK), !0;
+        } catch (e) {
+            return 'EACCES' != e.code;
+        }
+    }
+    isWritable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.W_OK), !0;
+        } catch (e) {
+            return 'EACCES' != e.code;
+        }
+    }
+    isExecutable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.X_OK), !0;
+        } catch (e) {
+            return 'EACCES' != e.code;
         }
     }
     unlinkFile() {
@@ -162,27 +183,6 @@ module.exports = class Pfile {
         try {
             var e = FS.statSync(this._filename);
             return e.mtime;
-        } catch (e) {
-            return !1;
-        }
-    }
-    isReadable() {
-        try {
-            return FS.accessSync(this._filename, FS.constants.R_OK), !0;
-        } catch (e) {
-            return !1;
-        }
-    }
-    isWritable() {
-        try {
-            return FS.accessSync(this._filename, FS.constants.W_OK), !0;
-        } catch (e) {
-            return !1;
-        }
-    }
-    isExecutable() {
-        try {
-            return FS.accessSync(this._filename, FS.constants.X_OK), !0;
         } catch (e) {
             return !1;
         }
