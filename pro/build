@@ -1,0 +1,18 @@
+!blue 2.0
+/*=============================================================================
+//
+// File:         joezone/pro/build
+// Language:     prorenata script
+// Copyright:    Joe Honton © 2018
+// License:      CC-BY-NC-ND 4.0
+// Initial date: Jan 22, 2018
+// Contents:     life cycle
+//
+=============================================================================*/
+
+run {
+//	sh renata prepare			// install node module dependencies
+	sh renata exim				// convert any modified .js         from src --> dbg
+	sh renata test				// electron app using dbg
+//	sh renata deploy			// minify, bump version, push repo
+}

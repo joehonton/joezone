@@ -366,6 +366,37 @@ export default class Pfile {
     	}
     }
 
+    // true if the current process has read access to the file
+    isReadable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.R_OK);
+    		return true;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+    
+    // true if the current process has write access to the file
+    isWritable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.W_OK);
+    		return true;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+    
+    // true if the current process has execute access to the file
+    // (This function is not meaningful on Windows)
+    isExecutable() {
+    	try {
+    		FS.accessSync(this._filename, FS.constants.X_OK);
+    		return true;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+    
     isSpecialDirectory() {
     	if ( this._filename == '.' || this._filename == '..')
     		return true;
