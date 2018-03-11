@@ -166,6 +166,27 @@ module.exports = class Pfile {
             return !1;
         }
     }
+    isReadable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.R_OK), !0;
+        } catch (e) {
+            return !1;
+        }
+    }
+    isWritable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.W_OK), !0;
+        } catch (e) {
+            return !1;
+        }
+    }
+    isExecutable() {
+        try {
+            return FS.accessSync(this._filename, FS.constants.X_OK), !0;
+        } catch (e) {
+            return !1;
+        }
+    }
     isSpecialDirectory() {
         return '.' == this._filename || '..' == this._filename;
     }
