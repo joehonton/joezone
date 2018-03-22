@@ -190,6 +190,14 @@ module.exports = class Pfile {
     isSpecialDirectory() {
         return '.' == this._filename || '..' == this._filename;
     }
+    touch() {
+        try {
+            var e = new Date();
+            return FS.utimesSync(this._filename, e, e), !0;
+        } catch (e) {
+            return !1;
+        }
+    }
     static posixStyle(e) {
         return expect(e, 'String'), e.replace(/\\/g, '/');
     }
