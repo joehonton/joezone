@@ -416,6 +416,17 @@ module.exports = class Pfile {
     		return false;
     }
     
+    // change mtime to now
+    touch() {
+    	try {
+    		var ts = new Date();
+    		FS.utimesSync(this._filename, ts, ts);
+    		return true;
+    	} catch(e) {
+    		return false;
+    	}
+    }
+    
     // Convert all Windows-style reverse-solidus to Posix-style forward solidus separators
     //> a string that may contain one or more '\'
     //< a string with all '\' replaced with '/'
