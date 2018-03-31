@@ -224,6 +224,8 @@ module.exports = class Pfile {
     			return false;
     		else if (e.code == 'EACCES')	// this will occur if the user does not have access to the path of the file (the file may or may not exist)
     			return false;
+    		else if (e.code == 'ENOTDIR')	// this will occur when one of the intermediate parts of a path is a file, not a directory
+    			return false;
     		else
     			return true;
     	}
