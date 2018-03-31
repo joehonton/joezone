@@ -222,6 +222,8 @@ export default class Pfile {
     	} catch(e) {
     		if (e.code == 'ENOENT')
     			return false;
+    		else if (e.code == 'EACCES')	// this will occur if the user does not have access to the path of the file (the file may or may not exist)
+    			return false;
     		else
     			return true;
     	}
