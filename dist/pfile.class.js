@@ -85,7 +85,7 @@ module.exports = class Pfile {
         try {
             return FS.accessSync(this._filename, FS.constants.F_OK), !0;
         } catch (e) {
-            return 'ENOENT' != e.code;
+            return 'ENOENT' != e.code && 'EACCES' != e.code;
         }
     }
     isReadable() {
