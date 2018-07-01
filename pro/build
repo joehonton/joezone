@@ -13,6 +13,6 @@
 run {
 //	sh renata prepare			// install node module dependencies
 	sh renata exim				// convert any modified .js         from src --> dbg
-	sh renata test				// electron app using dbg
+	sh renata test				// bequiesce
 //	sh renata deploy			// minify, bump version, push repo
 }

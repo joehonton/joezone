@@ -15,6 +15,11 @@ template {
 	minify     uglifyjs <source> --output <dest> --compress --mangle --keep-classnames --keep-fnames --beautify quote_style=1 --ecma 8
 }
 
+// ---------- check to make sure repo has no uncommited work ---------- 
+run {
+	sh git diff-index --quiet HEAD
+}
+
 // ---------- remove comments and whitespace ---------- 
 recurse {
 	source    '../dbg'
