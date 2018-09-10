@@ -29,7 +29,7 @@ module.exports = class StackTrace {
 			return stackTraceLine;
 		if (matches.length > 1)
 			desiredOutput += matches[1].trim();
-		desiredOutput = StackTrace.rightAlign(desiredOutput, 30);
+		desiredOutput = desiredOutput.padStart(30, ' ');
 		return `{${desiredOutput}}`;
 	}
 
@@ -108,15 +108,4 @@ module.exports = class StackTrace {
 		
 		return info;
 	}
-	
-	// Can't use Text.rightAlign because it results in a circular require
-	//^ Right align the given string to fit within a fixed width character column
-    static rightAlign(s, width) {
-    	var columnLen = width;
-    	var stringLen = s.length;
-    	if (stringLen > columnLen)
-    		return s.substr(0,columnLen-3) + '...';
-    	else
-    		return Array(columnLen+1 - stringLen).join(' ') + s;
-    }
 }
