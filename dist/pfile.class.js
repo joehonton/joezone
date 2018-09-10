@@ -46,12 +46,10 @@ module.exports = class Pfile {
         return Pfile.posixStyle(process.cwd());
     }
     makeAbsolute(e) {
-        if (this.isAbsolutePath()) return this;
-        if (e = void 0 == e ? Pfile.getCwd() : Pfile.posixStyle(e), expect(e, 'String'), 
-        0 == this._filename.length) return this._filename = e, this;
-        var t = new Pfile(e);
-        return t.isAbsolutePath() ? (this.addPathBefore(e), this) : (log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${e}" won't work.`), 
-        this);
+        return this.isAbsolutePath() ? this : (e = void 0 == e ? Pfile.getCwd() : Pfile.posixStyle(e), 
+        expect(e, 'String'), 0 == this._filename.length ? (this._filename = e, this) : new Pfile(e).isAbsolutePath() ? (this.addPathBefore(e), 
+        this) : (log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${e}" won't work.`), 
+        this));
     }
     getFQN() {
         return this._filename;
@@ -149,40 +147,35 @@ module.exports = class Pfile {
     }
     isDirectory() {
         try {
-            var e = FS.lstatSync(this._filename);
-            return e.isDirectory();
+            return FS.lstatSync(this._filename).isDirectory();
         } catch (e) {
             return !1;
         }
     }
     isFile() {
         try {
-            var e = FS.lstatSync(this._filename);
-            return e.isFile();
+            return FS.lstatSync(this._filename).isFile();
         } catch (e) {
             return !1;
         }
     }
     isSymbolicLink() {
         try {
-            var e = FS.lstatSync(this._filename);
-            return e.isSymbolickLink();
+            return FS.lstatSync(this._filename).isSymbolickLink();
         } catch (e) {
             return !1;
         }
     }
     getFileSize() {
         try {
-            var e = FS.statSync(this._filename);
-            return e.size;
+            return FS.statSync(this._filename).size;
         } catch (e) {
             return !1;
         }
     }
     getModificationTime() {
         try {
-            var e = FS.statSync(this._filename);
-            return e.mtime;
+            return FS.statSync(this._filename).mtime;
         } catch (e) {
             return !1;
         }

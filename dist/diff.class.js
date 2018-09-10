@@ -1,5 +1,10 @@
 var FS = require('fs'), expect = require('./expect.function.js'), SHA1 = require('./sha1.class.js'), Pfile = require('./pfile.class.js');
 
+function diff_match_patch() {
+    this.Diff_Timeout = 1, this.Diff_EditCost = 4, this.Match_Threshold = .5, this.Match_Distance = 1e3, 
+    this.Patch_DeleteThreshold = .5, this.Patch_Margin = 4, this.Match_MaxBits = 32;
+}
+
 module.exports = class Diff {
     constructor(t, e, i, n) {
         expect(t, 'String'), expect(e, 'String'), expect(i, 'String'), expect(n, 'String'), 
@@ -8,10 +13,10 @@ module.exports = class Diff {
     }
     diffFiles(t, e) {
         expect(t, 'Pfile'), expect(e, 'Pfile');
-        var i = new SHA1(), n = i.checksum(t), h = i.checksum(e);
-        if (n == h) return '';
-        var r = FS.readFileSync(t.name, 'utf8'), a = FS.readFileSync(e.name, 'utf8');
-        return this.diffStrings(r, a);
+        var i = new SHA1();
+        if (i.checksum(t) == i.checksum(e)) return '';
+        var n = FS.readFileSync(t.name, 'utf8'), h = FS.readFileSync(e.name, 'utf8');
+        return this.diffStrings(n, h);
     }
     diffStrings(t, e) {
         expect(t, 'String'), expect(e, 'String');
@@ -33,11 +38,6 @@ module.exports = class Diff {
         return h;
     }
 };
-
-function diff_match_patch() {
-    this.Diff_Timeout = 1, this.Diff_EditCost = 4, this.Match_Threshold = .5, this.Match_Distance = 1e3, 
-    this.Patch_DeleteThreshold = .5, this.Patch_Margin = 4, this.Match_MaxBits = 32;
-}
 
 var DIFF_DELETE = -1, DIFF_INSERT = 1, DIFF_EQUAL = 0;
 
@@ -102,9 +102,7 @@ diff_match_patch.Diff, diff_match_patch.prototype.diff_main = function(t, e, i, 
             for (var E = a + m, D = (M = m == -F || m != F && s[E - 1] < s[E + 1] ? s[E + 1] : s[E - 1] + 1) - m; M < n && D < h && t.charAt(M) == e.charAt(D); ) M++, 
             D++;
             if (s[E] = M, M > n) p += 2; else if (D > h) o += 2; else if (g) {
-                if ((v = a + _ - m) >= 0 && v < f && -1 != c[v]) {
-                    if (M >= (b = n - c[v])) return this.diff_bisectSplit_(t, e, M, D, i);
-                }
+                if ((v = a + _ - m) >= 0 && v < f && -1 != c[v]) if (M >= (b = n - c[v])) return this.diff_bisectSplit_(t, e, M, D, i);
             }
         }
         for (var I = -F + u; I <= F - d; I += 2) {
@@ -125,7 +123,6 @@ diff_match_patch.Diff, diff_match_patch.prototype.diff_main = function(t, e, i, 
     return c.concat(l);
 }, diff_match_patch.prototype.diff_linesToChars_ = function(t, e) {
     var i = [], n = {};
-    i[0] = '';
     function diff_linesToCharsMunge_(t) {
         for (var e = '', h = 0, r = -1, a = i.length; r < t.length - 1; ) {
             -1 == (r = t.indexOf('\n', h)) && (r = t.length - 1);
@@ -135,7 +132,7 @@ diff_match_patch.Diff, diff_match_patch.prototype.diff_main = function(t, e, i, 
         }
         return e;
     }
-    return {
+    return i[0] = '', {
         chars1: diff_linesToCharsMunge_(t),
         chars2: diff_linesToCharsMunge_(e),
         lineArray: i
@@ -179,13 +176,9 @@ diff_match_patch.Diff, diff_match_patch.prototype.diff_main = function(t, e, i, 
         }
         return 2 * l.length >= t.length ? [ n, r, a, f, l ] : null;
     }
-    var r, a = diff_halfMatchI_(i, n, Math.ceil(i.length / 4)), f = diff_halfMatchI_(i, n, Math.ceil(i.length / 2));
-    if (!a && !f) return null;
-    r = f ? a && a[4].length > f[4].length ? a : f : a;
-    var s, c, l, _;
-    t.length > e.length ? (s = r[0], c = r[1], l = r[2], _ = r[3]) : (l = r[0], _ = r[1], 
-    s = r[2], c = r[3]);
-    return [ s, c, l, _, r[4] ];
+    var r, a, f, s, c, l = diff_halfMatchI_(i, n, Math.ceil(i.length / 4)), _ = diff_halfMatchI_(i, n, Math.ceil(i.length / 2));
+    return l || _ ? (r = _ ? l && l[4].length > _[4].length ? l : _ : l, t.length > e.length ? (a = r[0], 
+    f = r[1], s = r[2], c = r[3]) : (s = r[0], c = r[1], a = r[2], f = r[3]), [ a, f, s, c, r[4] ]) : null;
 }, diff_match_patch.prototype.diff_cleanupSemantic = function(t) {
     for (var e = !1, i = [], n = 0, h = null, r = 0, a = 0, f = 0, s = 0, c = 0; r < t.length; ) t[r][0] == DIFF_EQUAL ? (i[n++] = r, 
     a = s, f = c, s = 0, c = 0, h = t[r][1]) : (t[r][0] == DIFF_INSERT ? s += t[r][1].length : c += t[r][1].length, 
@@ -356,17 +349,17 @@ diff_match_patch.blanklineStartRegex_ = /^\r?\n\r?\n/, diff_match_patch.prototyp
     }
     var r = this.Match_Threshold, a = t.indexOf(e, i);
     -1 != a && (r = Math.min(match_bitapScore_(0, a), r), -1 != (a = t.lastIndexOf(e, i + e.length)) && (r = Math.min(match_bitapScore_(0, a), r)));
-    var f = 1 << e.length - 1;
+    var f, s, c = 1 << e.length - 1;
     a = -1;
-    for (var s, c, l, _ = e.length + t.length, g = 0; g < e.length; g++) {
-        for (s = 0, c = _; s < c; ) match_bitapScore_(g, i + c) <= r ? s = c : _ = c, c = Math.floor((_ - s) / 2 + s);
-        _ = c;
-        var o = Math.max(1, i - c + 1), p = Math.min(i + c, t.length) + e.length, u = Array(p + 2);
+    for (var l, _ = e.length + t.length, g = 0; g < e.length; g++) {
+        for (f = 0, s = _; f < s; ) match_bitapScore_(g, i + s) <= r ? f = s : _ = s, s = Math.floor((_ - f) / 2 + f);
+        _ = s;
+        var o = Math.max(1, i - s + 1), p = Math.min(i + s, t.length) + e.length, u = Array(p + 2);
         u[p + 1] = (1 << g) - 1;
         for (var d = p; d >= o; d--) {
             var F = n[t.charAt(d - 1)];
             if (u[d] = 0 === g ? (u[d + 1] << 1 | 1) & F : (u[d + 1] << 1 | 1) & F | (l[d + 1] | l[d]) << 1 | 1 | l[d + 1], 
-            u[d] & f) {
+            u[d] & c) {
                 var m = match_bitapScore_(g, d - 1);
                 if (m <= r) {
                     if (r = m, !((a = d - 1) > i)) break;
@@ -437,20 +430,17 @@ diff_match_patch.blanklineStartRegex_ = /^\r?\n\r?\n/, diff_match_patch.prototyp
     var i = this.patch_addPadding(t);
     e = i + e + i, this.patch_splitMax(t);
     for (var n = 0, h = [], r = 0; r < t.length; r++) {
-        var a, f = t[r].start2 + n, s = this.diff_text1(t[r].diffs), c = -1;
-        if (s.length > this.Match_MaxBits ? -1 != (a = this.match_main(e, s.substring(0, this.Match_MaxBits), f)) && (-1 == (c = this.match_main(e, s.substring(s.length - this.Match_MaxBits), f + s.length - this.Match_MaxBits)) || a >= c) && (a = -1) : a = this.match_main(e, s, f), 
-        -1 == a) h[r] = !1, n -= t[r].length2 - t[r].length1; else {
-            h[r] = !0, n = a - f;
-            var l;
-            if (s == (l = -1 == c ? e.substring(a, a + s.length) : e.substring(a, c + this.Match_MaxBits))) e = e.substring(0, a) + this.diff_text2(t[r].diffs) + e.substring(a + s.length); else {
-                var _ = this.diff_main(s, l, !1);
-                if (s.length > this.Match_MaxBits && this.diff_levenshtein(_) / s.length > this.Patch_DeleteThreshold) h[r] = !1; else {
-                    this.diff_cleanupSemanticLossless(_);
-                    for (var g, o = 0, p = 0; p < t[r].diffs.length; p++) {
-                        var u = t[r].diffs[p];
-                        u[0] !== DIFF_EQUAL && (g = this.diff_xIndex(_, o)), u[0] === DIFF_INSERT ? e = e.substring(0, a + g) + u[1] + e.substring(a + g) : u[0] === DIFF_DELETE && (e = e.substring(0, a + g) + e.substring(a + this.diff_xIndex(_, o + u[1].length))), 
-                        u[0] !== DIFF_DELETE && (o += u[1].length);
-                    }
+        var a, f, s = t[r].start2 + n, c = this.diff_text1(t[r].diffs), l = -1;
+        if (c.length > this.Match_MaxBits ? -1 != (a = this.match_main(e, c.substring(0, this.Match_MaxBits), s)) && (-1 == (l = this.match_main(e, c.substring(c.length - this.Match_MaxBits), s + c.length - this.Match_MaxBits)) || a >= l) && (a = -1) : a = this.match_main(e, c, s), 
+        -1 == a) h[r] = !1, n -= t[r].length2 - t[r].length1; else if (h[r] = !0, n = a - s, 
+        c == (f = -1 == l ? e.substring(a, a + c.length) : e.substring(a, l + this.Match_MaxBits))) e = e.substring(0, a) + this.diff_text2(t[r].diffs) + e.substring(a + c.length); else {
+            var _ = this.diff_main(c, f, !1);
+            if (c.length > this.Match_MaxBits && this.diff_levenshtein(_) / c.length > this.Patch_DeleteThreshold) h[r] = !1; else {
+                this.diff_cleanupSemanticLossless(_);
+                for (var g, o = 0, p = 0; p < t[r].diffs.length; p++) {
+                    var u = t[r].diffs[p];
+                    u[0] !== DIFF_EQUAL && (g = this.diff_xIndex(_, o)), u[0] === DIFF_INSERT ? e = e.substring(0, a + g) + u[1] + e.substring(a + g) : u[0] === DIFF_DELETE && (e = e.substring(0, a + g) + e.substring(a + this.diff_xIndex(_, o + u[1].length))), 
+                    u[0] !== DIFF_DELETE && (o += u[1].length);
                 }
             }
         }

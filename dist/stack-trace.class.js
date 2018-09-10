@@ -2,36 +2,32 @@ module.exports = class StackTrace {
     constructor() {
         Object.seal(this);
     }
-    static getFunctionName(t) {
-        var e = new Error().stack.split('\n')[t], r = /at (.*) ?\(/g, a = r.exec(e), n = '';
-        return null == a ? e : (a.length > 1 && (n += a[1].trim()), `{${n = StackTrace.rightAlign(n, 30)}}`);
+    static getFunctionName(e) {
+        var t = new Error().stack.split('\n')[e], a = /at (.*) ?\(/g.exec(t), r = '';
+        return null == a ? t : (a.length > 1 && (r += a[1].trim()), `{${r = r.padStart(30, ' ')}}`);
     }
-    static getSitus(t) {
-        var e = new Error().stack.split('\n')[t], r = /at .*\((.*)\)/g, a = r.exec(e), n = '';
-        return a.length > 1 && (n += a[1].trim()), n;
+    static getSitus(e) {
+        var t = new Error().stack.split('\n')[e], a = /at .*\((.*)\)/g.exec(t), r = '';
+        return a.length > 1 && (r += a[1].trim()), r;
     }
-    static getInfo(t) {
-        var e = {
+    static getInfo(e) {
+        var t = {
             classname: '',
             member: '',
             path: '',
             filename: '',
             line: '',
             column: ''
-        }, r = new Error().stack.split('\n')[t], a = /at (.*) ?\(/g, n = a.exec(r), l = '';
-        n.length > 1 && (l = n[1].trim());
-        var s = l.split('.');
-        e.classname = s[0], s.length > 1 && (e.member = s[1], e.member = e.member.replace(' (eval at evaluate', ''));
-        var i = /at .*\((.*)\)/g, c = i.exec(r), m = '';
-        c.length > 1 && (m = c[1].trim());
-        var g = m.split(':'), u = g[0];
-        g.length > 1 && (e.line = g[1]), g.length > 2 && (e.column = g[2]);
-        var h = u.lastIndexOf('/');
-        return -1 != h ? (e.path = u.substr(0, h), e.filename = u.substr(h + 1)) : e.filename = u, 
-        e;
-    }
-    static rightAlign(t, e) {
-        var r = e, a = t.length;
-        return a > r ? t.substr(0, r - 3) + '...' : Array(r + 1 - a).join(' ') + t;
+        }, a = new Error().stack.split('\n')[e], r = /at (.*) ?\(/g.exec(a), n = '';
+        r.length > 1 && (n = r[1].trim());
+        var l = n.split('.');
+        t.classname = l[0], l.length > 1 && (t.member = l[1], t.member = t.member.replace(' (eval at evaluate', ''));
+        var s = /at .*\((.*)\)/g.exec(a), c = '';
+        s.length > 1 && (c = s[1].trim());
+        var m = c.split(':'), i = m[0];
+        m.length > 1 && (t.line = m[1]), m.length > 2 && (t.column = m[2]);
+        var g = i.lastIndexOf('/');
+        return -1 != g ? (t.path = i.substr(0, g), t.filename = i.substr(g + 1)) : t.filename = i, 
+        t;
     }
 };

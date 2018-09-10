@@ -19,11 +19,11 @@ module.exports = class CRC32 {
     }
     partialCRC(e, t) {
         expect(e, 'Buffer'), expect(t, 'Number');
-        for (let l = 0; l < t; l++) {
-            var r = this.crc >>> 8, i = 255 & this.crc, s = e[l], a = i ^ s;
-            aver(a >= 0 && a <= 255);
-            var c = this.table[a];
-            this.crc = r ^ c;
+        for (let a = 0; a < t; a++) {
+            var r = this.crc >>> 8, i = 255 & this.crc ^ e[a];
+            aver(i >= 0 && i <= 255);
+            var s = this.table[i];
+            this.crc = r ^ s;
         }
     }
     computeFileCRC(e) {
@@ -35,7 +35,6 @@ module.exports = class CRC32 {
         return t.close(), !0;
     }
     getResult() {
-        var e = 4294967295 ^ this.crc;
-        return e;
+        return 4294967295 ^ this.crc;
     }
 };

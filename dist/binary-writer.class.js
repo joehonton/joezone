@@ -41,10 +41,10 @@ module.exports = class BinaryWriter {
     writeUint32(e) {
         if (expect(e, 'Number'), aver(e < 4294967296), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(4), t = new DataView(r);
-            t.setUint32(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(4);
+            new DataView(r).setUint32(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
             log.abnormal(e.message);
         }
@@ -52,10 +52,10 @@ module.exports = class BinaryWriter {
     writeUint16(e) {
         if (expect(e, 'Number'), aver(e < 65536), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(2), t = new DataView(r);
-            t.setUint16(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(2);
+            new DataView(r).setUint16(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
             log.abnormal(e.message);
         }
@@ -63,10 +63,10 @@ module.exports = class BinaryWriter {
     writeUint8(e) {
         if (expect(e, 'Number'), aver(e < 256), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(1), t = new DataView(r);
-            t.setUint8(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(1);
+            new DataView(r).setUint8(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
             log.abnormal(e.message);
         }

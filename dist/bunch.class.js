@@ -108,7 +108,6 @@ module.exports = class Bunch {
                 e[s] = a;
             }
         }
-        var s = '^' + e.join('') + '$';
-        return s;
+        return '^' + e.join('') + '$';
     }
 };
