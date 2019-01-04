@@ -1,7 +1,7 @@
 !blue 2.0
 /*=============================================================================
 //
-// File:         joezone/pro/build
+// File:         joezone/pro/build-deploy
 // Language:     prorenata script
 // Copyright:    Joe Honton © 2018
 // License:      CC-BY-NC-ND 4.0
@@ -13,6 +13,8 @@
 run {
 //	sh renata prepare			// install node module dependencies
 	sh renata exim				// convert any modified .js         from src --> dbg
-	sh renata test				// bequiesce
-//	sh renata deploy			// minify, bump version, push repo
+	sh renata test				// bequiesce tests
+//	sh renata finalize			// minify js; copyright; copy files from dbg --> dist
+//	sh renata bump				// bump version; push repo
+//	sh renata installg			// install as global utility
 }
