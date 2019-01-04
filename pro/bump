@@ -13,5 +13,5 @@
 
 // ---------- bump version and push repo to origin ---------- 
 run {
-	npm version patch && git push && git push --tags 
+	sh npm version patch && git push && git push --tags 
 }
