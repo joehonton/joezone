@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Joe Honton */
 /* Copyright (c) 2019 Read Write Tools */
 var FS = require('fs'), Pfile = require('./pfile.class.js'), Log = require('./log.class.js');
 

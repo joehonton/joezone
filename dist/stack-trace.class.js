@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Joe Honton */
 /* Copyright (c) 2019 Read Write Tools */
 module.exports = class StackTrace {
     constructor() {
