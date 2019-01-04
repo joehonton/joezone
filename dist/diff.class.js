@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var FS = require('fs'), expect = require('./expect.function.js'), SHA1 = require('./sha1.class.js'), Pfile = require('./pfile.class.js');
 
 function diff_match_patch() {

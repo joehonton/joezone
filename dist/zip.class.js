@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var FS = require('fs'), expect = require('./expect.function.js'), Pfile = require('./pfile.class.js'), CRC32 = require('./crc32.class.js'), BinaryReader = require('./binary-reader.class.js'), BinaryWriter = require('./binary-writer.class.js'), Log = require('./log.class.js');
 
 class CentralDirectoryRecord {

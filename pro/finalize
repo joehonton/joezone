@@ -44,7 +44,7 @@ compare {
 
 // ---------- commit any outstanding changes ---------- 
 run {
-	sh git add --verbose .
+	sh git add --verbose ../
 	sh git commit -m finalize
 	sh git push
 	onerror continue

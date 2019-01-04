@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var StackTrace = require('./stack-trace.class.js');
 
 function expectOne(e, t, s) {

@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var Crypto = require('crypto'), expect = require('./expect.function.js'), Pfile = require('./pfile.class.js'), BinaryReader = require('./binary-reader.class.js'), TextReader = require('./text-reader.class.js');
 
 module.exports = class SHA1 {

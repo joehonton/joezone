@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var expect = require('./expect.function.js'), aver = require('./aver.function.js'), TextReader = require('./text-reader.class.js'), Pfile = require('./pfile.class.js');
 
 module.exports = class CRC32 {

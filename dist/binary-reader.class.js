@@ -1,3 +1,4 @@
+/* Copyright (c) 2019 Read Write Tools */
 var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js');
 
 module.exports = class BinaryReader {
