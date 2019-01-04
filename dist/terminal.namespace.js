@@ -1,5 +1,4 @@
 /* Copyright (c) 2019 Joe Honton */
-/* Copyright (c) 2019 Read Write Tools */
 module.exports = class terminal {
     static gray(t) {
         return `[90m${t}[0m`;

@@ -1,5 +1,4 @@
 /* Copyright (c) 2019 Joe Honton */
-/* Copyright (c) 2019 Read Write Tools */
 var expect = require('./expect.function.js'), StackTrace = require('./stack-trace.class.js');
 
 module.exports = function aver(e, t) {

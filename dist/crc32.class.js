@@ -1,5 +1,4 @@
 /* Copyright (c) 2019 Joe Honton */
-/* Copyright (c) 2019 Read Write Tools */
 var expect = require('./expect.function.js'), aver = require('./aver.function.js'), TextReader = require('./text-reader.class.js'), Pfile = require('./pfile.class.js');
 
 module.exports = class CRC32 {
@@ -21,11 +20,11 @@ module.exports = class CRC32 {
     }
     partialCRC(e, t) {
         expect(e, 'Buffer'), expect(t, 'Number');
-        for (let a = 0; a < t; a++) {
-            var r = this.crc >>> 8, i = 255 & this.crc ^ e[a];
-            aver(i >= 0 && i <= 255);
-            var s = this.table[i];
-            this.crc = r ^ s;
+        for (let l = 0; l < t; l++) {
+            var r = this.crc >>> 8, i = 255 & this.crc, s = e[l], a = i ^ s;
+            aver(a >= 0 && a <= 255);
+            var c = this.table[a];
+            this.crc = r ^ c;
         }
     }
     computeFileCRC(e) {
@@ -37,6 +36,7 @@ module.exports = class CRC32 {
         return t.close(), !0;
     }
     getResult() {
-        return 4294967295 ^ this.crc;
+        var e = 4294967295 ^ this.crc;
+        return e;
     }
 };

@@ -1,5 +1,4 @@
 /* Copyright (c) 2019 Joe Honton */
-/* Copyright (c) 2019 Read Write Tools */
 var FS = require('fs'), Pfile = require('./pfile.class.js'), Log = require('./log.class.js');
 
 module.exports = class Bunch {
@@ -110,6 +109,7 @@ module.exports = class Bunch {
                 e[s] = a;
             }
         }
-        return '^' + e.join('') + '$';
+        var s = '^' + e.join('') + '$';
+        return s;
     }
 };

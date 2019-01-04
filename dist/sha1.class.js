@@ -1,5 +1,4 @@
 /* Copyright (c) 2019 Joe Honton */
-/* Copyright (c) 2019 Read Write Tools */
 var Crypto = require('crypto'), expect = require('./expect.function.js'), Pfile = require('./pfile.class.js'), BinaryReader = require('./binary-reader.class.js'), TextReader = require('./text-reader.class.js');
 
 module.exports = class SHA1 {
@@ -8,14 +7,19 @@ module.exports = class SHA1 {
     }
     checksum(e) {
         expect(e, 'Pfile');
-        var r, t = Crypto.createHash('sha1'), a = new TextReader();
-        for (a.open(e.getFQN()); null != (r = a.getline()); ) t.update(r, 'utf8');
-        return a.close(), t.digest('hex');
+        var r = Crypto.createHash('sha1'), a = new TextReader();
+        a.open(e.getFQN());
+        for (var t; null != (t = a.getline()); ) r.update(t, 'utf8');
+        a.close();
+        var s = r.digest('hex');
+        return s;
     }
     checksumBinary(e) {
         expect(e, 'Pfile');
-        var r = Crypto.createHash('sha1'), t = new BinaryReader();
-        for (t.open(e.getFQN()); t.readBlock(); ) r.update(t.buffer);
-        return t.close(), r.digest('hex');
+        var r = Crypto.createHash('sha1'), a = new BinaryReader();
+        for (a.open(e.getFQN()); a.readBlock(); ) r.update(a.buffer);
+        a.close();
+        var t = r.digest('hex');
+        return t;
     }
 };
