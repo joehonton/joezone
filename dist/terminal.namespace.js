@@ -1,28 +1,28 @@
 /* Copyright (c) 2019 Joe Honton */
 module.exports = class terminal {
     static gray(t) {
-        return `[90m${t}[0m`;
+        return `[30m${t}[0m`;
     }
     static red(t) {
-        return `[91m${t}[0m`;
+        return `[31m${t}[0m`;
     }
     static green(t) {
-        return `[92m${t}[0m`;
+        return `[32m${t}[0m`;
     }
     static yellow(t) {
-        return `[93m${t}[0m`;
+        return `[33m${t}[0m`;
     }
     static blue(t) {
-        return `[94m${t}[0m`;
+        return `[34m${t}[0m`;
     }
     static magenta(t) {
-        return `[95m${t}[0m`;
+        return `[35m${t}[0m`;
     }
     static cyan(t) {
-        return `[96m${t}[0m`;
+        return `[36m${t}[0m`;
     }
     static white(t) {
-        return `[97m${t}[0m`;
+        return `[37m${t}[0m`;
     }
     static trace(...t) {
         terminal.write(terminal.gray('   [TRACE] '), t.join(''));
