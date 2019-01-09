@@ -1,7 +1,7 @@
 /* Copyright (c) 2019 Joe Honton */
 module.exports = class terminal {
     static gray(t) {
-        return `[30m${t}[0m`;
+        return `[37m${t}[0m`;
     }
     static red(t) {
         return `[31m${t}[0m`;
