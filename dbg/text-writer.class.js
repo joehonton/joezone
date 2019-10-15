@@ -10,7 +10,7 @@
 //=============================================================================
 
 var FS = require('fs');
-var Log = require('./log.class.js');
+var terminal = require('./terminal.namespace.js');
 var expect = require('./expect.function.js');
 var BinaryWriter = require('./binary-writer.class.js');
 
@@ -62,7 +62,7 @@ module.exports = class TextWriter extends BinaryWriter {
     			FS.writeSync(this.fd, s);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     

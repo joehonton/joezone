@@ -10,7 +10,7 @@
 //=============================================================================
 
 import FS				from  'fs';
-import Log 				from './log.class';
+import terminal			from './terminal.namespace';
 import expect 			from './expect.function';
 import BinaryWriter		from './binary-writer.class';
 
@@ -62,7 +62,7 @@ export default class TextWriter extends BinaryWriter {
     			FS.writeSync(this.fd, s);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     

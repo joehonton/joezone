@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js'), BinaryWriter = require('./binary-writer.class.js');
+var FS = require('fs'), terminal = require('./terminal.namespace.js'), expect = require('./expect.function.js'), BinaryWriter = require('./binary-writer.class.js');
 
 module.exports = class TextWriter extends BinaryWriter {
     constructor() {
@@ -19,7 +19,7 @@ module.exports = class TextWriter extends BinaryWriter {
         try {
             this.isStream ? process.stdout.write(e) : FS.writeSync(this.fd, e);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
     putline(e) {

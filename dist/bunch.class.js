@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), Pfile = require('./pfile.class.js'), Log = require('./log.class.js');
+var FS = require('fs'), Pfile = require('./pfile.class.js'), terminal = require('./terminal.namespace.js');
 
 module.exports = class Bunch {
     static get FILE() {
@@ -12,7 +12,7 @@ module.exports = class Bunch {
         return 4;
     }
     constructor(t, e, a) {
-        void 0 == t ? this._defaultConstructor() : 'Bunch' == t.constructor.name ? this._copyConstructor(t) : 'Pfile' == t.constructor.name ? this._pfileConstructor(t, e) : 'String' == t.constructor.name ? this._stringConstructor(t, e, a) : log.logic('The first argument to a new Bunch should be one of {Bunch, Pfile, String}'), 
+        void 0 == t ? this._defaultConstructor() : 'Bunch' == t.constructor.name ? this._copyConstructor(t) : 'Pfile' == t.constructor.name ? this._pfileConstructor(t, e) : 'String' == t.constructor.name ? this._stringConstructor(t, e, a) : terminal.logic('The first argument to a new Bunch should be one of {Bunch, Pfile, String}'), 
         Object.seal(this);
     }
     _defaultConstructor() {
@@ -51,46 +51,46 @@ module.exports = class Bunch {
         return this._path.addPath(t), this;
     }
     find(t) {
-        if (void 0 == t && (t = !1), this._path.isRelativePath() && log.logic(`Using a relative path "${this._path.name}" is probably not what you want.`), 
-        -1 != this._path.name.indexOf('*') || -1 != this._path.name.indexOf('?')) return log.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`), 
+        if (void 0 == t && (t = !1), this._path.isRelativePath() && terminal.logic(`Using a relative path "${this._path.name}" is probably not what you want.`), 
+        -1 != this._path.name.indexOf('*') || -1 != this._path.name.indexOf('?')) return terminal.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`), 
         [];
-        if (!this._path.exists()) return log.logic(`The path "${this._path.name}" does not exist.`), 
+        if (!this._path.exists()) return terminal.logic(`The path "${this._path.name}" does not exist.`), 
         [];
-        if (this._path.isFile()) return log.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`), 
+        if (this._path.isFile()) return terminal.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`), 
         [];
-        if ('' == this._pattern) return log.invalid('The pattern is empty, did you mean "*"?'), 
+        if ('' == this._pattern) return terminal.invalid('The pattern is empty, did you mean "*"?'), 
         [];
         var e = FS.readdirSync(this._path.name);
         e.sort();
-        var a = (this._flags & Bunch.FILE) == Bunch.FILE, s = (this._flags & Bunch.DIRECTORY) == Bunch.DIRECTORY, i = (this._flags & Bunch.SYMLINK) == Bunch.SYMLINK, r = new RegExp(this.getSafePattern()), h = new Array();
-        for (let l = 0; l < e.length; l++) {
-            var n = e[l];
-            if (r.test(n)) {
-                var c = new Pfile(this._path).addPath(n), o = t ? c : new Pfile(n);
-                a && c.isFile() ? h.push(o) : s && c.isDirectory() ? h.push(o) : i && c.isSymbolicLink() && h.push(o);
+        var a = (this._flags & Bunch.FILE) == Bunch.FILE, i = (this._flags & Bunch.DIRECTORY) == Bunch.DIRECTORY, s = (this._flags & Bunch.SYMLINK) == Bunch.SYMLINK, r = new RegExp(this.getSafePattern()), n = new Array();
+        for (let o = 0; o < e.length; o++) {
+            var h = e[o];
+            if (r.test(h)) {
+                var c = new Pfile(this._path).addPath(h), l = t ? c : new Pfile(h);
+                a && c.isFile() ? n.push(l) : i && c.isDirectory() ? n.push(l) : s && c.isSymbolicLink() && n.push(l);
             }
         }
-        return h;
+        return n;
     }
     getSafePattern() {
         var t = this._pattern.length, e = new Array(t);
-        for (let s = 0; s < t; s++) {
-            var a = this._pattern.charAt(s);
+        for (let i = 0; i < t; i++) {
+            var a = this._pattern.charAt(i);
             switch (a) {
               case '*':
-                e[s] = '.*?';
+                e[i] = '.*?';
                 break;
 
               case '?':
-                e[s] = '.{1}';
+                e[i] = '.{1}';
                 break;
 
               case '.':
-                e[s] = '\\.';
+                e[i] = '\\.';
                 break;
 
               case '$':
-                e[s] = '\\$';
+                e[i] = '\\$';
                 break;
 
               case '\\':
@@ -102,14 +102,13 @@ module.exports = class Bunch {
               case '}':
               case '|':
               case '^':
-                e[s] = a;
+                e[i] = a;
                 break;
 
               default:
-                e[s] = a;
+                e[i] = a;
             }
         }
-        var s = '^' + e.join('') + '$';
-        return s;
+        return '^' + e.join('') + '$';
     }
 };

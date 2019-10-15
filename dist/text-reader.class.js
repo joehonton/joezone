@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js'), BinaryReader = require('./binary-reader.class.js');
+var FS = require('fs'), terminal = require('./terminal.namespace.js'), expect = require('./expect.function.js'), BinaryReader = require('./binary-reader.class.js');
 
 module.exports = class TextReader extends BinaryReader {
     constructor() {
@@ -30,9 +30,9 @@ module.exports = class TextReader extends BinaryReader {
     }
     static octetsToUtf8(e) {
         expect(e, 'Array');
-        for (let r of e) if (expect(r, 'Number'), r < 0 || r > 255) return log.invalid('The array of octets must contain number between 0 and 255'), 
+        for (let r of e) if (expect(r, 'Number'), r < 0 || r > 255) return terminal.invalid('The array of octets must contain number between 0 and 255'), 
         e.join('');
-        for (var r, t, a, s = '', i = e.length, n = 0; n < i; ) switch ((r = e[n++]) >> 4) {
+        for (var r, t, a, i = '', s = e.length, n = 0; n < s; ) switch ((r = e[n++]) >> 4) {
           case 0:
           case 1:
           case 2:
@@ -41,25 +41,25 @@ module.exports = class TextReader extends BinaryReader {
           case 5:
           case 6:
           case 7:
-            s += String.fromCharCode(r);
+            i += String.fromCharCode(r);
             break;
 
           case 12:
           case 13:
-            t = e[n++], s += String.fromCharCode((31 & r) << 6 | (63 & t) << 0);
+            t = e[n++], i += String.fromCharCode((31 & r) << 6 | (63 & t) << 0);
             break;
 
           case 14:
-            t = e[n++], a = e[n++], s += String.fromCharCode((15 & r) << 12 | (63 & t) << 6 | (63 & a) << 0);
+            t = e[n++], a = e[n++], i += String.fromCharCode((15 & r) << 12 | (63 & t) << 6 | (63 & a) << 0);
             break;
 
           case 15:
-            t = e[n++], a = e[n++], e[n++], s += '�';
+            t = e[n++], a = e[n++], e[n++], i += '�';
             break;
 
           default:
-            log.invalid('Poorly formed octet array, invalid UTF-8'), s += '�';
+            terminal.invalid('Poorly formed octet array, invalid UTF-8'), i += '�';
         }
-        return s;
+        return i;
     }
 };

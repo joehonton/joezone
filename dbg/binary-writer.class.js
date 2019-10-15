@@ -10,7 +10,7 @@
 //=============================================================================
 
 var FS = require('fs');
-var Log = require('./log.class.js');
+var terminal = require('./terminal.namespace.js');
 var expect = require('./expect.function.js');
 var aver = require('./aver.function.js');
 
@@ -35,7 +35,7 @@ module.exports = class BinaryWriter {
    			return true;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     		return false;
     	}
     }
@@ -53,7 +53,7 @@ module.exports = class BinaryWriter {
    			this.fd = null;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
    			this.fd = null;
     	}
     }
@@ -68,7 +68,7 @@ module.exports = class BinaryWriter {
    			FS.writeSync(this.fd, s);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
 
@@ -81,7 +81,7 @@ module.exports = class BinaryWriter {
    			FS.writeSync(this.fd, buffer, 0, bufferLength);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     
@@ -102,7 +102,7 @@ module.exports = class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}
 
@@ -123,7 +123,7 @@ module.exports = class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}  	
     	
@@ -144,7 +144,7 @@ module.exports = class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}  	
 }

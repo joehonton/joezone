@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js');
+var FS = require('fs'), terminal = require('./terminal.namespace.js'), expect = require('./expect.function.js');
 
 module.exports = class BinaryReader {
     constructor() {
@@ -14,7 +14,7 @@ module.exports = class BinaryReader {
         try {
             return this.fd = FS.openSync(e, 'r'), this.initialize(), !0;
         } catch (e) {
-            return log.abnormal(e.message), !1;
+            return terminal.abnormal(e.message), !1;
         }
     }
     isOpen() {
@@ -24,7 +24,7 @@ module.exports = class BinaryReader {
         if (this.isOpen()) try {
             this.fd = FS.closeSync(this.fd), this.fd = null;
         } catch (e) {
-            log.abnormal(e.message), this.fd = null;
+            terminal.abnormal(e.message), this.fd = null;
         }
     }
     readBlock() {
@@ -33,7 +33,8 @@ module.exports = class BinaryReader {
             return this.buffer.fill(0), this.bufferLength = FS.readSync(this.fd, this.buffer, 0, this.readSize, this.blockOffset), 
             this.blockOffset += this.bufferLength, this.bufferOffset = 0, this.bufferLength > 0;
         } catch (e) {
-            return log.trace(e.message), this.bufferLength = 0, this.bufferOffset = 0, !1;
+            return terminal.trace(e.message), this.bufferLength = 0, this.bufferOffset = 0, 
+            !1;
         }
     }
 };

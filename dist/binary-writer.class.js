@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), Log = require('./log.class.js'), expect = require('./expect.function.js'), aver = require('./aver.function.js');
+var FS = require('fs'), terminal = require('./terminal.namespace.js'), expect = require('./expect.function.js'), aver = require('./aver.function.js');
 
 module.exports = class BinaryWriter {
     constructor() {
@@ -10,7 +10,7 @@ module.exports = class BinaryWriter {
         try {
             return this.fd = FS.openSync(e, 'w'), !0;
         } catch (e) {
-            return log.abnormal(e.message), !1;
+            return terminal.abnormal(e.message), !1;
         }
     }
     isOpen() {
@@ -20,7 +20,7 @@ module.exports = class BinaryWriter {
         if (this.isOpen()) try {
             this.fd = FS.closeSync(this.fd), this.fd = null;
         } catch (e) {
-            log.abnormal(e.message), this.fd = null;
+            terminal.abnormal(e.message), this.fd = null;
         }
     }
     writeText(e) {
@@ -28,7 +28,7 @@ module.exports = class BinaryWriter {
         try {
             FS.writeSync(this.fd, e);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
     writeBlock(e, r) {
@@ -36,40 +36,40 @@ module.exports = class BinaryWriter {
         try {
             FS.writeSync(this.fd, e, 0, r);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
     writeUint32(e) {
         if (expect(e, 'Number'), aver(e < 4294967296), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(4), t = new DataView(r);
-            t.setUint32(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(4);
+            new DataView(r).setUint32(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
     writeUint16(e) {
         if (expect(e, 'Number'), aver(e < 65536), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(2), t = new DataView(r);
-            t.setUint16(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(2);
+            new DataView(r).setUint16(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
     writeUint8(e) {
         if (expect(e, 'Number'), aver(e < 256), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(1), t = new DataView(r);
-            t.setUint8(0, e, !0);
-            var n = new Uint8Array(r);
-            FS.writeSync(this.fd, n);
+            var r = new ArrayBuffer(1);
+            new DataView(r).setUint8(0, e, !0);
+            var t = new Uint8Array(r);
+            FS.writeSync(this.fd, t);
         } catch (e) {
-            log.abnormal(e.message);
+            terminal.abnormal(e.message);
         }
     }
 };

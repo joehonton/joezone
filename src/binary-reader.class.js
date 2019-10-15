@@ -10,7 +10,7 @@
 //=============================================================================
 
 import FS				from 'fs';
-import Log				from './log.class';
+import terminal			from './terminal.namespace';
 import expect			from './expect.function';
 
 export default class BinaryReader {
@@ -46,7 +46,7 @@ export default class BinaryReader {
    			return true;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     		return false;
     	}
     }
@@ -64,7 +64,7 @@ export default class BinaryReader {
    			this.fd = null;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
    			this.fd = null;
     	}
     }
@@ -83,7 +83,7 @@ export default class BinaryReader {
 	    	return (this.bufferLength > 0);
     	}
     	catch(e) {
-    		log.trace(e.message);
+    		terminal.trace(e.message);
     		this.bufferLength = 0;
 	    	this.bufferOffset = 0;
    			return false;

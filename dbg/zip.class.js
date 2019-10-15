@@ -15,7 +15,7 @@ var Pfile = require('./pfile.class.js');
 var CRC32 = require('./crc32.class.js');
 var BinaryReader = require('./binary-reader.class.js');
 var BinaryWriter = require('./binary-writer.class.js');
-var Log = require('./log.class.js');
+var terminal = require('./terminal.namespace.js');
 
 class CentralDirectoryRecord {
 	
@@ -217,11 +217,11 @@ module.exports = class Zip {
 			path = new Pfile(path);
     	
     	if (!filename.exists() || !filename.isFile()) {
-    		log.abnormal(`File does not exist "${filename.name}", skipping`);
+    		terminal.abnormal(`File does not exist "${filename.name}", skipping`);
     		return;
     	}
     	if (filename.isDirectory()) {
-    		log.abnormal(`Directories cannot be added to zip archive "${filename.name}"`);
+    		terminal.abnormal(`Directories cannot be added to zip archive "${filename.name}"`);
     		return;
     	}
     	
@@ -243,7 +243,7 @@ module.exports = class Zip {
 	    	this.cdr.sizeOfCentralDirectory += lfh.sizeofCDR;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     

@@ -10,7 +10,7 @@
 //=============================================================================
 
 var FS = require('fs');
-var Log = require('./log.class.js');
+var terminal = require('./terminal.namespace.js');
 var expect = require('./expect.function.js');
 
 module.exports = class BinaryReader {
@@ -46,7 +46,7 @@ module.exports = class BinaryReader {
    			return true;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     		return false;
     	}
     }
@@ -64,7 +64,7 @@ module.exports = class BinaryReader {
    			this.fd = null;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
    			this.fd = null;
     	}
     }
@@ -83,7 +83,7 @@ module.exports = class BinaryReader {
 	    	return (this.bufferLength > 0);
     	}
     	catch(e) {
-    		log.trace(e.message);
+    		terminal.trace(e.message);
     		this.bufferLength = 0;
 	    	this.bufferOffset = 0;
    			return false;

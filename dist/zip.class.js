@@ -1,5 +1,5 @@
 /* Copyright (c) 2019 Joe Honton */
-var FS = require('fs'), expect = require('./expect.function.js'), Pfile = require('./pfile.class.js'), CRC32 = require('./crc32.class.js'), BinaryReader = require('./binary-reader.class.js'), BinaryWriter = require('./binary-writer.class.js'), Log = require('./log.class.js');
+var FS = require('fs'), expect = require('./expect.function.js'), Pfile = require('./pfile.class.js'), CRC32 = require('./crc32.class.js'), BinaryReader = require('./binary-reader.class.js'), BinaryWriter = require('./binary-writer.class.js'), terminal = require('./terminal.namespace.js');
 
 class CentralDirectoryRecord {
     constructor() {
@@ -79,7 +79,7 @@ module.exports = class Zip {
     }
     addFile(e, t) {
         if (expect(e, [ 'String', 'Pfile' ]), expect(t, [ 'String', 'Pfile' ]), 'String' == e.constructor.name && (e = new Pfile(e)), 
-        'String' == t.constructor.name && (t = new Pfile(t)), e.exists() && e.isFile()) if (e.isDirectory()) log.abnormal(`Directories cannot be added to zip archive "${e.name}"`); else try {
+        'String' == t.constructor.name && (t = new Pfile(t)), e.exists() && e.isFile()) if (e.isDirectory()) terminal.abnormal(`Directories cannot be added to zip archive "${e.name}"`); else try {
             var i = new LocalFileHeader(e, t, this.bytesWrittenSoFar);
             i.writeLocalFileHeader(this.bw), this.headers.push(i);
             var r = new BinaryReader(e);
@@ -88,8 +88,8 @@ module.exports = class Zip {
             this.cdr.totalNumberOfCDR++, this.cdr.offsetOfStartOfCentralDirectory = this.bytesWrittenSoFar, 
             this.cdr.sizeOfCentralDirectory += i.sizeofCDR;
         } catch (e) {
-            log.abnormal(e.message);
-        } else log.abnormal(`File does not exist "${e.name}", skipping`);
+            terminal.abnormal(e.message);
+        } else terminal.abnormal(`File does not exist "${e.name}", skipping`);
     }
     close() {
         for (let e = 0; e < this.headers.length; e++) this.headers[e].writeCentralDirectoryFileHeader(this.bw);

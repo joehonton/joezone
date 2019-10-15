@@ -11,7 +11,7 @@
 
 var FS = require('fs');
 var Pfile = require('./pfile.class.js');
-var Log = require('./log.class.js');
+var terminal = require('./terminal.namespace.js');
 
 module.exports = class Bunch {
 	
@@ -51,7 +51,7 @@ module.exports = class Bunch {
     	else if (arg1.constructor.name == 'String')
     		this._stringConstructor(arg1, arg2, arg3);
     	else
-    		log.logic("The first argument to a new Bunch should be one of {Bunch, Pfile, String}");
+    		terminal.logic("The first argument to a new Bunch should be one of {Bunch, Pfile, String}");
 
     	Object.seal(this);
     }
@@ -130,32 +130,32 @@ module.exports = class Bunch {
     find(returnFullyQualifiedPath) {
     	if (returnFullyQualifiedPath == undefined) returnFullyQualifiedPath = false;
     	
-    	// if the path is not absolute, inform the user with a log.logic
+    	// if the path is not absolute, inform the user with a terminal.logic
     	if (this._path.isRelativePath()) {
-    		log.logic(`Using a relative path "${this._path.name}" is probably not what you want.`);
+    		terminal.logic(`Using a relative path "${this._path.name}" is probably not what you want.`);
     	}
     	
-    	// if the path contains * or ?, inform the user with a log.invalid
+    	// if the path contains * or ?, inform the user with a terminal.invalid
     	if (this._path.name.indexOf('*') != -1 || this._path.name.indexOf('?') != -1) {
-    		log.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`);
+    		terminal.invalid(`The path "${this._path.name}" should not contain wildcard characters. Place wildcard characters in the pattern only.`);
     		return [];
     	}
     	
-    	// if the path does not exist, inform the user with a log.logic
+    	// if the path does not exist, inform the user with a terminal.logic
     	if (!this._path.exists()) {
-    		log.logic(`The path "${this._path.name}" does not exist.`);
+    		terminal.logic(`The path "${this._path.name}" does not exist.`);
     		return [];
     	}
     	
-    	// if the path is a file rather than a directory, inform the user with a log.logic
+    	// if the path is a file rather than a directory, inform the user with a terminal.logic
     	if (this._path.isFile()) {
-    		log.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`);
+    		terminal.logic(`The path "${this._path.name}" is a file, not a directory, skipping.`);
     		return [];
     	}
 
-    	// if the pattern is an empty string, inform the user with a log.invalid
+    	// if the pattern is an empty string, inform the user with a terminal.invalid
     	if (this._pattern == '') {
-    		log.invalid(`The pattern is empty, did you mean "*"?`);
+    		terminal.invalid(`The pattern is empty, did you mean "*"?`);
     		return [];
     	}
     	

@@ -10,7 +10,7 @@
 //=============================================================================
 
 import FS				from  'fs';
-import Log				from './log.class';
+import terminal			from './terminal.namespace';
 import expect			from './expect.function';
 import BinaryReader		from './binary-reader.class';
 
@@ -96,7 +96,7 @@ export default class TextReader extends BinaryReader {
 			expect(octet, 'Number');
 			if (octet < 0 || octet > 255) {
 				// emergency fallback
-				log.invalid("The array of octets must contain number between 0 and 255");
+				terminal.invalid("The array of octets must contain number between 0 and 255");
 				return octets.join('');
 			}
 		}
@@ -148,7 +148,7 @@ export default class TextReader extends BinaryReader {
 					out += "�";
 					break;
 				default:
-					log.invalid("Poorly formed octet array, invalid UTF-8");
+					terminal.invalid("Poorly formed octet array, invalid UTF-8");
 					out += "�";
 			}
 		}

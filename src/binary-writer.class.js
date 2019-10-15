@@ -10,7 +10,7 @@
 //=============================================================================
 
 import FS				from 'fs';
-import Log				from './log.class';
+import terminal			from './terminal.namespace';
 import expect			from './expect.function';
 import aver				from './aver.function';
 
@@ -35,7 +35,7 @@ export default class BinaryWriter {
    			return true;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     		return false;
     	}
     }
@@ -53,7 +53,7 @@ export default class BinaryWriter {
    			this.fd = null;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
    			this.fd = null;
     	}
     }
@@ -68,7 +68,7 @@ export default class BinaryWriter {
    			FS.writeSync(this.fd, s);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
 
@@ -81,7 +81,7 @@ export default class BinaryWriter {
    			FS.writeSync(this.fd, buffer, 0, bufferLength);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     
@@ -102,7 +102,7 @@ export default class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}
 
@@ -123,7 +123,7 @@ export default class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}  	
     	
@@ -144,7 +144,7 @@ export default class BinaryWriter {
 			FS.writeSync(this.fd, uint8Array);
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
    	}  	
 }

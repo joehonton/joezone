@@ -14,7 +14,7 @@
 //=============================================================================
 
 import FS				from 'fs';
-import Log				from './log.class';
+import terminal			from './terminal.namespace';
 import expect			from './expect.function';
 
 export default class Pfile {
@@ -82,7 +82,7 @@ export default class Pfile {
     	expect(path, 'String');
     	path = Pfile.posixStyle(path);
     	if (this.isAbsolutePath())
-    		log.logic(`Attempting to add the path "${path}" before the absolute filename "${this._filename}" is probably not what you want.`);
+    		terminal.logic(`Attempting to add the path "${path}" before the absolute filename "${this._filename}" is probably not what you want.`);
     	var len = path.length;
     	if (len > 0 && path.charAt(len-1) != '/')
     		this._filename = path + '/' + this._filename;
@@ -148,7 +148,7 @@ export default class Pfile {
     	
     	var tmp = new Pfile(relativeTo);
     	if (!tmp.isAbsolutePath()){
-    		log.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${relativeTo}" won't work.`);
+    		terminal.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${relativeTo}" won't work.`);
     		return this;
     	}
     	

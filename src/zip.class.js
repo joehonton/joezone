@@ -15,7 +15,7 @@ import Pfile			from './pfile.class';
 import CRC32			from './crc32.class';
 import BinaryReader		from './binary-reader.class';
 import BinaryWriter		from './binary-writer.class';
-import Log				from './log.class';
+import terminal			from './terminal.namespace';
 
 class CentralDirectoryRecord {
 	
@@ -217,11 +217,11 @@ export default class Zip {
 			path = new Pfile(path);
     	
     	if (!filename.exists() || !filename.isFile()) {
-    		log.abnormal(`File does not exist "${filename.name}", skipping`);
+    		terminal.abnormal(`File does not exist "${filename.name}", skipping`);
     		return;
     	}
     	if (filename.isDirectory()) {
-    		log.abnormal(`Directories cannot be added to zip archive "${filename.name}"`);
+    		terminal.abnormal(`Directories cannot be added to zip archive "${filename.name}"`);
     		return;
     	}
     	
@@ -243,7 +243,7 @@ export default class Zip {
 	    	this.cdr.sizeOfCentralDirectory += lfh.sizeofCDR;
     	}
     	catch (e) {
-    		log.abnormal(e.message);
+    		terminal.abnormal(e.message);
     	}
     }
     

@@ -61,8 +61,8 @@ module.exports = class terminal {
         }
     }
     static getFunctionName(t) {
-        var e = new Error().stack.split('\n')[t], r = /at (.*) ?\(/g, i = r.exec(e), n = '';
-        return null == i ? e : (i.length > 1 && (n += i[1].trim()), `{${n = terminal.rightAlign(n, 30)}} `);
+        var e = new Error().stack.split('\n')[t], r = /at (.*) ?\(/g.exec(e), i = '';
+        return null == r ? e : (r.length > 1 && (i += r[1].trim()), `{${i = terminal.rightAlign(i, 30)}} `);
     }
     static rightAlign(t, e) {
         var r = e, i = t.length;
