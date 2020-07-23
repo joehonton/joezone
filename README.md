@@ -3,7 +3,7 @@
 
 ## About
 
-A JavaScript Library for node.js-based projects with no npm-module dependencies. 
+A JavaScript Library for node.js-based projects with just this as a dependency. 
 
 ## Here's what I need:
 
