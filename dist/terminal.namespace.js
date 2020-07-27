@@ -37,10 +37,10 @@ module.exports = class terminal {
         terminal.write(terminal.red('   [ERROR] '), t.join(''));
     }
     static abnormal(...t) {
-        terminal.write(terminal.red('[ABNORMAL] ') + terminal.getFunctionName(4), t.join(''));
+        terminal.write(terminal.red('[ABNORMAL] ') + terminal.getFunctionName(3), t.join(''));
     }
     static logic(...t) {
-        terminal.write(terminal.red('   [LOGIC] ') + terminal.getFunctionName(4), t.join(''));
+        terminal.write(terminal.red('   [LOGIC] ') + terminal.getFunctionName(3), t.join(''));
     }
     static setProcessName(t) {
         Object.defineProperty(terminal, 'processName', {

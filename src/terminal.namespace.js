@@ -38,11 +38,11 @@ export default class terminal {
 	}
 	
 	static abnormal(...params) {
-		terminal.write(terminal.red(   '[ABNORMAL] ') + terminal.getFunctionName(4), params.join(''));
+		terminal.write(terminal.red(   '[ABNORMAL] ') + terminal.getFunctionName(3), params.join(''));
 	}
 	
 	static logic(...params) {
-		terminal.write(terminal.red(   '   [LOGIC] ') + terminal.getFunctionName(4), params.join(''));
+		terminal.write(terminal.red(   '   [LOGIC] ') + terminal.getFunctionName(3), params.join(''));
 	}
 	
 	static setProcessName(name) {
